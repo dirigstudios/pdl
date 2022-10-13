@@ -3,27 +3,30 @@ import java.io.*;
 
 public class pdl {
 
-    public static int isDel(char c)
+    public static boolean isDel(char c)
     {
         if (c == '\n' || c == '\t' || c == ' ' || c == ';')
-            return 1;
-        return 0;
+            return true;
+        return false;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        File fd = new File(args[0]);
-        FileReader sc = new FileReader(fd);
+        FileReader sc = new FileReader(args[0]);
+        String fin = "";
         int valor = 0;
-        do
-        {
+        while (valor != -1 && !isDel((char)valor)) {
             try {
                 valor = sc.read();
             } catch (Exception e) {
                 e.printStackTrace();
             }
             if (valor != -1)
-                System.out.print((char) valor);
+                fin = ((char) valor + fin);
         }
-        while (valor != -1);
+        int length = fin.length() - 1;
+        while (length != 0){
+            System.out.printf("%c", fin.charAt(length));
+            length--;
+        }
     }
 }
