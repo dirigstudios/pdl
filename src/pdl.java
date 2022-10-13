@@ -21,7 +21,8 @@ public class pdl {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.print((char) valor);
+            if (valor != -1)
+                System.out.print((char) valor);
         }
         while (valor != -1);
     }
