@@ -1,3 +1,0 @@
-let a;
-let among;;
-among =======11232312;
