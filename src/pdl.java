@@ -1,4 +1,3 @@
-import java.io.FileReader;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,9 +43,9 @@ public class pdl {
         TPR.add("boolean");
 
     }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        FileReader sc = new FileReader("C:\\Proyectos\\pdl\\pdl\\src\\texto.txt");
+    
+    public static void main(String[] args) throws IOException {
+        FileReader sc = new FileReader(args[0]);
         String fin = "";
         int valor = 0;
         while (valor != -1 && !isDel((char)valor)) {
@@ -63,5 +62,6 @@ public class pdl {
             System.out.printf("%c", fin.charAt(length));
             length--;
         }
+        sc.close();
     }
 }
