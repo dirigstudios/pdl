@@ -1,4 +1,3 @@
-import java.io.FileReader;
 import java.io.*;
 
 public class pdl {
@@ -10,7 +9,7 @@ public class pdl {
         return false;
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         FileReader sc = new FileReader(args[0]);
         String fin = "";
         int valor = 0;
@@ -28,5 +27,6 @@ public class pdl {
             System.out.printf("%c", fin.charAt(length));
             length--;
         }
+        sc.close();
     }
 }
