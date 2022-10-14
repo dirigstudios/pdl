@@ -1,29 +1,21 @@
+import jdk.nashorn.internal.parser.Token;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.lang.Character;
+import java.util.Scanner;
 
 public class pdl {
 
+    public static enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Comparacion};
+    public static Estados estadoactual = Estados.Inicial;
     public static final ArrayList<String> TPR = new ArrayList<>();
+    public static  boolean leerSigCaracter = true;
 
     public static boolean isDel(char c)
     {
         if (c == '\n' || c == '\t' || c == ' ' || c == ';')
-            return true;
-        return false;
-    }
-
-    public static boolean isD(char c)
-    {
-        if ((int)c <= 48 && (int)c >= 57)
-            return true;
-        return false;
-    }
-
-    public static boolean isC(char c)
-    {
-        if ((int)c <= 97 && (int)c >= 122)
             return true;
         return false;
     }
@@ -44,67 +36,88 @@ public class pdl {
         TPR.add("switch");
     }
 
-    public static int next_stage_S(char c)
+    public static Estados nextStage(char c)
     {
-        if (isC(c))
-            return 2;
+        if (Character.isLowerCase(c))
+            return Estados.PalabraReservada;
         if (c == '\"')
-            return 3;
-        if (isD(c))
-            return 4;
+            return Estados.Cadena;
+        if (Character.isDigit(c))
+            return Estados.ConstanteNumerica;
         if (c == '%')
-            return 5;
+            return Estados.AsignacionR;
         if (c == '=')
-            return 6;
+            return Estados.Comparacion;
         if (c == '{')
-            return 7;
+            return Estados.Cadena;
         if (c == '}')
-            return 8;
-        return -1;
+            return Estados.Cadena;
+        if (c == ':')
+            return Estados.Cadena;
+        if (c == ';')
+            return Estados.Cadena;
+        if (c == '\'')
+            return Estados.Cadena;
+        if (c == '!')
+            return Estados.Cadena;
+        return Estados.Inicial;
     }
 
-    public static void Automata(int stage)
+    public static void automata(int stage, String line, int pos)
     {
-        char c = 'a'; //Delete intialize
-        switch (stage)
-        {
-            case 1:             // Estado S
+        int i = 0;
+        char c;
+        String tok = "";
+        int counter = 0;
+        while(line.charAt(i) != '\n' && i < line.length(){
+            if (leerSigCaracter)
             {
-                //c = read_next_char(fd);
-                Automata(next_stage_S(c));
-                break;
+                c = line.charAt(i);
+                leerSigCaracter = false;
             }
-            case 2:             // Estado T
-            {
+            switch (estadoactual) {
+                case Inicial:             // Estado S
+                {
+                    //caracterActual = line.charAt(i);
+                    //tok.concat(String.valueOf(caracterActual));
+                    estadoactual = nextStage(c);
+                    break;
+                }
+                case PalabraReservada:             // Estado T
+                {
+                    if (!Character.isLowerCase(c))
+                    {
+                        //genToken(palabraReservada, tok);
+                        tok = "";
+                        estadoactual = Estados.Inicial;
+                        leerSigCaracter = false;
+                    }
+                    else
+                    {
+                        tok.concat(String.valueOf(c));
+                    }
+                }
+                case Cadena:             // Estado A
+                {
+
+                }
+                case ConstanteNumerica:             // Estado B
+                {
+
+                }
+                case AsignacionR:
+                {
+
+                }
 
             }
-            case 3:             // Estado A
-            {
-
-            }
-            case 4:             // Estado B
+            i++;
         }
     }
     
-    public static void main(String[] args) throws IOException {
-        initializeTPR();
-        FileReader sc = new FileReader(args[0]);
-        String fin = "";
-        int valor = 0;
-        while (valor != -1 && !isDel((char)valor)) {
-            try {
-                valor = sc.read();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (valor != -1)
-                fin = ((char) valor + fin);
-        }
-        int length = fin.length() - 1;
-        while (length != 0){
-            System.out.printf("%c", fin.charAt(length));
-            length--;
-        }
-        sc.close();
+    public static void main(String[] args)
+    {
+        Scanner fichero = new Scanner("../tests/ejemplo");
+        automata(1, fichero);
     }
 }

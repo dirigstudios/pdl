@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class AFD 
 {
-    public static void getToken(Scanner fichero, )
+    public static void getToken(Scanner fichero)
     {
         String line;
         char c;
@@ -12,7 +12,7 @@ public class AFD
         while(fichero.hasNextLine())
         {
             line = fichero.nextLine();
-            c = line.charAt(i);
+            //c = line.charAt(i);
         }
     }
 
