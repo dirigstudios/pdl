@@ -1,3 +1,5 @@
+package AnalizadorLexico;
+
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 

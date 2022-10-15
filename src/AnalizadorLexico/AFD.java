@@ -1,3 +1,5 @@
+package AnalizadorLexico;
+
 import java.util.Scanner;
 
 public class AFD 
