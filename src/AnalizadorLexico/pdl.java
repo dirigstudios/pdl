@@ -66,16 +66,6 @@ public class pdl {
         return Estados.Inicial;
     }
 
-
-    public static void genToken(String tipo, String atributo, PrintWriter fichero)
-    {
-        String token;
-        fichero = new
-
-        token = "<" + tipo + ", " + atributo + ">";
-        fichero.println(token);
-    }
-
     public static void automata(String line, PrintWriter fd)
     {
         int i = 0;
@@ -101,9 +91,9 @@ public class pdl {
                 }
                 case PalabraReservada:             // Estado T
                 {
-                    if (TPR.contains(lex))      //TODO comprobar condicion extra de que el sig caracter sea un delimitador
+                    if (TPR.contains(lex))          //TODO pensar como implementar la condicion de que el sig caracter sea del, sin salir del index del la linea
                     {
-                        genToken("palabraReservada", lex, fd);
+                        Token.genToken("palabraReservada", lex, fd);
                         lex = "";
                         estadoactual = Estados.Inicial;
                         leerSigCaracter = false;
@@ -138,11 +128,5 @@ public class pdl {
 
             }
         }
-    }
-    
-    public static void main(String[] args) throws FileNotFoundException {
-        fdSalida = new PrintWriter("./tests/tokens.txt");
-        initializeTPR();
-        automata("let ", fdSalida);
     }
 }
