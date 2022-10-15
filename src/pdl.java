@@ -8,7 +8,8 @@ import java.util.Scanner;
 
 public class pdl {
 
-    public static enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Comparacion};
+    public static enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Comparacion, Asignacion,
+        AbrePar, CierraPar, AbreLlave, CierraLlave, Igual, PuntoComa, DosPuntos, Coma, Negacion};
     public static Estados estadoactual = Estados.Inicial;
     public static final ArrayList<String> TPR = new ArrayList<>();
     public static  boolean leerSigCaracter = true;
@@ -49,27 +50,27 @@ public class pdl {
         if (c == '=')
             return Estados.Comparacion;
         if (c == '{')
-            return Estados.Cadena;
+            return Estados.AbreLlave;
         if (c == '}')
-            return Estados.Cadena;
+            return Estados.CierraLlave;
         if (c == ':')
-            return Estados.Cadena;
+            return Estados.DosPuntos;
         if (c == ';')
-            return Estados.Cadena;
-        if (c == '\'')
-            return Estados.Cadena;
+            return Estados.PuntoComa;
+        if (c == ',')
+            return Estados.Coma;
         if (c == '!')
-            return Estados.Cadena;
+            return Estados.Negacion;
         return Estados.Inicial;
     }
 
     public static void automata(int stage, String line, int pos)
     {
         int i = 0;
-        char c;
+        char c = 'a';
         String tok = "";
         int counter = 0;
-        while(line.charAt(i) != '\n' && i < line.length(){
+        while(line.charAt(i) != '\n' && i < line.length()) {
             if (leerSigCaracter)
             {
                 c = line.charAt(i);
@@ -95,11 +96,23 @@ public class pdl {
                     else
                     {
                         tok.concat(String.valueOf(c));
+
                     }
                 }
                 case Cadena:             // Estado A
                 {
-
+                    if(((int)c == 0 || c == '"') && counter <= 64)
+                    {
+                        //genToken(cadena, tok);
+                        tok = "";
+                        counter = 0;
+                        estadoactual = Estados.Inicial;
+                    }
+                    else
+                    {
+                        tok.concat(String.valueOf(c));
+                        estadoactual = Estados.Cadena;
+                    }
                 }
                 case ConstanteNumerica:             // Estado B
                 {
