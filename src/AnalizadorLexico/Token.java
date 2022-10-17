@@ -10,7 +10,7 @@ public class Token
 
 	public static boolean isDel(char c)
     {
-        if (c == '\n' || c == '\t' || c == ' ' || c == ';')
+        if (c == '\n' || c == '\t' || c == ' ')
             return true;
         return false;
     }

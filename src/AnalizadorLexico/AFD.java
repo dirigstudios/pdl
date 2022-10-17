@@ -1,5 +1,6 @@
 package AnalizadorLexico;
 
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 public class AFD 
@@ -7,7 +8,7 @@ public class AFD
     public enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Comparacion, Asignacion,
                         AbrePar, CierraPar, AbreLlave, CierraLlave, PuntoComa, DosPuntos, Coma, Negacion, Suma}
     public static Estados estadoactual = Estados.Inicial;
-    
+
     public static boolean leerSigCaracter = true;
 
     public static Estados nextStage(char c) //TODO ADD IMPLEMENTATION FOR UPPERCASE CHARACTERS and variables that start with _
@@ -80,7 +81,7 @@ public class AFD
                     break;
 
                 case Cadena: // Estado A
-                    if (((int) c == 0 || c == '"') && counter <= 64)
+                    if (((int) c == 0 || c == '"') && counter <= 64 && lex != "")
                     {
                         Token.genToken("cadena", lex, fd);
                         lex = "";
@@ -89,15 +90,16 @@ public class AFD
                     }
                     else
                     {
-                        lex.concat(String.valueOf(c));
+                        if (c != '"')
+                            lex += (String.valueOf(c));
                         counter++;
                         estadoactual = Estados.Cadena;
                     }
                     break;
 
                 case ConstanteNumerica:             // Estado B
-                    if (Character.isDigit(c))
-                        counter *= 10 + Character.getNumericValue(c);
+                    if (Character.isDigit(c) && Character.isDigit(line.charAt(i)))
+                        counter = (Character.getNumericValue(c) + counter) * 10;
                     else if (counter > 32767)
                         System.out.println("Error, valor numerico excede los limites");
                     else if (!Character.isDigit(c))
@@ -107,12 +109,16 @@ public class AFD
                         estadoactual = Estados.Inicial;
                         leerSigCaracter = false;
                     }
+                    else
+                        counter = (Character.getNumericValue(c) + counter);
                     break;
 
                 case AsignacionR:
                     if(line.charAt(i) == '=')
                     {
                         Token.genToken("asignacionResto", "-", fd);
+                        estadoactual = Estados.Inicial;
+                        i++;
                     }
                     else
                         System.out.println("Error: simbolo no reconocido");
@@ -180,4 +186,12 @@ public class AFD
             }
         }
     }
+/*
+    public static void main(String[] args) throws FileNotFoundException {
+        Token.initializeTPR();
+        fd = new PrintWriter("./tests/tokens.txt");
+        automata("() 23123 \"hola buenos dias\"  ! {  } =  ==  + let int  %= ,, ;;  :: ",fd);
+        fd.close();
+    }
+    */
 }
