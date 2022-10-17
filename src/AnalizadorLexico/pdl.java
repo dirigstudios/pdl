@@ -120,6 +120,17 @@ public class pdl {
                 }
                 case ConstanteNumerica:             // Estado B
                 {
+                    if (Character.isDigit(c))
+                        counter *= 10 + Character.getNumericValue(c);
+                    else if (counter > 32767)
+                        System.out.println("Error, valor numerico excede los limites");
+                    else if (!Character.isDigit(c))
+                    {
+                        Token.genToken("constEnt", Integer.toString(counter), fd);
+                        counter = 0;
+                        estadoactual = Estados.Inicial;
+                        leerSigCaracter = false;
+                    }
 
                 }
                 case AsignacionR: {
