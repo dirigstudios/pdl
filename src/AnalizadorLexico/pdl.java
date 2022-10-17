@@ -10,7 +10,7 @@ import AnalizadorLexico.Token;
 public class pdl {
 
     public static enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Comparacion, Asignacion,
-        AbrePar, CierraPar, AbreLlave, CierraLlave, Igual, PuntoComa, DosPuntos, Coma, Negacion};
+        AbrePar, CierraPar, AbreLlave, CierraLlave, PuntoComa, DosPuntos, Coma, Negacion, Suma};
     public static Estados estadoactual = Estados.Inicial;
     public static  ArrayList<String> TPR = new ArrayList<>();
     public static  boolean leerSigCaracter = true;
@@ -50,11 +50,15 @@ public class pdl {
         if (c == '%')
             return Estados.AsignacionR;
         if (c == '=')
-            return Estados.Comparacion;
+            return Estados.Asignacion;
         if (c == '{')
             return Estados.AbreLlave;
         if (c == '}')
             return Estados.CierraLlave;
+        if (c == '(')
+            return Estados.AbrePar;
+        if (c == ')')
+            return Estados.CierraPar;
         if (c == ':')
             return Estados.DosPuntos;
         if (c == ';')
@@ -87,8 +91,8 @@ public class pdl {
                     lex.concat(String.valueOf(c));
                     estadoactual = nextStage(c);
                     leerSigCaracter = false;
-                    break;
                 }
+                break;
                 case PalabraReservada:             // Estado T
                 {
                     if (TPR.contains(lex))          //TODO pensar como implementar la condicion de que el sig caracter sea del, sin salir del index del la linea
@@ -100,8 +104,9 @@ public class pdl {
                     }
                     else
                         lex += String.valueOf(c);
-                    break;
+
                 }
+                break;
                 case Cadena:             // Estado A
                 {
                     if (((int) c == 0 || c == '"') && counter <= 64)
@@ -116,8 +121,9 @@ public class pdl {
                         lex.concat(String.valueOf(c));
                         estadoactual = Estados.Cadena;
                     }
-                    break;
+
                 }
+                break;
                 case ConstanteNumerica:             // Estado B
                 {
                     if (Character.isDigit(c))
@@ -133,10 +139,87 @@ public class pdl {
                     }
 
                 }
-                case AsignacionR: {
-
+                break;
+                case AsignacionR:
+                {
+                    if(line.charAt(i) == '=')
+                    {
+                        Token.genToken("asignacionResto", "-", fd);
+                    }
+                    else
+                        System.out.println("Error: simbolo no reconocido");
                 }
-
+                break;
+                case Asignacion:
+                {
+                    if (line.charAt(i) != '=')
+                    {
+                        Token.genToken("igual", "-", fd);
+                        estadoactual = Estados.Inicial;
+                    }
+                    else
+                        estadoactual = Estados.Comparacion;
+                }
+                break;
+                case Comparacion:
+                {
+                    Token.genToken("comparacion", "-", fd);
+                    estadoactual = Estados.Inicial;
+                }
+                break;
+                case AbreLlave:
+                {
+                    Token.genToken("abreLlave", "-", fd);
+                    estadoactual = Estados.Inicial;
+                }
+                break;
+                case CierraLlave:
+                {
+                    Token.genToken("cierraLlave", "-", fd);
+                    estadoactual = Estados.Inicial;
+                }
+                break;
+                case AbrePar:
+                {
+                    Token.genToken("abrePar", "-", fd);
+                    estadoactual = Estados.Inicial;
+                }
+                break;
+                case CierraPar:
+                {
+                    Token.genToken("cierraPar", "-", fd);
+                    estadoactual = Estados.Inicial;
+                }
+                break;
+                case DosPuntos:
+                {
+                    Token.genToken("dosPuntos", "-", fd);
+                    estadoactual = Estados.Inicial;
+                }
+                break;
+                case PuntoComa:
+                {
+                    Token.genToken("puntoComa", "-", fd);
+                    estadoactual = Estados.Inicial;
+                }
+                break;
+                case Coma:
+                {
+                    Token.genToken("coma", "-", fd);
+                    estadoactual = Estados.Inicial;
+                }
+                break;
+                case Negacion:
+                {
+                    Token.genToken("negacion", "-", fd);
+                    estadoactual = Estados.Inicial;
+                }
+                break;
+                case Suma:
+                {
+                    Token.genToken("suma", "-", fd);
+                    estadoactual = Estados.Inicial;
+                }
             }
         }
     }
