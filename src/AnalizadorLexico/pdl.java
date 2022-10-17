@@ -4,17 +4,15 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.lang.Character;
-import java.util.Scanner;
-import AnalizadorLexico.Token;
 
 public class pdl {
 
-    public static enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Comparacion, Asignacion,
-        AbrePar, CierraPar, AbreLlave, CierraLlave, PuntoComa, DosPuntos, Coma, Negacion, Suma};
+    public enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Comparacion, Asignacion,
+        AbrePar, CierraPar, AbreLlave, CierraLlave, PuntoComa, DosPuntos, Coma, Negacion, Suma}
     public static Estados estadoactual = Estados.Inicial;
     public static  ArrayList<String> TPR = new ArrayList<>();
     public static  boolean leerSigCaracter = true;
-    public static PrintWriter fdSalida;
+    public static PrintWriter fd;
 
     public static boolean isDel(char c)
     {
@@ -39,7 +37,7 @@ public class pdl {
         TPR.add("switch");
     }
 
-    public static Estados nextStage(char c)
+    public static Estados nextStage(char c) //TODO ADD IMPLEMENTATION FOR HIHGCASE CHARACTERS
     {
         if (Character.isLowerCase(c))
             return Estados.PalabraReservada;
@@ -67,6 +65,8 @@ public class pdl {
             return Estados.Coma;
         if (c == '!')
             return Estados.Negacion;
+        if (c == '+')
+            return Estados.Suma;
         return Estados.Inicial;
     }
 
@@ -90,7 +90,8 @@ public class pdl {
                 {
                     lex.concat(String.valueOf(c));
                     estadoactual = nextStage(c);
-                    leerSigCaracter = false;
+                    if (!isDel(c))
+                        leerSigCaracter = false;
                 }
                 break;
                 case PalabraReservada:             // Estado T
@@ -119,6 +120,7 @@ public class pdl {
                     else
                     {
                         lex.concat(String.valueOf(c));
+                        counter++;
                         estadoactual = Estados.Cadena;
                     }
 
@@ -220,7 +222,14 @@ public class pdl {
                     Token.genToken("suma", "-", fd);
                     estadoactual = Estados.Inicial;
                 }
+                break;
             }
         }
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        fd = new PrintWriter("./tests/tokens.txt");
+        automata("() 1238", fd);
+        fd.close();
     }
 }
