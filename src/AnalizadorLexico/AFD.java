@@ -2,18 +2,23 @@ package AnalizadorLexico;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 public class AFD 
 {
+    public static HashMap tablaSimbolos = new HashMap<String, Integer>();
+
     public enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Comparacion, Asignacion,
                         AbrePar, CierraPar, AbreLlave, CierraLlave, PuntoComa, DosPuntos, Coma, Negacion, Suma}
     public static Estados estadoactual = Estados.Inicial;
+
+    public static int numeroSimbolos = 0;
 
     public static boolean leerSigCaracter = true;
     public static PrintWriter fd;
     public static Estados nextStage(char c) //TODO ADD IMPLEMENTATION FOR UPPERCASE CHARACTERS and variables that start with _
     {
-        if (Character.isLowerCase(c))
+        if (Character.isLowerCase(c) || c == '_')
             return Estados.PalabraReservada;
         if (c == '\"')
             return Estados.Cadena;
@@ -65,12 +70,22 @@ public class AFD
 
                 case PalabraReservada: // Estado T
                     lex += String.valueOf(c);
-                    if (Token.TPR.contains(lex)) //TODO pensar como implementar la condicion de que el sig caracter sea del, sin salir del index del la linea
+                    if (Token.TPR.contains(lex) && i == palabra.length()) //TODO pensar como implementar la condicion de que el sig caracter sea del, sin salir del index del la linea
                     {
                         Token.genToken("palabraReservada", lex, fd);
                         lex = "";
                         estadoactual = Estados.Inicial;
                         leerSigCaracter = false;
+                    }
+                    else if (Token.isDel(c) || i == palabra.length())
+                    {
+                        if (!tablaSimbolos.containsKey(lex))
+                        {
+                            tablaSimbolos.put(lex, numeroSimbolos);
+                            Token.genToken("id", lex, fd);
+                            numeroSimbolos++;
+                            lex = "";
+                        }
                     }
                     break;
 
