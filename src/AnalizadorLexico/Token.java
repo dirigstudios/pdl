@@ -35,6 +35,8 @@ public class Token
     {
 		String token;
 		
+        if (tipo.equals("cadena"))
+            atributo = "\"" + atributo + "\"";
 		token = "<" + tipo + ", " + atributo + ">";
 		fichero.println(token);
     }

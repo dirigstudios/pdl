@@ -66,6 +66,8 @@ public class AFD
             switch (estadoactual) {
                 case Inicial: // Estado S
                     estadoactual = nextStage(c);
+                    if (estadoactual == Estados.Inicial)
+                        i++;
                     break;
                 case PalabraReservada: // Estado T
                     lex += String.valueOf(c);
@@ -187,7 +189,7 @@ public class AFD
                     break;
             }
         }
-        return i - 1;
+        return i;
     }
 /*
     public static void main(String[] args) throws FileNotFoundException {

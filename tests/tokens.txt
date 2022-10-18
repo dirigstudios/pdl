@@ -1,6 +1,0 @@
-<id, polla >
-<id, y >
-<id, _huevos >
-<id, ifa >
-<id, _23452434123 >
-<palabraReservada, if>

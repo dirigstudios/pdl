@@ -6,8 +6,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 /* TODO:
-    - AFD: automata detects keyword after a delimiter
-    - AFD: identifiers that start with _
+    - AFD: identifiers that start with _ and can have numbers (not at the start)
     - TS: create Symbols Table
 */
 
@@ -19,7 +18,8 @@ public class Main
         System.out.println("Attempting to read from file in: " + fdFuente.getCanonicalPath());
         Scanner fuente = new Scanner(fdFuente);
         PrintWriter fichToken = new PrintWriter("./tests/tokens.txt");
-        AnLex.bucleGrande(fuente, fichToken);
+        Token.initializeTPR();
+        AnLex.getNext(fuente, fichToken);
         fuente.close();
         fichToken.close();
     }
