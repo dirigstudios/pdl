@@ -9,7 +9,7 @@ public class AFD
     public static HashMap tablaSimbolos = new HashMap<String, Integer>();
 
     public enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Comparacion, Asignacion,
-                        AbrePar, CierraPar, AbreLlave, CierraLlave, PuntoComa, DosPuntos, Coma, Negacion, Suma}
+                        AbrePar, CierraPar, AbreLlave, CierraLlave, PuntoComa, DosPuntos, Coma, Negacion, Suma, Final}
     public static Estados estadoactual = Estados.Inicial;
 
     public static int numeroSimbolos = 0;
