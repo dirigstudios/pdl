@@ -10,7 +10,7 @@ public class AFD
     public static Estados estadoactual = Estados.Inicial;
 
     public static boolean leerSigCaracter = true;
-
+    public static PrintWriter fd;
     public static Estados nextStage(char c) //TODO ADD IMPLEMENTATION FOR UPPERCASE CHARACTERS and variables that start with _
     {
         if (Character.isLowerCase(c))
@@ -44,31 +44,27 @@ public class AFD
         return Estados.Inicial;
     }
 
-    public static void automata(String line, PrintWriter fd)
+    public static void automata(String palabra, PrintWriter fd)
     {
         int i = 0;
         char c = 0;
         String lex = "";
         int counter = 0;
-        while(i < line.length())
+        while(i < palabra.length())        //TODO pensar en como tratar el ultimo caracter de la linea
         {
-            if (leerSigCaracter)
-            {
-                c = line.charAt(i);
+            c = palabra.charAt(i);
+            if (!(estadoactual == Estados.Inicial))
                 i++;
-            }
-            else
-                leerSigCaracter = true;
             switch (estadoactual)
             {
                 case Inicial: // Estado S
-                    lex.concat(String.valueOf(c));
                     estadoactual = nextStage(c);
                     if (!Token.isDel(c))
                         leerSigCaracter = false;
                     break;
 
                 case PalabraReservada: // Estado T
+                    lex += String.valueOf(c);
                     if (Token.TPR.contains(lex)) //TODO pensar como implementar la condicion de que el sig caracter sea del, sin salir del index del la linea
                     {
                         Token.genToken("palabraReservada", lex, fd);
@@ -76,8 +72,6 @@ public class AFD
                         estadoactual = Estados.Inicial;
                         leerSigCaracter = false;
                     }
-                    else
-                        lex += String.valueOf(c);
                     break;
 
                 case Cadena: // Estado A
@@ -98,23 +92,25 @@ public class AFD
                     break;
 
                 case ConstanteNumerica:             // Estado B
-                    if (Character.isDigit(c) && Character.isDigit(line.charAt(i)))
+                    if (Character.isDigit(c) && i < palabra.length() && Character.isDigit(palabra.charAt(i)))
                         counter = (Character.getNumericValue(c) + counter) * 10;
                     else if (counter > 32767)
+                    {
                         System.out.println("Error, valor numerico excede los limites");
-                    else if (!Character.isDigit(c))
+                    }
+                    else
+                        counter = (Character.getNumericValue(c) + counter);
+                    if (!Character.isDigit(c) || i == palabra.length() && counter <= 32767)
                     {
                         Token.genToken("constEnt", Integer.toString(counter), fd);
                         counter = 0;
                         estadoactual = Estados.Inicial;
                         leerSigCaracter = false;
                     }
-                    else
-                        counter = (Character.getNumericValue(c) + counter);
                     break;
 
                 case AsignacionR:
-                    if(line.charAt(i) == '=')
+                    if(palabra.charAt(i) == '=')
                     {
                         Token.genToken("asignacionResto", "-", fd);
                         estadoactual = Estados.Inicial;
@@ -125,7 +121,7 @@ public class AFD
                     break;
                 
                 case Asignacion:
-                    if (line.charAt(i) != '=')
+                    if (palabra.charAt(i) != '=')
                     {
                         Token.genToken("igual", "-", fd);
                         estadoactual = Estados.Inicial;
@@ -186,12 +182,12 @@ public class AFD
             }
         }
     }
-/*
+
     public static void main(String[] args) throws FileNotFoundException {
         Token.initializeTPR();
         fd = new PrintWriter("./tests/tokens.txt");
-        automata("() 23123 \"hola buenos dias\"  ! {  } =  ==  + let int  %= ,, ;;  :: ",fd);
+        automata("ifputamadre",fd);
         fd.close();
     }
-    */
+
 }
