@@ -68,8 +68,9 @@ public class AFD
                     estadoactual = nextStage(c);
                     break;
                 case PalabraReservada: // Estado T
-                    lex += String.valueOf(c);
-                    if (Token.TPR.contains(lex) && i == palabra.length()) //TODO pensar como implementar la condicion de que el sig caracter sea del, sin salir del index del la linea
+                    if (!Token.isDel(c))
+                        lex += String.valueOf(c);
+                    if (Token.TPR.contains(lex) && !Token.isDel(c)) //TODO pensar como implementar la condicion de que el sig caracter sea del, sin salir del index del la linea
                     {
                         Token.genToken("palabraReservada", lex, fd);
                         lex = "";
@@ -83,6 +84,7 @@ public class AFD
                             Token.genToken("id", lex, fd);
                             numeroSimbolos++;
                             lex = "";
+                            estadoactual = Estados.Final;
                         }
                     }
                     break;
