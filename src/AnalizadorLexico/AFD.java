@@ -1,12 +1,11 @@
 package AnalizadorLexico;
 
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
 public class AFD 
 {
-    public static HashMap tablaSimbolos = new HashMap<String, Integer>();
+    public static HashMap<String, Integer> tablaSimbolos = new HashMap<>();
 
     public enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Comparacion, Asignacion,
                         AbrePar, CierraPar, AbreLlave, CierraLlave, PuntoComa, DosPuntos, Coma, Negacion, Suma, Final}
@@ -57,148 +56,138 @@ public class AFD
         char c = 0;
         String lex = "";
         int counter = 0;
-        boolean fin = false;
-        while (i < palabra.length() && !fin)        //TODO pensar en como tratar el ultimo caracter de la linea
+
+        c = palabra.charAt(i);
+        estadoactual = nextStage(c);
+
+        switch (estadoactual)
         {
-            c = palabra.charAt(i);
-            if (!(estadoactual == Estados.Inicial))
+            case Inicial: // Estado S
                 i++;
-            switch (estadoactual) {
-                case Inicial: // Estado S
-                    estadoactual = nextStage(c);
-                    if (estadoactual == Estados.Inicial)
-                        i++;
-                    break;
-                case PalabraReservada: // Estado T
-                    if (!Token.isDel(c))
-                        lex += String.valueOf(c);
-                    if (Token.TPR.contains(lex) && !Token.isDel(c)) //TODO pensar como implementar la condicion de que el sig caracter sea del, sin salir del index del la linea
-                    {
-                        Token.genToken("palabraReservada", lex, fd);
-                        lex = "";
-                        estadoactual = Estados.Final;
-                    }
-                    else if (Token.isDel(c) || i == palabra.length())
-                    {
-                        if (!tablaSimbolos.containsKey(lex))
-                        {
-                            tablaSimbolos.put(lex, numeroSimbolos);
-                            Token.genToken("id", lex, fd);
-                            numeroSimbolos++;
-                            lex = "";
-                            estadoactual = Estados.Final;
-                        }
-                    }
-                    break;
+                break;
 
-                case Cadena:
-                    if (((int) c == 0 || c == '"') && counter <= 64 && lex != "") {
-                        Token.genToken("cadena", lex, fd);
-                        lex = "";
-                        counter = 0;
-                        estadoactual = Estados.Final;
-                    } else {
-                        if (c != '"')
-                            lex += (String.valueOf(c));
-                        counter++;
-                        estadoactual = Estados.Cadena;
-                    }
-                    break;
+            case PalabraReservada:
+                while (i != palabra.length()
+                        && (Character.isDigit(palabra.charAt(i))
+                        || Character.isAlphabetic(palabra.charAt(i))
+                        || palabra.charAt(i) == '_'))
+                {
+                    lex += String.valueOf(palabra.charAt(i));
+                    i++;
+                }
+                if (Token.TPR.contains(lex))
+                    Token.genToken("palabraReservada", lex, fd);
+                else if (!tablaSimbolos.containsKey(lex))
+                {
+                    tablaSimbolos.put(lex, numeroSimbolos);
+                    Token.genToken("id", lex, fd);
+                    numeroSimbolos++;
+                }
+                else
+                    Token.genToken("id", lex, fd);
+                break;
 
-                case ConstanteNumerica:
-                    if (Character.isDigit(c) && i < palabra.length() && Character.isDigit(palabra.charAt(i)))
-                        counter = (Character.getNumericValue(c) + counter) * 10;
-                    else if (counter > 32767) {
-                        System.out.println("Error, valor numerico excede los limites");
-                    } else
-                        counter = (Character.getNumericValue(c) + counter);
-                    if (!Character.isDigit(c) || i == palabra.length() && counter <= 32767) {
-                        Token.genToken("constEnt", Integer.toString(counter), fd);
-                        counter = 0;
-                            estadoactual = Estados.Final;
-                    }
-                    break;
+            case Cadena:
+                i++;
+                boolean comillas = false;
+                while (i != palabra.length() && palabra.charAt(i) != '"' && i < 66)
+                {
+                    lex += String.valueOf(palabra.charAt(i));
+                    i++;
+                }
+                if (palabra.charAt(i) == '"')
+                    Token.genToken("string", lex, fd);
+                else
+                    System.out.println("Error : La string esta mal formada");
+                break;
 
-                case AsignacionR:
-                    if (palabra.charAt(i) == '=') {
-                        Token.genToken("asignacionResto", "-", fd);
-                        estadoactual = Estados.Final;
-                        i++;
-                    } else
-                        System.out.println("Error: simbolo no reconocido");
-                    break;
+            case ConstanteNumerica:
+                while (i < palabra.length() && Character.isDigit(palabra.charAt(i)))
+                {
+                    counter *= 10;
+                    counter += Character.getNumericValue(palabra.charAt(i));
+                    i++;
+                }
+                if (counter > 32767)
+                    System.out.println("Error, el valor numerico introducido excede el limite de 32767");
+                Token.genToken("constEnt", Integer.toString(counter), fd);
+                break;
 
-                case Asignacion:
-                    if (palabra.charAt(i) != '=') {
-                        Token.genToken("igual", "-", fd);
-                        estadoactual = Estados.Final;
-                    } else
-                        estadoactual = Estados.Comparacion;
-                    break;
+            case AsignacionR:
+                if (i != (palabra.length() - 1) && palabra.charAt(i + 1) == '=')
+                {
+                    Token.genToken("asignacionResto", "-", fd);
+                    i++;
+                }
+                else
+                    System.out.println("Error: Expected '%='");
+                i++;
+                break;
 
-                case Comparacion:
+            case Asignacion:
+                if (i == (palabra.length() - 1) || palabra.charAt(i + 1) != '=')
+                    Token.genToken("igual", "-", fd);
+                else
+                {
                     Token.genToken("comparacion", "-", fd);
-                    estadoactual = Estados.Final;
-                    break;
+                    i++;
+                }
+                i++;
+                break;
 
-                case AbreLlave:
-                    Token.genToken("abreLlave", "-", fd);
-                    estadoactual = Estados.Final;
-                    break;
+            case AbreLlave:
+                Token.genToken("abreLlave", "-", fd);
+                i++;
+                break;
 
-                case CierraLlave:
-                    Token.genToken("cierraLlave", "-", fd);
-                    estadoactual = Estados.Final;
-                    break;
+            case CierraLlave:
+                Token.genToken("cierraLlave", "-", fd);
+                i++;
+                break;
 
-                case AbrePar:
-                    Token.genToken("abrePar", "-", fd);
-                    estadoactual = Estados.Final;
-                    break;
+            case AbrePar:
+                Token.genToken("abrePar", "-", fd);
+                i++;
+                break;
 
-                case CierraPar:
-                    Token.genToken("cierraPar", "-", fd);
-                    estadoactual = Estados.Final;
-                    break;
+            case CierraPar:
+                Token.genToken("cierraPar", "-", fd);
+                i++;
+                break;
 
-                case DosPuntos:
-                    Token.genToken("dosPuntos", "-", fd);
-                    estadoactual = Estados.Final;
-                    break;
+            case DosPuntos:
+                Token.genToken("dosPuntos", "-", fd);
+                i++;
+                break;
 
-                case PuntoComa:
-                    Token.genToken("puntoComa", "-", fd);
-                    estadoactual = Estados.Final;
-                    break;
+            case PuntoComa:
+                Token.genToken("puntoComa", "-", fd);
+                i++;
+                break;
 
-                case Coma:
-                    Token.genToken("coma", "-", fd);
-                    estadoactual = Estados.Final;
-                    break;
+            case Coma:
+                Token.genToken("coma", "-", fd);
+                i++;
+                break;
 
-                case Negacion:
-                    Token.genToken("negacion", "-", fd);
-                    estadoactual = Estados.Final;
-                    break;
+            case Negacion:
+                Token.genToken("negacion", "-", fd);
+                i++;
+                break;
 
-                case Suma:
-                    Token.genToken("suma", "-", fd);
-                    estadoactual = Estados.Final;
-                    break;
-
-                case Final:
-                    fin = true;
-                    break;
-            }
+            case Suma:
+                Token.genToken("suma", "-", fd);
+                i++;
+                break;
         }
-        return i;
-    }
+    return i;
+}
 /*
-    public static void main(String[] args) throws FileNotFoundException {
-        Token.initializeTPR();
-        fd = new PrintWriter("./tests/tokens.txt");
-        System.out.println(automata("12333", fd));
-        fd.close();
-    }
+public static void main(String[] args) throws FileNotFoundException {
+    Token.initializeTPR();
+    fd = new PrintWriter("./tests/tokens.txt");
+    System.out.println(automata("12333", fd));
+    fd.close();
+}
 */
 }

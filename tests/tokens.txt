@@ -1,0 +1,14 @@
+<abrePar, ->
+<palabraReservada, if>
+<cierraPar, ->
+<abreLlave, ->
+<id, melon>
+<igual, ->
+<constEnt, 4>
+<cierraLlave, ->
+<puntoComa, ->
+<comparacion, ->
+<constEnt, 2>
+<abrePar, ->
+<palabraReservada, if>
+<cierraPar, ->

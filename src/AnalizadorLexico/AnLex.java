@@ -25,18 +25,18 @@ public class AnLex
     {
         String line;
         String newLine;
-
-        if (fuente.hasNextLine())
+        while (fuente.hasNextLine())
         {
             line = fuente.nextLine();
             System.out.println(line.length());
             //quitar para la siguiente entrega
-            while (pos + 1 < line.length())
+            while (pos < line.length())
             {
                 newLine = generateLine(line);
                 System.out.println(newLine);
                 pos += AFD.automata(newLine, salidaTokens);
             }
+            pos = 0;
         }
     }
 }
