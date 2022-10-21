@@ -25,11 +25,12 @@ public class AnLex
     {
         String line;
         String newLine;
+
+        // cambiar el if por un while en la siguiente entrega
         while (fuente.hasNextLine())
         {
             line = fuente.nextLine();
             System.out.println(line.length());
-            //quitar para la siguiente entrega
             while (pos < line.length())
             {
                 newLine = generateLine(line);

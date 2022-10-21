@@ -7,8 +7,8 @@ public class AFD
 {
     public static HashMap<String, Integer> tablaSimbolos = new HashMap<>();
 
-    public enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Comparacion, Asignacion,
-                        AbrePar, CierraPar, AbreLlave, CierraLlave, PuntoComa, DosPuntos, Coma, Negacion, Suma, Final}
+    public enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Asignacion,
+                        AbrePar, CierraPar, AbreLlave, CierraLlave, PuntoComa, DosPuntos, Coma, Negacion, Suma}
     public static Estados estadoactual = Estados.Inicial;
 
     public static int numeroSimbolos = 0;
@@ -80,25 +80,25 @@ public class AFD
                 else if (!tablaSimbolos.containsKey(lex))
                 {
                     tablaSimbolos.put(lex, numeroSimbolos);
-                    Token.genToken("id", lex, fd);
+                    Token.genToken("id", String.valueOf(numeroSimbolos), fd);
                     numeroSimbolos++;
                 }
                 else
-                    Token.genToken("id", lex, fd);
+                    Token.genToken("id", String.valueOf(tablaSimbolos.get(lex)), fd);
                 break;
 
             case Cadena:
                 i++;
-                boolean comillas = false;
                 while (i != palabra.length() && palabra.charAt(i) != '"' && i < 66)
                 {
                     lex += String.valueOf(palabra.charAt(i));
                     i++;
                 }
                 if (palabra.charAt(i) == '"')
-                    Token.genToken("string", lex, fd);
+                    Token.genToken("cadena", lex, fd);
                 else
                     System.out.println("Error : La string esta mal formada");
+                i++;
                 break;
 
             case ConstanteNumerica:
@@ -116,7 +116,7 @@ public class AFD
             case AsignacionR:
                 if (i != (palabra.length() - 1) && palabra.charAt(i + 1) == '=')
                 {
-                    Token.genToken("asignacionResto", "-", fd);
+                    Token.genToken("asignacionResto", "", fd);
                     i++;
                 }
                 else
@@ -126,68 +126,60 @@ public class AFD
 
             case Asignacion:
                 if (i == (palabra.length() - 1) || palabra.charAt(i + 1) != '=')
-                    Token.genToken("igual", "-", fd);
+                    Token.genToken("igual", "", fd);
                 else
                 {
-                    Token.genToken("comparacion", "-", fd);
+                    Token.genToken("comparacion", "", fd);
                     i++;
                 }
                 i++;
                 break;
 
             case AbreLlave:
-                Token.genToken("abreLlave", "-", fd);
+                Token.genToken("abreLlave", "", fd);
                 i++;
                 break;
 
             case CierraLlave:
-                Token.genToken("cierraLlave", "-", fd);
+                Token.genToken("cierraLlave", "", fd);
                 i++;
                 break;
 
             case AbrePar:
-                Token.genToken("abrePar", "-", fd);
+                Token.genToken("abrePar", "", fd);
                 i++;
                 break;
 
             case CierraPar:
-                Token.genToken("cierraPar", "-", fd);
+                Token.genToken("cierraPar", "", fd);
                 i++;
                 break;
 
             case DosPuntos:
-                Token.genToken("dosPuntos", "-", fd);
+                Token.genToken("dosPuntos", "", fd);
                 i++;
                 break;
 
             case PuntoComa:
-                Token.genToken("puntoComa", "-", fd);
+                Token.genToken("puntoComa", "", fd);
                 i++;
                 break;
 
             case Coma:
-                Token.genToken("coma", "-", fd);
+                Token.genToken("coma", "", fd);
                 i++;
                 break;
 
             case Negacion:
-                Token.genToken("negacion", "-", fd);
+                Token.genToken("negacion", "", fd);
                 i++;
                 break;
 
             case Suma:
-                Token.genToken("suma", "-", fd);
+                Token.genToken("suma", "", fd);
                 i++;
                 break;
         }
-    return i;
-}
-/*
-public static void main(String[] args) throws FileNotFoundException {
-    Token.initializeTPR();
-    fd = new PrintWriter("./tests/tokens.txt");
-    System.out.println(automata("12333", fd));
-    fd.close();
-}
-*/
+        return i;
+    }
 }
