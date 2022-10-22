@@ -4,7 +4,7 @@ import java.io.PrintWriter;
 
 public class AFD 
 {
-    public static TablaSimbolos tablaSimbolos = new TablaSimbolos();
+    //public static TablaSimbolos tablaSimbolos = new TablaSimbolos();
 
     public enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Asignacion,
                         AbrePar, CierraPar, AbreLlave, CierraLlave, PuntoComa, DosPuntos, Coma, Negacion, Suma}
@@ -48,7 +48,7 @@ public class AFD
         return Estados.Inicial;
     }
 
-    public static int automata(String palabra, PrintWriter fd) {
+    public static int automata(String palabra, PrintWriter fd, TablaSimbolos tablaSimbolos) {
         int i = 0;
         char c = 0;
         String lex = "";

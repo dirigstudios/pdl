@@ -2,12 +2,12 @@ package AnalizadorLexico;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Set;
 
 public class TablaSimbolos 
 {
     public static HashMap<String, Integer> tablaSimbolos;
-    public static int numeroSimbolos = 0;
-    PrintWriter ficheroTS;
+    public static int idTabla = 0;
 
     public TablaSimbolos()
     {
@@ -34,8 +34,16 @@ public class TablaSimbolos
         return tablaSimbolos.size();
     }
 
-    public void printTS(PrintWriter fd)
+    public void printTS(PrintWriter ts)
     {
-        
+        int i = 0;
+        String table;
+        Set<String> ids;
+        ts.println("#" + idTabla + ":");
+        ids = tablaSimbolos.keySet();
+        for(String s : ids)
+        {
+            ts.println("    * lexema: '" + s + "'");
+        }
     }
 }

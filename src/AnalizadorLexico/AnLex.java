@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class AnLex 
 {
+    public static TablaSimbolos tablaSimbolos = new TablaSimbolos();
+
     public static int pos = 0;
 
     public static String generateLine(String str)
@@ -35,9 +37,10 @@ public class AnLex
             {
                 newLine = generateLine(line);
                 System.out.println(newLine);
-                pos += AFD.automata(newLine, salidaTokens);
+                pos += AFD.automata(newLine, salidaTokens, tablaSimbolos);
             }
             pos = 0;
         }
+        tablaSimbolos.printTS(salidaTS);
     }
 }

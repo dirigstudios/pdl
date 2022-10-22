@@ -1,0 +1,8 @@
+#0:
+    * lexema: 'a'
+    * lexema: 'number'
+    * lexema: 'res'
+    * lexema: 'b'
+    * lexema: 'num1'
+    * lexema: 'operacion'
+    * lexema: 'num2'
