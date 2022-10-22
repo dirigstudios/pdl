@@ -1,17 +1,14 @@
 package AnalizadorLexico;
 
 import java.io.PrintWriter;
-import java.util.HashMap;
 
 public class AFD 
 {
-    public static HashMap<String, Integer> tablaSimbolos = new HashMap<>();
+    public static TablaSimbolos tablaSimbolos = new TablaSimbolos();
 
     public enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Asignacion,
                         AbrePar, CierraPar, AbreLlave, CierraLlave, PuntoComa, DosPuntos, Coma, Negacion, Suma}
     public static Estados estadoactual = Estados.Inicial;
-
-    public static int numeroSimbolos = 0;
 
     public static boolean leerSigCaracter = true;
 
@@ -79,9 +76,8 @@ public class AFD
                     Token.genToken("palabraReservada", lex, fd);
                 else if (!tablaSimbolos.containsKey(lex))
                 {
-                    tablaSimbolos.put(lex, numeroSimbolos);
-                    Token.genToken("id", String.valueOf(numeroSimbolos), fd);
-                    numeroSimbolos++;
+                    tablaSimbolos.put(lex, tablaSimbolos.size());
+                    Token.genToken("id", String.valueOf(tablaSimbolos.size()), fd);
                 }
                 else
                     Token.genToken("id", String.valueOf(tablaSimbolos.get(lex)), fd);

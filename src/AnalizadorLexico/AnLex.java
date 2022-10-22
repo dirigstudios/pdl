@@ -21,7 +21,7 @@ public class AnLex
         return newLine.toString();
     }
 
-    public static void getNext(Scanner fuente, PrintWriter salidaTokens)
+    public static void getNext(Scanner fuente, PrintWriter salidaTokens, PrintWriter salidaTS)
     {
         String line;
         String newLine;

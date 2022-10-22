@@ -1,0 +1,17 @@
+let texto string;
+function alert (string msg_)
+{
+	print msg_;
+}
+function pideTexto ()
+{
+	print "Introduce un texto";
+	input texto;
+}
+pideTexto();
+let  textoAux  string;textoAux = texto;
+alert
+ (
+ textoAux                                                    
+ )
+ ;

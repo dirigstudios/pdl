@@ -18,8 +18,10 @@ public class Main
         System.out.println("Attempting to read from file in: " + fdFuente.getCanonicalPath());
         Scanner fuente = new Scanner(fdFuente);
         PrintWriter fichToken = new PrintWriter("./tests/tokens.txt");
+        PrintWriter fichTS = new PrintWriter("./tests/ts.txt");
         Token.initializeTPR();
-        AnLex.getNext(fuente, fichToken);
+        AnLex.getNext(fuente, fichToken, fichTS);
+        fichTS.close();
         fuente.close();
         fichToken.close();
     }

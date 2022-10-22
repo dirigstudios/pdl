@@ -1,0 +1,15 @@
+let a    int   ;
+let b     int  ;
+let number int ;
+print  "Introduce el primer operando" ;
+input a;
+print "Introduce el segundo operando";input  
+	b;
+function operacion int(int num2,int num1)
+{
+	let  res int;
+	res=num1+num2;
+	return ((res));
+}
+number = 0;
+print operacion(b,a);
