@@ -1,8 +1,6 @@
 #0:
-    * lexema: 'a'
-    * lexema: 'number'
-    * lexema: 'res'
-    * lexema: 'b'
-    * lexema: 'num1'
-    * lexema: 'operacion'
-    * lexema: 'num2'
+    * lexema: 'texto'
+    * lexema: 'msg1'
+    * lexema: 'alert'
+    * lexema: 'textoAux'
+    * lexema: 'pideTexto'

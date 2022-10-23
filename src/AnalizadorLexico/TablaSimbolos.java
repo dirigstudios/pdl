@@ -36,14 +36,11 @@ public class TablaSimbolos
 
     public void printTS(PrintWriter ts)
     {
-        int i = 0;
-        String table;
         Set<String> ids;
+
         ts.println("#" + idTabla + ":");
         ids = tablaSimbolos.keySet();
         for(String s : ids)
-        {
             ts.println("    * lexema: '" + s + "'");
-        }
     }
 }
