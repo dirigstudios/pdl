@@ -5,11 +5,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-/* TODO:
-    - AFD: identifiers that start with _ and can have numbers (not at the start)
-    - TS: create Symbols Table
-*/
-
 public class Main
 {
     public static void main(String[] args) throws IOException 

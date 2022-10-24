@@ -7,15 +7,17 @@ public class AFD
     //public static TablaSimbolos tablaSimbolos = new TablaSimbolos();
 
     public enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Asignacion,
-                        AbrePar, CierraPar, AbreLlave, CierraLlave, PuntoComa, DosPuntos, Coma, Negacion, Suma}
+                        AbrePar, CierraPar, AbreLlave, CierraLlave, PuntoComa, DosPuntos, Coma, Negacion, Suma, Comentario}
     public static Estados estadoactual = Estados.Inicial;
 
     public static boolean leerSigCaracter = true;
 
     public static PrintWriter fd;
 
+    public static boolean isComment = false;
 
-    public static Estados nextStage(char c) //TODO ADD IMPLEMENTATION FOR UPPERCASE CHARACTERS and variables that start with _
+
+    public static Estados nextStage(char c)
     {
         if (Character.isLowerCase(c) || c == '_')
             return Estados.PalabraReservada;
@@ -45,6 +47,8 @@ public class AFD
             return Estados.Negacion;
         if (c == '+')
             return Estados.Suma;
+        if (c == '/')
+            return Estados.Comentario;
         return Estados.Inicial;
     }
 
@@ -95,6 +99,27 @@ public class AFD
                 else
                     System.out.println("Error : La string esta mal formada");
                 i++;
+                break;
+
+            case Comentario:
+                isComment = true;
+                i++;
+                if (palabra.charAt(i) == '*')
+                {
+                    i++;
+                    boolean finComentario = (palabra.charAt(i) == '*' && palabra.charAt(i+1) == '/');
+                    while (i <= palabra.length() && !finComentario)
+                    {
+                        if (palabra.length() == i)
+                            //socorro
+                        i++;
+                    }
+                    if (palabra.charAt(i) != '/')
+                        System.out.println("Error: comentario mal formado");
+                    else
+                        isComment = false;
+                    i++;
+                }
                 break;
 
             case ConstanteNumerica:
