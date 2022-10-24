@@ -59,7 +59,8 @@ public class AFD
         int counter = 0;
 
         c = palabra.charAt(i);
-        estadoactual = nextStage(c);
+        if (!isComment)
+            estadoactual = nextStage(c);
 
         switch (estadoactual)
         {
@@ -102,22 +103,22 @@ public class AFD
                 break;
 
             case Comentario:
-                isComment = true;
-                i++;
-                if (palabra.charAt(i) == '*')
+                if ((i+1) < palabra.length() && !isComment && !(palabra.charAt(i+1) == '*'))
                 {
+                    System.err.println("Error : Token no reconocido, comentario mal formado");
                     i++;
-                    boolean finComentario = (palabra.charAt(i) == '*' && palabra.charAt(i+1) == '/');
-                    while (i <= palabra.length() && !finComentario)
+                    break;
+                }
+                isComment = true;
+                i+=2;
+                while (i < palabra.length())
+                {
+                    if (palabra.charAt(i) == '/' && palabra.charAt(i-1) == '*')
                     {
-                        if (palabra.length() == i)
-                            //socorro
-                        i++;
-                    }
-                    if (palabra.charAt(i) != '/')
-                        System.out.println("Error: comentario mal formado");
-                    else
                         isComment = false;
+                        i++;
+                        break;
+                    }
                     i++;
                 }
                 break;

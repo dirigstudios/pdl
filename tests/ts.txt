@@ -1,0 +1,11 @@
+#0:
+    * lexema: 'ff'
+    * lexema: 'int2'
+    * lexema: 'sss'
+    * lexema: 'int1'
+    * lexema: 'logico2'
+    * lexema: 'var'
+    * lexema: 'cadena'
+    * lexema: 'logico1'
+    * lexema: 'global'
+    * lexema: 'funcion'
