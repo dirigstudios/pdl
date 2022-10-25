@@ -92,10 +92,16 @@ public class AFD
 
             case Cadena:
                 i++;
-                while (i != palabra.length() && palabra.charAt(i) != '"' && i < 66)
+                while (i != palabra.length() && palabra.charAt(i) != '"')
                 {
                     lex += String.valueOf(palabra.charAt(i));
                     i++;
+                }
+                if (i>=66)
+                {
+                    System.out.println("Error : Cadena sobrepasa los 64 caracteres.");
+                    i++;
+                    break;
                 }
                 if (palabra.charAt(i) == '"')
                     Token.genToken("cadena", lex, fd);
@@ -136,7 +142,10 @@ public class AFD
                     i++;
                 }
                 if (counter > 32767)
+                {
                     System.out.println("Error, el valor numerico introducido excede el limite de 32767");
+                    break;
+                }
                 Token.genToken("constEnt", Integer.toString(counter), fd);
                 break;
 
