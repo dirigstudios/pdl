@@ -2,6 +2,8 @@ package AnalizadorLexico;
 
 import java.io.PrintWriter;
 
+import javax.lang.model.util.ElementScanner6;
+
 public class AFD 
 {
     //public static TablaSimbolos tablaSimbolos = new TablaSimbolos();
@@ -19,7 +21,7 @@ public class AFD
 
     public static Estados nextStage(char c)
     {
-        if (Character.isLowerCase(c) || c == '_')
+        if (Character.isAlphabetic(c) || c == '_')
             return Estados.PalabraReservada;
         if (c == '\"')
             return Estados.Cadena;
@@ -109,8 +111,11 @@ public class AFD
                     i++;
                     break;
                 }
+                if(!isComment)
+                    i+=2;
+                else
+                    i++;
                 isComment = true;
-                i+=2;
                 while (i < palabra.length())
                 {
                     if (palabra.charAt(i) == '/' && palabra.charAt(i-1) == '*')
