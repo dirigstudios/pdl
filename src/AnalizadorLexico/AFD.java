@@ -113,7 +113,7 @@ public class AFD
             case Comentario:
                 if ((i+1) < palabra.length() && !isComment && !(palabra.charAt(i+1) == '*'))
                 {
-                    System.err.println("Error : Token no reconocido, comentario mal formado");
+                    System.err.println("Error : Comentario mal formado");
                     i++;
                     break;
                 }
