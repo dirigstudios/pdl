@@ -4,8 +4,6 @@ import java.io.PrintWriter;
 
 public class AFD 
 {
-    //public static TablaSimbolos tablaSimbolos = new TablaSimbolos();
-
     public enum Estados{Inicial, AsignacionR, ConstanteNumerica, Cadena, PalabraReservada, Asignacion,
                         AbrePar, CierraPar, AbreLlave, CierraLlave, PuntoComa, DosPuntos, Coma, Negacion, Suma, Comentario}
     public static Estados estadoactual = Estados.Inicial;
@@ -102,7 +100,8 @@ public class AFD
                     System.out.println("Error en linea: " + lines + "\n" + "Error léxico: Cadena sobrepasa los 64 caracteres.");
                     return new Token("$", "");
                 }
-                if (c == '"' && lex.length() > 1) {
+                if (c == '"' && lex.length() > 1)
+                {
                     lex += String.valueOf(c);
                     Token.genToken("cadena", lex, fd);
                     tk = new Token("cadena", lex);
@@ -119,10 +118,13 @@ public class AFD
                     System.err.println("Error en linea: " + lines + "\n" + "Error lexico: Comentario mal formado, el fin debe" +
                             "tener la forma *\\");
                     return new Token("$", "");
-                } else if (!isComment && lex.length() > 1) {
+                }
+                else if (!isComment && lex.length() > 1)
+                {
                     isComment = true;
                     lex = "";
-                } else if (c == '*')
+                }
+                else if (c == '*')
                     lex += c;
                 if (lex.equals("*") && c == '/') {
                     estadoactual = Estados.Inicial;
@@ -131,7 +133,8 @@ public class AFD
                 break;
 
             case ConstanteNumerica:
-                if (Character.isDigit(c)) {
+                if (Character.isDigit(c))
+                {
                     counter *= 10;
                     counter += Character.getNumericValue(c);
                 }
@@ -153,12 +156,14 @@ public class AFD
                 break;
 
             case AsignacionR:
-                if (lex.equals("%") && c == '=') {
+                if (lex.equals("%") && c == '=')
+                {
                     Token.genToken("asignacionResto", Integer.toString(counter), fd);
                     tk = new Token("asignacionResto", "");
                     estadoactual = Estados.Inicial;
                     return tk;
-                } else
+                }
+                else
                 {
                     System.out.println("Error en linea: " + lines + "\n" + "Error lexico: caracter % no reconocido, se espera: %=");
                     return new Token("$", "");
