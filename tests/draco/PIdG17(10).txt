@@ -1,0 +1,34 @@
+/* Ejemplo de Prueba */
+
+let int1 int;
+let cadena string;input cadena;
+let logico1 boolean;let logico2 boolean;
+
+int1 = 000000378;
+
+int2 = int1;
+cadena = "string";
+
+function ff string(string ss)
+{
+	logico2 =  logico1;
+	if (logico2) cadena = ff (ss);
+	varglobal = 78;
+	return cadena;
+}
+		
+function funcion string (string logico2)
+{	let var int;
+
+  switch (int1){
+	case 0:	logico1 = int1 == int2;break;
+	case 8888: print(0);
+	case 3333: logico2="";
+  }
+  
+  return logico2;
+}
+
+print((cadena));
+cadena = ((ff(funcion(cadena))));
+
