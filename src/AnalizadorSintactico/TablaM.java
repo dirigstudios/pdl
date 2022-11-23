@@ -30,6 +30,13 @@ public class TablaM {
     public enum simbolosTerminales{exclamacion,asignacionResto,abrePar,cierraPar,suma,coma,dosPuntos,puntoYComa,asignacion,comparacion,booleanR,cadena,caseR,defaultR,entero,function,id,input,intR,let,print,returnR,string,switchR,abreLLave,cierraLLave}
     Regla[][] tablaM = new Regla[21][26];
     public TablaM() {
-        Enum<simbolos> temp = simbolos.valueOf("P");
+        //Ejemplo creacion de una regla (regla E -> !R)
+        LinkedList<simbolos> tempList = new LinkedList<simbolos>();
+        tempList.add(simbolos.exclamacion);
+        tempList.add(simbolos.R);
+        Regla temp = new Regla(simbolos.E, tempList);
+        tablaM[simbolosNoTerminales.valueOf("E").ordinal()][simbolosTerminales.valueOf("exclamacion").ordinal()] = temp;
+        //Resto de reglas
+
     }
 }
