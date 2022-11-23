@@ -7,6 +7,37 @@ import java.util.List;
 public class Token
 {
 	public static List<String> TPR = new ArrayList<>();
+    private String atributo;
+    private String tipo;
+
+    public Token(String tipo, String atributo)
+    {
+        this.tipo = tipo;
+        this.atributo = atributo;
+    }
+
+    public String getAtributo() {
+        return atributo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    @Override
+    public String toString() {
+        return "<";
+    }
+
+    public void setTipo(String tipo)
+    {
+        this.tipo = tipo;
+    }
+
+    public void setAtributo(String atributo)
+    {
+        this.atributo = atributo;
+    }
 
 	public static boolean isDel(char c)
     {
@@ -29,6 +60,7 @@ public class Token
         TPR.add("return");
         TPR.add("string");
         TPR.add("switch");
+        TPR.add("default");
     }
 
     public static void genToken(String tipo, String atributo, PrintWriter fichero)
@@ -36,7 +68,7 @@ public class Token
 		String token;
 		
         if (tipo.equals("cadena"))
-            atributo = "\"" + atributo + "\"";
+            atributo = atributo;
 		token = "<" + tipo + ", " + atributo + ">";
 		fichero.println(token);
     }
