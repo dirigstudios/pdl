@@ -18,7 +18,7 @@ public class AnSt
 
     private static void initializeStack()
     {
-        pila.push(simbolos.finFichero); //apilo EOF //TODO: añadir $ (finFichero) a la lista de simbolos
+        pila.push(simbolos.finFichero); //apilo EOF
         pila.push(simbolos.P); //apilo el AXIOMA de la gramatica tipo 2
     }
 
@@ -28,18 +28,18 @@ public class AnSt
         Token sigTok = AnLex.getNextToken(null, null, null);
         simbolos cima = pila.peek();
 
-        while (!cima == simbolos.finFichero)
+        while (!(pila.peek() == simbolos.finFichero))
         {
-            if (cima.isTerminal()) //TODO: como saber si un simbolo es Terminal o No Terminal
+            if (simbolos.isTerminal(cima))
             {
-                if (cima.equals(sigTok.getTipo())) //TODO: hacer que esto coincida
+                if (simbolos.compare(sigTok.getTipo(), cima))
                 {
                     pila.pop();
                     sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS);
                 }
                 else
                 {
-                    //TODO: hacer el toString de simbolos (?)
+                    //TODO: hacer el toString de simbolos (?) cima.name(); -> toString();
                     System.out.println("Error Sintáctico: El terminal de la cima de la pila " + cima + " no coincide con el token <" + sigTok.getTipo() + ", " + sigTok.getAtributo() + "> enviado por el AnLex.");
                     return ;
                 }
