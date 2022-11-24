@@ -1,0 +1,13 @@
+CODIGO:
+
+- ponerse de acuerdo para que los Tokens y Simbolos tengan el mismo nombre y no haya conflictos en Draco !!!
+- como saber si un simbolo es terminal o no terminal
+- añadir el finFichero a la lista de simbolos
+- implementar el resto de reglas en la TablaM
+
+MEMORIA:
+
+- explicar la factorizacion de la gramatica y la eliminacion de reglas por la izquierda
+- demostrar que la gramatica cumple LL1
+- hacer los ejemplos con VAst
+- 

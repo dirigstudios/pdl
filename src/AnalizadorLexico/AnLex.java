@@ -15,6 +15,7 @@ public class AnLex
     {
         Token tk;
         int c;
+        
         if (!leerSigChar)
         {
             tk = AFD.automata(character, salidaTokens, tablaSimbolos);
@@ -24,24 +25,24 @@ public class AnLex
                 return tk;
             }
         }
-            while((c = fuente.read()) != -1)
+        while((c = fuente.read()) != -1)
+        {
+            character = (char) c;
+            tk = AFD.automata(character, salidaTokens, tablaSimbolos);
+            if (tk != null)
             {
-                character = (char) c;
-                tk = AFD.automata(character, salidaTokens, tablaSimbolos);
-                if (tk != null)
-                {
-                    if (tk.getTipo().equals("palabraReservada") || tk.getTipo().equals("constEnt") ||
-                            tk.getTipo().equals("id"))
-                        leerSigChar = false;
-                    else
-                        leerSigChar = true;
-                    return tk;
-                }
-            }
-            tk = AFD.automata(' ', salidaTokens, tablaSimbolos);
-            if (tk!=null)
+                if (tk.getTipo().equals("palabraReservada") || tk.getTipo().equals("constEnt") ||
+                        tk.getTipo().equals("id"))
+                    leerSigChar = false;
+                else
+                    leerSigChar = true;
                 return tk;
-            tablaSimbolos.printTS(salidaTS);
-            return new Token("$","");
+            }
+        }
+        tk = AFD.automata(' ', salidaTokens, tablaSimbolos);
+        if (tk != null)
+            return tk;
+        tablaSimbolos.printTS(salidaTS);
+        return new Token("$","");
     }
 }

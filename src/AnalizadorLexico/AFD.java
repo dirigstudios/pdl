@@ -52,6 +52,7 @@ public class AFD
     public static Token automata(char c, PrintWriter fd, TablaSimbolos tablaSimbolos)
     {
         Token tk;
+        
         if (!isComment && estadoactual == Estados.Inicial)
         {
             lex = "";
@@ -231,6 +232,7 @@ public class AFD
                 estadoactual = Estados.Inicial;
                 return new Token("suma", "");
         }
+
         if (!Token.isDel(c) || estadoactual == Estados.Cadena)
             lex += String.valueOf(c);
         return null;

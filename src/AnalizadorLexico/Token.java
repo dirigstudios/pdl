@@ -16,17 +16,14 @@ public class Token
         this.atributo = atributo;
     }
 
-    public String getAtributo() {
+    public String getAtributo() 
+    {
         return atributo;
     }
 
-    public String getTipo() {
+    public String getTipo() 
+    {
         return tipo;
-    }
-
-    @Override
-    public String toString() {
-        return "<";
     }
 
     public void setTipo(String tipo)
@@ -67,8 +64,6 @@ public class Token
     {
 		String token;
 		
-        if (tipo.equals("cadena"))
-            atributo = atributo;
 		token = "<" + tipo + ", " + atributo + ">";
 		fichero.println(token);
     }
