@@ -37,6 +37,7 @@ public class AnSt
                 String aComparar = sigTok.getTipo();
                 if (aComparar.equals("palabraReservada"))
                 {
+                    aComparar = sigTok.getAtributo();
                     if (aComparar.endsWith("R"))
                         aComparar = aComparar.substring(0, aComparar.length() - 2);
                 }
