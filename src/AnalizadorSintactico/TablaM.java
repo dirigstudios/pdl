@@ -383,6 +383,9 @@ public class TablaM {
         // B -> sw itch ( E ) { O }
         tablaM[simbolosNoTerminales.B.ordinal()][simbolosTerminales.switchR.ordinal()] = regla28;
 
+        // B -> let id T ;
+        tablaM[simbolosNoTerminales.B.ordinal()][simbolosTerminales.let.ordinal()] = regla35;
+
         // C -> B C
         tablaM[simbolosNoTerminales.C.ordinal()][simbolosTerminales.id.ordinal()] = regla47;
         tablaM[simbolosNoTerminales.C.ordinal()][simbolosTerminales.ifR.ordinal()] = regla47;
@@ -468,10 +471,10 @@ public class TablaM {
         tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.finFichero.ordinal()] = regla51;
 
         // Q -> , E Q
-        tablaM[simbolosNoTerminales.Q.ordinal()][simbolosTerminales.coma.ordinal()] = regla3;
+        tablaM[simbolosNoTerminales.Q.ordinal()][simbolosTerminales.coma.ordinal()] = regla24;
 
         // Q -> lambda
-        tablaM[simbolosNoTerminales.Q.ordinal()][simbolosTerminales.cierraPar.ordinal()] = regla3;
+        tablaM[simbolosNoTerminales.Q.ordinal()][simbolosTerminales.cierraPar.ordinal()] = regla25;
 
         // R -> U RR
         tablaM[simbolosNoTerminales.R.ordinal()][simbolosTerminales.abrePar.ordinal()] = regla3;
@@ -505,6 +508,9 @@ public class TablaM {
 
         // SS -> %= E
         tablaM[simbolosNoTerminales.SS.ordinal()][simbolosTerminales.asignacionResto.ordinal()] = regla16;
+
+        // SS -> = E ;
+        tablaM[simbolosNoTerminales.SS.ordinal()][simbolosTerminales.asignacion.ordinal()] = regla17;
 
         // T -> boolean
         tablaM[simbolosNoTerminales.T.ordinal()][simbolosTerminales.booleanR.ordinal()] = regla37;
@@ -560,7 +566,7 @@ public class TablaM {
         tablaM[simbolosNoTerminales.X.ordinal()][simbolosTerminales.id.ordinal()] = regla26;
 
         // X -> lambda
-        tablaM[simbolosNoTerminales.X.ordinal()][simbolosTerminales.puntoYComa.ordinal()] = regla26;
+        tablaM[simbolosNoTerminales.X.ordinal()][simbolosTerminales.puntoYComa.ordinal()] = regla27;
     }
 
     public static Regla getRule(simbolos cima, Token sigTok) {// cima no terminal
