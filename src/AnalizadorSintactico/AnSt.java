@@ -33,7 +33,14 @@ public class AnSt
         {
             if (simbolos.isTerminal(cima))
             {
-                if (simbolos.compare(sigTok.getTipo(), cima))
+                // adaptacion para las comparaciones sin con problemas 
+                String aComparar = sigTok.getTipo();
+                if (aComparar.equals("palabraReservada"))
+                {
+                    if (aComparar.endsWith("R"))
+                        aComparar = aComparar.substring(0, aComparar.length() - 2);
+                }
+                if (simbolos.compare(aComparar, cima))
                 {
                     pila.pop();
                     sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS);

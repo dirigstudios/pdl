@@ -1,10 +1,10 @@
-Terminales = { ! == + id ( ) ent cad %= print input return , switch case int boolean string let function ; : = { } default }
-
-NoTerminales = { P S SS E R RR U UU V VV L Q X B T A K C F H O }
-
 Axioma = P
 
-Producciones = { 
+NoTerminales = { P S SS E R RR U UU V VV L Q X B T A K C F H O D }
+
+Terminales = { ! == + id ( ) ent cad %= print input return , switch case int boolean string let function ; : = { } default break if }
+
+Producciones = {
 	E -> ! R
 	E -> R
 	R -> U RR
@@ -21,6 +21,7 @@ Producciones = {
 	VV -> lambda
 	S -> id SS
 	SS -> %= E ;
+	SS -> = E ;
 	SS -> ( L ) ;
 	S -> print R ;
 	S -> input id ;
@@ -32,11 +33,14 @@ Producciones = {
 	X -> E
 	X -> lambda
 	B -> switch ( E ) { O }
-	O -> case E : P O
-	O -> default : 
+	B -> if ( E ) S 
+	O -> case E : P D O
+	O -> default : P D O
 	O -> lambda
+	D -> break ;
+	D -> lambda
 	B -> let id T ;
-	T -> int
+	T -> int 
 	T -> boolean 
 	T -> string
 	B -> S
