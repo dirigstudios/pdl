@@ -32,20 +32,20 @@ public class TablaM {
 
     /*22 no terminales, 28 terminales*/
     //Este enum sirve para sacar las reglas
-    public enum simbolos{A,B,C,D,E,F,H,K,L,O,P,Q,R,RR,S,SS,T,U,UU,V,VV,X,negacion,asignacionResto,abrePar,cierraPar,suma,coma,dosPuntos,puntoYComa,asignacion,comparacion,booleanR,cadena,caseR,defaultR,constEnt,function,id,input,intR,let,print,returnR,string,switchR,abreLLave,cierraLLave,breakR,ifR,finFichero;
+    public enum simbolos{A,B,C,D,E,F,H,K,L,O,P,Q,R,RR,S,SS,T,U,UU,V,VV,X,negacion,asignacionResto,abrePar,cierraPar,suma,coma,dosPuntos,puntoComa,igual,comparacion,booleanR,cadena,caseR,defaultR,constEnt,function,id,input,intR,let,print,returnR,string,switchR,abreLlave,cierraLlave,breakR,ifR,$;
 
         public static boolean compare(String tipo, simbolos cima) {
             return cima.name().equals(tipo);
         }
 
         public static boolean isTerminal(simbolos cima) {
-            return (cima.ordinal()>20);
+            return (cima.ordinal()>21);
         }
     }
 
     //Estos enums sirven para ubicarnos en la matriz de reglas
     private enum simbolosNoTerminales{A,B,C,D,E,F,H,K,L,O,P,Q,R,RR,S,SS,T,U,UU,V,VV,X}
-    private enum simbolosTerminales{negacion,asignacionResto,abrePar,cierraPar,suma,coma,dosPuntos,puntoYComa,asignacion,comparacion,booleanR,breakR,cadena,caseR,defaultR,constEnt,function,id,ifR,input,intR,let,print,returnR,string,switchR,abreLLave,cierraLLave,finFichero}
+    private enum simbolosTerminales{negacion,asignacionResto,abrePar,cierraPar,suma,coma,dosPuntos,puntoComa,igual,comparacion,booleanR,breakR,cadena,caseR,defaultR,constEnt,function,id,ifR,input,intR,let,print,returnR,string,switchR,abreLlave,cierraLlave,$}
 
     static Regla[][] tablaM = new Regla[22][29];
 
@@ -141,14 +141,14 @@ public class TablaM {
         templist = new LinkedList<>();
         templist.add(simbolos.asignacionResto);
         templist.add(simbolos.E);
-        templist.add(simbolos.puntoYComa);
+        templist.add(simbolos.puntoComa);
         Regla regla16 = new Regla(simbolos.SS, templist, 16);
 
         // SS -> = E ;
         templist = new LinkedList<>();
-        templist.add(simbolos.asignacion);
+        templist.add(simbolos.igual);
         templist.add(simbolos.E);
-        templist.add(simbolos.puntoYComa);
+        templist.add(simbolos.puntoComa);
         Regla regla17 = new Regla(simbolos.SS, templist, 17);
 
         // SS -> ( L ) ;
@@ -156,28 +156,28 @@ public class TablaM {
         templist.add(simbolos.abrePar);
         templist.add(simbolos.L);
         templist.add(simbolos.cierraPar);
-        templist.add(simbolos.puntoYComa);
+        templist.add(simbolos.puntoComa);
         Regla regla18 = new Regla(simbolos.SS, templist, 18);
 
         // S -> print R ;
         templist = new LinkedList<>();
         templist.add(simbolos.print);
         templist.add(simbolos.R);
-        templist.add(simbolos.puntoYComa);
+        templist.add(simbolos.puntoComa);
         Regla regla19 = new Regla(simbolos.S, templist, 19);
 
         // S -> input id ;
         templist = new LinkedList<>();
         templist.add(simbolos.input);
         templist.add(simbolos.id);
-        templist.add(simbolos.puntoYComa);
+        templist.add(simbolos.puntoComa);
         Regla regla20 = new Regla(simbolos.S, templist, 20);
 
         // S -> return X ;
         templist = new LinkedList<>();
         templist.add(simbolos.returnR);
         templist.add(simbolos.X);
-        templist.add(simbolos.puntoYComa);
+        templist.add(simbolos.puntoComa);
         Regla regla21 = new Regla(simbolos.S, templist, 21);
 
         // L -> E Q
@@ -216,9 +216,9 @@ public class TablaM {
         templist.add(simbolos.abrePar);
         templist.add(simbolos.E);
         templist.add(simbolos.cierraPar);
-        templist.add(simbolos.abreLLave);
+        templist.add(simbolos.abreLlave);
         templist.add(simbolos.O);
-        templist.add(simbolos.cierraLLave);
+        templist.add(simbolos.cierraLlave);
         Regla regla28 = new Regla(simbolos.B, templist, 28);
 
         // B -> if ( E ) S
@@ -256,7 +256,7 @@ public class TablaM {
         // D -> break ;
         templist = new LinkedList<>();
         templist.add(simbolos.breakR);
-        templist.add(simbolos.puntoYComa);
+        templist.add(simbolos.puntoComa);
         Regla regla33 = new Regla(simbolos.D, templist, 33);
 
         // D -> lambda
@@ -268,7 +268,7 @@ public class TablaM {
         templist.add(simbolos.let);
         templist.add(simbolos.id);
         templist.add(simbolos.T);
-        templist.add(simbolos.puntoYComa);
+        templist.add(simbolos.puntoComa);
         Regla regla35 = new Regla(simbolos.B, templist, 35);
 
         // T -> int
@@ -299,9 +299,9 @@ public class TablaM {
         templist.add(simbolos.abrePar);
         templist.add(simbolos.A);
         templist.add(simbolos.cierraPar);
-        templist.add(simbolos.abreLLave);
+        templist.add(simbolos.abreLlave);
         templist.add(simbolos.C);
-        templist.add(simbolos.cierraLLave);
+        templist.add(simbolos.cierraLlave);
         Regla regla40 = new Regla(simbolos.F, templist, 40);
 
         // H -> T
@@ -380,7 +380,7 @@ public class TablaM {
         // B -> if ( E ) S
         tablaM[simbolosNoTerminales.B.ordinal()][simbolosTerminales.ifR.ordinal()] = regla29;
 
-        // B -> sw itch ( E ) { O }
+        // B -> switch ( E ) { O }
         tablaM[simbolosNoTerminales.B.ordinal()][simbolosTerminales.switchR.ordinal()] = regla28;
 
         // B -> let id T ;
@@ -392,10 +392,11 @@ public class TablaM {
         tablaM[simbolosNoTerminales.C.ordinal()][simbolosTerminales.input.ordinal()] = regla47;
         tablaM[simbolosNoTerminales.C.ordinal()][simbolosTerminales.let.ordinal()] = regla47;
         tablaM[simbolosNoTerminales.C.ordinal()][simbolosTerminales.print.ordinal()] = regla47;
-
+        tablaM[simbolosNoTerminales.C.ordinal()][simbolosTerminales.returnR.ordinal()] = regla47;
+        tablaM[simbolosNoTerminales.C.ordinal()][simbolosTerminales.switchR.ordinal()] = regla47;
 
         // C -> lambda
-        tablaM[simbolosNoTerminales.C.ordinal()][simbolosTerminales.cierraLLave.ordinal()] = regla48;
+        tablaM[simbolosNoTerminales.C.ordinal()][simbolosTerminales.cierraLlave.ordinal()] = regla48;
 
         // D -> break ;
         tablaM[simbolosNoTerminales.D.ordinal()][simbolosTerminales.breakR.ordinal()] = regla33;
@@ -403,7 +404,7 @@ public class TablaM {
         // D -> lambda
         tablaM[simbolosNoTerminales.D.ordinal()][simbolosTerminales.caseR.ordinal()] = regla34;
         tablaM[simbolosNoTerminales.D.ordinal()][simbolosTerminales.defaultR.ordinal()] = regla34;
-        tablaM[simbolosNoTerminales.D.ordinal()][simbolosTerminales.cierraLLave.ordinal()] = regla34;
+        tablaM[simbolosNoTerminales.D.ordinal()][simbolosTerminales.cierraLlave.ordinal()] = regla34;
 
         // E -> R
         tablaM[simbolosNoTerminales.E.ordinal()][simbolosTerminales.abrePar.ordinal()] = regla2;
@@ -421,6 +422,7 @@ public class TablaM {
         // H -> T
         tablaM[simbolosNoTerminales.H.ordinal()][simbolosTerminales.booleanR.ordinal()] = regla41;
         tablaM[simbolosNoTerminales.H.ordinal()][simbolosTerminales.intR.ordinal()] = regla41;
+        tablaM[simbolosNoTerminales.H.ordinal()][simbolosTerminales.string.ordinal()] = regla41;
         tablaM[simbolosNoTerminales.H.ordinal()][simbolosTerminales.cadena.ordinal()] = regla41;
 
         // H -> lambda
@@ -443,7 +445,7 @@ public class TablaM {
         tablaM[simbolosNoTerminales.L.ordinal()][simbolosTerminales.abrePar.ordinal()] = regla22;
 
         // O -> lambda
-        tablaM[simbolosNoTerminales.O.ordinal()][simbolosTerminales.cierraLLave.ordinal()] = regla32;
+        tablaM[simbolosNoTerminales.O.ordinal()][simbolosTerminales.cierraLlave.ordinal()] = regla32;
 
         // O -> case E : P D O
         tablaM[simbolosNoTerminales.O.ordinal()][simbolosTerminales.caseR.ordinal()] = regla30;
@@ -452,13 +454,13 @@ public class TablaM {
         tablaM[simbolosNoTerminales.O.ordinal()][simbolosTerminales.defaultR.ordinal()] = regla31;
 
         // P -> B P
-
         tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.id.ordinal()] = regla49;
         tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.ifR.ordinal()] = regla49;
         tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.input.ordinal()] = regla49;
         tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.let.ordinal()] = regla49;
         tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.returnR.ordinal()] = regla49;
         tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.switchR.ordinal()] = regla49;
+        tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.print.ordinal()] = regla49;
 
         // P -> F P
         tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.function.ordinal()] = regla50;
@@ -467,8 +469,8 @@ public class TablaM {
         tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.defaultR.ordinal()] = regla51;
         tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.breakR.ordinal()] = regla51;
         tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.caseR.ordinal()] = regla51;
-        tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.cierraLLave.ordinal()] = regla51;
-        tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.finFichero.ordinal()] = regla51;
+        tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.cierraLlave.ordinal()] = regla51;
+        tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.$.ordinal()] = regla51;
 
         // Q -> , E Q
         tablaM[simbolosNoTerminales.Q.ordinal()][simbolosTerminales.coma.ordinal()] = regla24;
@@ -489,7 +491,7 @@ public class TablaM {
         tablaM[simbolosNoTerminales.RR.ordinal()][simbolosTerminales.cierraPar.ordinal()] = regla5;
         tablaM[simbolosNoTerminales.RR.ordinal()][simbolosTerminales.coma.ordinal()] = regla5;
         tablaM[simbolosNoTerminales.RR.ordinal()][simbolosTerminales.dosPuntos.ordinal()] = regla5;
-        tablaM[simbolosNoTerminales.RR.ordinal()][simbolosTerminales.puntoYComa.ordinal()] = regla5;
+        tablaM[simbolosNoTerminales.RR.ordinal()][simbolosTerminales.puntoComa.ordinal()] = regla5;
 
         // S -> return X ;
         tablaM[simbolosNoTerminales.S.ordinal()][simbolosTerminales.returnR.ordinal()] = regla21;
@@ -510,14 +512,14 @@ public class TablaM {
         tablaM[simbolosNoTerminales.SS.ordinal()][simbolosTerminales.asignacionResto.ordinal()] = regla16;
 
         // SS -> = E ;
-        tablaM[simbolosNoTerminales.SS.ordinal()][simbolosTerminales.asignacion.ordinal()] = regla17;
+        tablaM[simbolosNoTerminales.SS.ordinal()][simbolosTerminales.igual.ordinal()] = regla17;
 
         // T -> boolean
         tablaM[simbolosNoTerminales.T.ordinal()][simbolosTerminales.booleanR.ordinal()] = regla37;
         // T -> int
-        tablaM[simbolosNoTerminales.U.ordinal()][simbolosTerminales.intR.ordinal()] = regla36;
+        tablaM[simbolosNoTerminales.T.ordinal()][simbolosTerminales.intR.ordinal()] = regla36;
         // T -> string
-        tablaM[simbolosNoTerminales.U.ordinal()][simbolosTerminales.string.ordinal()] = regla38;
+        tablaM[simbolosNoTerminales.T.ordinal()][simbolosTerminales.string.ordinal()] = regla38;
 
         // U -> V UU
         tablaM[simbolosNoTerminales.U.ordinal()][simbolosTerminales.abrePar.ordinal()] = regla6;
@@ -529,7 +531,7 @@ public class TablaM {
         tablaM[simbolosNoTerminales.UU.ordinal()][simbolosTerminales.cierraPar.ordinal()] = regla7;
         tablaM[simbolosNoTerminales.UU.ordinal()][simbolosTerminales.coma.ordinal()] = regla7;
         tablaM[simbolosNoTerminales.UU.ordinal()][simbolosTerminales.dosPuntos.ordinal()] = regla7;
-        tablaM[simbolosNoTerminales.UU.ordinal()][simbolosTerminales.puntoYComa.ordinal()] = regla7;
+        tablaM[simbolosNoTerminales.UU.ordinal()][simbolosTerminales.puntoComa.ordinal()] = regla7;
         tablaM[simbolosNoTerminales.UU.ordinal()][simbolosTerminales.comparacion.ordinal()] = regla7;
 
         // UU -> + U
@@ -555,7 +557,7 @@ public class TablaM {
         tablaM[simbolosNoTerminales.VV.ordinal()][simbolosTerminales.suma.ordinal()] = regla14;
         tablaM[simbolosNoTerminales.VV.ordinal()][simbolosTerminales.coma.ordinal()] = regla14;
         tablaM[simbolosNoTerminales.VV.ordinal()][simbolosTerminales.dosPuntos.ordinal()] = regla14;
-        tablaM[simbolosNoTerminales.VV.ordinal()][simbolosTerminales.puntoYComa.ordinal()] = regla14;
+        tablaM[simbolosNoTerminales.VV.ordinal()][simbolosTerminales.puntoComa.ordinal()] = regla14;
         tablaM[simbolosNoTerminales.VV.ordinal()][simbolosTerminales.comparacion.ordinal()] = regla14;
 
         // X -> E
@@ -566,11 +568,38 @@ public class TablaM {
         tablaM[simbolosNoTerminales.X.ordinal()][simbolosTerminales.id.ordinal()] = regla26;
 
         // X -> lambda
-        tablaM[simbolosNoTerminales.X.ordinal()][simbolosTerminales.puntoYComa.ordinal()] = regla27;
+        tablaM[simbolosNoTerminales.X.ordinal()][simbolosTerminales.puntoComa.ordinal()] = regla27;
     }
 
-    public static Regla getRule(simbolos cima, Token sigTok) {// cima no terminal
-        return tablaM[cima.ordinal()][simbolosTerminales.valueOf(sigTok.getTipo()).ordinal()];
-
+    public Regla getRule(simbolos cima, Token sigTok) {// cima no terminal
+        if (sigTok.getTipo().equals("palabraReservada"))
+        {
+            switch (sigTok.getAtributo())
+            {
+                case "if":
+                    return tablaM[cima.ordinal()][simbolosTerminales.ifR.ordinal()];
+                case "return":
+                    return tablaM[cima.ordinal()][simbolosTerminales.returnR.ordinal()];
+                case "switch":
+                    return tablaM[cima.ordinal()][simbolosTerminales.switchR.ordinal()];
+                case "case":
+                    return tablaM[cima.ordinal()][simbolosTerminales.caseR.ordinal()];
+                case "default":
+                    return tablaM[cima.ordinal()][simbolosTerminales.defaultR.ordinal()];
+                case "int":
+                    return tablaM[cima.ordinal()][simbolosTerminales.intR.ordinal()];
+                case "boolean":
+                    return tablaM[cima.ordinal()][simbolosTerminales.booleanR.ordinal()];
+                case "break":
+                    return tablaM[cima.ordinal()][simbolosTerminales.breakR.ordinal()];
+                default:
+                    return tablaM[cima.ordinal()][simbolosTerminales.valueOf(sigTok.getAtributo()).ordinal()];
+            }
+        }
+        else if (sigTok.getTipo().equals("igual")){
+            return tablaM[cima.ordinal()][simbolosTerminales.igual.ordinal()];
+        }
+        else
+            return tablaM[cima.ordinal()][simbolosTerminales.valueOf(sigTok.getTipo()).ordinal()];
     }
 }

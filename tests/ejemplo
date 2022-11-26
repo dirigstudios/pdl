@@ -1,9 +1,12 @@
-let a = 4;
-if (a == 64){
-    a%2;
-}
-switch(a){
-    case 1:
-        let asda;
-        break;
-}
+let a int;
+let   b  int  ;
+let bbb boolean ;
+a = 3;
+b=((ff(ff)));
+let c boolean ;
+c = a == b;
+if (c) b = 1;
+if (b == a) b = 44;
+a = a + b;
+print a ;
+print b;

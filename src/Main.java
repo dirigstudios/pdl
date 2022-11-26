@@ -25,5 +25,6 @@ public class Main
         fichTS.close();
         fuente.close();
         fichToken.close();
+        fichParser.close();
     }
 }
