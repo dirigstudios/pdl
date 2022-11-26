@@ -1,6 +1,0 @@
-#0:
-    * lexema: 'texto'
-    * lexema: 'alert'
-    * lexema: 'textoAux'
-    * lexema: 'pideTexto'
-    * lexema: 'msg_'

@@ -1,17 +1,9 @@
-let texto string;
-function alert (string msg_)
-{
-	print msg_;
+let a = 4;
+if (a == 64){
+    a%2;
 }
-function pideTexto ()
-{
-	print "Introduce un texto";
-	input texto;
+switch(a){
+    case 1:
+        let asda;
+        break;
 }
-pideTexto();
-let  textoAux  string;textoAux = texto;
-alert
- (
- textoAux                                                    
- )
- ;

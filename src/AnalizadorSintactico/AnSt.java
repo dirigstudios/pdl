@@ -22,11 +22,12 @@ public class AnSt
         pila.push(simbolos.P); //apilo el AXIOMA de la gramatica tipo 2
     }
 
-    public void algorithmAnSt (FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS) throws IOException
+    public static void algorithmAnSt (FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS, PrintWriter salidaParser) throws IOException
     {
         initializeStack();
         Token sigTok = AnLex.getNextToken(null, null, null);
         simbolos cima = pila.peek();
+        salidaParser.print("Descendente ");
 
         while (!(pila.peek() == simbolos.finFichero))
         {
@@ -39,8 +40,8 @@ public class AnSt
                 }
                 else
                 {
-                    //TODO: hacer el toString de simbolos (?) cima.name(); -> toString();
-                    System.out.println("Error Sintáctico: El terminal de la cima de la pila " + cima + " no coincide con el token <" + sigTok.getTipo() + ", " + sigTok.getAtributo() + "> enviado por el AnLex.");
+                    System.out.println("Error Sintáctico: El terminal de la cima de la pila " + 
+                        cima.name() + " no coincide con el token <" + sigTok.getTipo() + ", " + sigTok.getAtributo() + "> enviado por el AnLex.");
                     return ;
                 }
             }
@@ -49,6 +50,8 @@ public class AnSt
                 Regla regla = TablaM.getRule(cima, sigTok);
                 if (regla != null)
                 {
+                    String numeroRegla = String.valueOf(regla.getNumero());
+                    salidaParser.print(numeroRegla + " ");
                     pila.pop();
                     LinkedList<simbolos> consecuente = regla.getConsecuente();
                     simbolos elemento;
@@ -68,7 +71,7 @@ public class AnSt
         }
 
         if (!sigTok.getTipo().equals("$"))
-            System.out.println("Error Sintáctico: El texto no finaliza con \"$\", sino con " + sigTok);
+            System.out.println("Error Sintáctico: El texto no finaliza con \"$\", sino con <" + sigTok.getTipo() + ", " + sigTok.getAtributo() + ">.");
         return ;
     }
 }

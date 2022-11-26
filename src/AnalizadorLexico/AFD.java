@@ -98,7 +98,7 @@ public class AFD
             case Cadena:
                 if (lex.length() >= 66)
                 {
-                    System.out.println("Error en linea: " + lines + "\n" + "Error léxico: Cadena sobrepasa los 64 caracteres.");
+                    System.out.println("Error en linea: " + lines + " -> " + "Error léxico: Cadena sobrepasa los 64 caracteres.");
                     return new Token("$", "");
                 }
                 if (c == '"' && lex.length() > 1)
@@ -116,7 +116,7 @@ public class AFD
             case Comentario:
                 if (!isComment && lex.length() > 1 && c != '*')
                 {
-                    System.err.println("Error en linea: " + lines + "\n" + "Error lexico: Comentario mal formado, el fin debe" +
+                    System.err.println("Error en linea: " + lines + " -> " + "Error lexico: Comentario mal formado, el fin debe" +
                             "tener la forma *\\");
                     return new Token("$", "");
                 }
@@ -141,7 +141,7 @@ public class AFD
                 }
                 if (counter > 32767)
                 {
-                    System.out.println("Error en linea: " + lines + "\n" + "Error lexico, el valor numerico introducido" +
+                    System.out.println("Error en linea: " + lines + " -> " + "Error lexico, el valor numerico introducido" +
                             " excede el limite de 32767");
                     return new Token("$", "");
                 }
@@ -166,7 +166,7 @@ public class AFD
                 }
                 else
                 {
-                    System.out.println("Error en linea: " + lines + "\n" + "Error lexico: caracter % no reconocido, se espera: %=");
+                    System.out.println("Error en linea: " + lines + " -> " + "Error lexico: caracter % no reconocido, se espera: %=");
                     return new Token("$", "");
                 }
 
