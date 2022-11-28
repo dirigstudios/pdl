@@ -71,9 +71,9 @@ public class TablaM {
         templist.add(simbolos.RR);
         Regla regla3 = new Regla(simbolos.R, templist, 3);
 
-        // RR -> == R
+        // RR -> + R
         templist = new LinkedList<>();
-        templist.add(simbolos.comparacion);
+        templist.add(simbolos.suma);
         templist.add(simbolos.R);
         Regla regla4 = new Regla(simbolos.RR, templist, 4);
 
@@ -91,9 +91,9 @@ public class TablaM {
         templist = new LinkedList<>();
         Regla regla7 = new Regla(simbolos.UU, templist, 7);
 
-        // UU -> + U
+        // UU -> == U
         templist = new LinkedList<>();
-        templist.add(simbolos.suma);
+        templist.add(simbolos.comparacion);
         templist.add(simbolos.U);
         Regla regla8 = new Regla(simbolos.UU, templist, 8);
 
@@ -484,8 +484,8 @@ public class TablaM {
         tablaM[simbolosNoTerminales.R.ordinal()][simbolosTerminales.constEnt.ordinal()] = regla3;
         tablaM[simbolosNoTerminales.R.ordinal()][simbolosTerminales.id.ordinal()] = regla3;
 
-        // RR -> == R
-        tablaM[simbolosNoTerminales.RR.ordinal()][simbolosTerminales.comparacion.ordinal()] = regla4;
+        // RR -> + R
+        tablaM[simbolosNoTerminales.RR.ordinal()][simbolosTerminales.suma.ordinal()] = regla4;
 
         // RR -> lambda
         tablaM[simbolosNoTerminales.RR.ordinal()][simbolosTerminales.cierraPar.ordinal()] = regla5;
@@ -532,10 +532,10 @@ public class TablaM {
         tablaM[simbolosNoTerminales.UU.ordinal()][simbolosTerminales.coma.ordinal()] = regla7;
         tablaM[simbolosNoTerminales.UU.ordinal()][simbolosTerminales.dosPuntos.ordinal()] = regla7;
         tablaM[simbolosNoTerminales.UU.ordinal()][simbolosTerminales.puntoComa.ordinal()] = regla7;
-        tablaM[simbolosNoTerminales.UU.ordinal()][simbolosTerminales.comparacion.ordinal()] = regla7;
+        tablaM[simbolosNoTerminales.UU.ordinal()][simbolosTerminales.suma.ordinal()] = regla7;
 
-        // UU -> + U
-        tablaM[simbolosNoTerminales.UU.ordinal()][simbolosTerminales.suma.ordinal()] = regla8;
+        // UU -> == U
+        tablaM[simbolosNoTerminales.UU.ordinal()][simbolosTerminales.comparacion.ordinal()] = regla8;
 
         // V -> ( E )
         tablaM[simbolosNoTerminales.V.ordinal()][simbolosTerminales.abrePar.ordinal()] = regla10;

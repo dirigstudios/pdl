@@ -1,17 +1,125 @@
-let texto string;
-function alert (string msg_)
+let n1 int;
+let n2 int;
+let n3 int;
+let b1 boolean;
+let b2 boolean;
+let b3 boolean;
+let s1 string;
+let s2 string;
+let s3 string;
+
+function f7 string(string n4)
 {
-	print msg_;
+	print (n4);
+	let bbb int;
+	return s1;
 }
-function pideTexto ()
+function f1 ()
 {
-	print "Introduce un texto";
-	input texto;
+	let nn
+			string ;
+	let n1
+			boolean;
+	print n + 8;
 }
-pideTexto();
-let  textoAux  string;textoAux = texto;
-alert
- (
- textoAux
- )
- ;
+
+
+function f2 (int n4, string s4)
+{
+	let n1 int;
+	let b1 string;
+	let n5 int;
+	n5=n4;
+	b1=s1;
+	if (n2 == n5) f1 ();
+}
+
+
+function f3 int (int n1)
+{
+	let	 s1 string
+;
+	let	 n2 int
+;
+	let i int;
+	s3=s1;
+	if (n1 == n2) n4= f3 (n1 + 2);
+	return n3;
+}
+
+
+
+function f4 boolean (string n1, boolean s1, int b1)
+{
+	let nbs int;
+	let  f5	string;
+	n=88;
+	return ! b2;
+}
+
+
+function f5 string (string f2, boolean f3, int f4, int f5, boolean  f7)
+{
+	let ff int ;
+	if (ff == f7) return f2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b2
+   =
+      (n1 == f3 (n1));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b3
+	=
+
+		! f4 ("fin", b3, f3(nnnn));
