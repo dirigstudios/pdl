@@ -1,12 +1,17 @@
-let a int;
-let   b  int  ;
-let bbb boolean ;
-a = 3;
-b=((ff(ff)));
-let c boolean ;
-c = a == b;
-if (c) b = 1;
-if (b == a) b = 44;
-a = a + b;
-print a ;
-print b;
+let texto string;
+function alert (string msg_)
+{
+	print msg_;
+}
+function pideTexto ()
+{
+	print "Introduce un texto";
+	input texto;
+}
+pideTexto();
+let  textoAux  string;textoAux = texto;
+alert
+ (
+ textoAux
+ )
+ ;

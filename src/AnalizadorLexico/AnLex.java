@@ -32,7 +32,7 @@ public class AnLex
             if (tk != null)
             {
                 if (tk.getTipo().equals("palabraReservada") || tk.getTipo().equals("constEnt") ||
-                        tk.getTipo().equals("id"))
+                        tk.getTipo().equals("id") || tk.getTipo().equals("igual"))
                     leerSigChar = false;
                 else
                     leerSigChar = true;

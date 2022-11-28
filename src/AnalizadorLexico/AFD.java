@@ -66,18 +66,21 @@ public class AFD
                 break;
 
             case PalabraReservada:
+                // Errores
                 if (lex.length() > 0 && Character.isDigit(lex.charAt(0)))
                 {
                     System.out.println("Error : inicio de nombre de variable invalido.");
                     return new Token("$", "");
                 }
-                if (Token.TPR.contains(lex) && !Character.isAlphabetic(c))
+                // Generar Token Palabra reservada
+                if (Token.TPR.contains(lex) && !Character.isAlphabetic(c) && !Character.isDigit(c) && c != '_')
                 {
                     Token.genToken("palabraReservada", lex, fd);
                     tk = new Token("palabraReservada", lex);
                     estadoactual = Estados.Inicial;
                     return tk;
                 }
+                // Generar id en tabla de simbolos
                 else if (!tablaSimbolos.containsKey(lex) && !Character.isDigit(c) && !Character.isAlphabetic(c) && c != '_')
                 {
                     tablaSimbolos.put(lex, tablaSimbolos.size());
@@ -86,6 +89,7 @@ public class AFD
                     estadoactual = Estados.Inicial;
                     return tk;
                 }
+                // Recoger id de la tabla de simbolos
                 else if (!Character.isDigit(c) && !Character.isAlphabetic(c) && c != '_')
                 {
                     Token.genToken("id", String.valueOf(tablaSimbolos.get(lex)), fd);
@@ -101,7 +105,7 @@ public class AFD
                     System.out.println("Error en linea: " + lines + " -> " + "Error léxico: Cadena sobrepasa los 64 caracteres.");
                     return new Token("$", "");
                 }
-                if (c == '"' && lex.length() > 1)
+                if (c == '"' && lex.length() >= 1)
                 {
                     lex += String.valueOf(c);
                     Token.genToken("cadena", lex, fd);
@@ -114,23 +118,26 @@ public class AFD
                 break;
 
             case Comentario:
-                if (!isComment && lex.length() > 1 && c != '*')
+                if (!isComment && lex.length() >= 1 && c != '*')
                 {
                     System.err.println("Error en linea: " + lines + " -> " + "Error lexico: Comentario mal formado, el fin debe" +
-                            "tener la forma *\\");
+                            " tener la forma */");
                     return new Token("$", "");
                 }
-                else if (!isComment && lex.length() > 1)
+                else if (!isComment && lex.length() >= 1)
                 {
                     isComment = true;
                     lex = "";
                 }
                 else if (c == '*')
-                    lex += c;
-                if (lex.equals("*") && c == '/') {
+                    lex = "*";
+                if (lex.equals("*") && c == '/')
+                {
                     estadoactual = Estados.Inicial;
                     isComment = false;
                 }
+                else if (isComment && lex.length() > 1)
+                    lex = "";
                 break;
 
             case ConstanteNumerica:
@@ -159,12 +166,12 @@ public class AFD
             case AsignacionR:
                 if (lex.equals("%") && c == '=')
                 {
-                    Token.genToken("asignacionResto", Integer.toString(counter), fd);
+                    Token.genToken("asignacionResto","" , fd);
                     tk = new Token("asignacionResto", "");
                     estadoactual = Estados.Inicial;
                     return tk;
                 }
-                else
+                else if (lex.length() > 0)
                 {
                     System.out.println("Error en linea: " + lines + " -> " + "Error lexico: caracter % no reconocido, se espera: %=");
                     return new Token("$", "");
@@ -176,7 +183,6 @@ public class AFD
                     Token.genToken("igual", "", fd);
                     estadoactual = nextStage(c);
                     lex = "";
-                    leerSigCaracter = false;
                     return new Token("igual", "");
                 }
                 else if (lex.equals("="))
@@ -233,7 +239,7 @@ public class AFD
                 return new Token("suma", "");
         }
 
-        if (!Token.isDel(c) || estadoactual == Estados.Cadena)
+        if ((!Token.isDel(c) || estadoactual == Estados.Cadena) && !isComment)
             lex += String.valueOf(c);
         return null;
     }
