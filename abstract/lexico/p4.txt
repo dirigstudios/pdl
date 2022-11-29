@@ -1,0 +1,9 @@
+let a = 4;
+if (a == 64){
+    a%2;
+}
+switch(a){
+    case 1:
+        let asda;
+        break;
+}

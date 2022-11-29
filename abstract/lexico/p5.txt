@@ -1,0 +1,8 @@
+let cuatro = 321;
+if (cuatro = 3123123313123)
+{
+    switch (cuatro){
+        case 4:
+            break;
+    }
+}

@@ -1,0 +1,5 @@
+function operacion2 int(int num1)
+{
+	let  res int;
+	res=num2+num2;
+	return ((res));

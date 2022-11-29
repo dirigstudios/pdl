@@ -4,7 +4,6 @@ import AnalizadorLexico.AnLex;
 import AnalizadorLexico.Token;
 import AnalizadorSintactico.TablaM.simbolos;
 import AnalizadorSintactico.TablaM.Regla;
-import AnalizadorSintactico.TablaM;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,9 +26,8 @@ public class AnSt
     {
         initializeStack();
         Token sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS);
-        simbolos cima = pila.peek();
+        simbolos cima;
         salidaParser.print("Descendente ");
-        int j = 0;
 
         while (!(pila.peek() == simbolos.$))
         {
@@ -102,7 +100,6 @@ public class AnSt
                     return ;
                 }
             }
-            j++;
         }
 
         if (!sigTok.getTipo().equals("$"))

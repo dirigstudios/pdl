@@ -1,0 +1,3 @@
+#0:
+* lexema: 'numero2'
+* lexema: 'x'

@@ -2,25 +2,25 @@ Axioma = P
 
 NoTerminales = { P S SS E R RR U UU V VV L Q X B T A K C F H O D }
 
-Terminales = { ! == + id ( ) ent cad %= print input return , switch case int boolean string let function ; : = { } default break if }
+Terminales = { ! == + id ( ) constEnt cadena %= print input return , if break switch case int boolean string let function ; : = { } default }
 
 Producciones = {
 	E -> ! R
-	E -> R
+	E -> R 
 	R -> U RR
-	RR -> == R
+	RR -> + R
 	RR -> lambda
 	U -> V UU
 	UU -> lambda
-	UU -> + U
+	UU -> == U
 	V -> id VV
 	V -> ( E )
-	V -> ent
-	V -> cad
+	V -> constEnt
+	V -> cadena
 	VV -> ( L )
 	VV -> lambda
 	S -> id SS
-	SS -> %= E ;
+	SS -> %= E ; 
 	SS -> = E ;
 	SS -> ( L ) ;
 	S -> print R ;

@@ -1,0 +1,5 @@
+  switch (int1){
+	case 0:	logico1 = int1 == int2;break;
+	case 8888: print(0);
+	case 3333: logico2="";
+  }

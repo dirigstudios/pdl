@@ -1,0 +1,25 @@
+<palabraReservada, function>
+<id, 1>
+<palabraReservada, int>
+<abrePar, >
+<palabraReservada, int>
+<id, 2>
+<cierraPar, >
+<abreLlave, >
+<palabraReservada, if>
+<abrePar, >
+<negacion, >
+<abrePar, >
+<id, 1>
+<comparacion, >
+<constEnt, 2>
+<cierraPar, >
+<cierraPar, >
+<palabraReservada, return>
+<cadena, "resultado 2">
+<puntoComa, >
+<palabraReservada, break>
+<puntoComa, >
+<palabraReservada, input>
+<id, 1>
+<puntoComa, ><cierraLlave, >

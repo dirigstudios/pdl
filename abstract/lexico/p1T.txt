@@ -1,0 +1,27 @@
+<palabraReservada, int>
+<id, 1>
+<igual, >
+<constEnt, 42>
+<puntoComa, >
+<palabraReservada, if>
+<abrePar, >
+<constEnt, 22>
+<comparacion, >
+<constEnt, 42>
+<cierraPar, >
+<abreLlave, >
+<palabraReservada, let>
+<id, 2>
+<igual, >
+<cadena, "hola mundo">
+<puntoComa, >
+<palabraReservada, if>
+<abrePar, >
+<id, 3>
+<comparacion, >
+<cadena, "hola mundo">
+<cierraPar, >
+<palabraReservada, return>
+<constEnt, 42>
+<puntoComa, >
+<cierraLlave, >

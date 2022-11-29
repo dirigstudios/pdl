@@ -1,0 +1,1 @@
+let cadena = "Esta cadena es mas grande de lo permitido por el analizador sintactico."

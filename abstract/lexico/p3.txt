@@ -1,0 +1,6 @@
+function numero2 int (int x){
+if (!(x == 2))
+return "resultado 2";
+break;
+input x;
+}

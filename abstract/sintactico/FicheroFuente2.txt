@@ -1,0 +1,5 @@
+let a    int   ;
+let b     int  ;
+let number int ;
+print  "Introduce el primer operando" ;
+input a;

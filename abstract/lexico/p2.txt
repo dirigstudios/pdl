@@ -1,0 +1,17 @@
+/*
+Codigo generado por el equipo 42
+Version 1.2.3
+Codigo de prueba numero 3
+*/
+let cadena_4;
+switch (cadena_4)
+case "numero1":
+return (1);
+/*
+A partir de aqui hay que agregar....
+*/
+case "numero2":
+return (2);
+/*
+fin del fichero
+*/

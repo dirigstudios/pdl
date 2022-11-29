@@ -1,0 +1,7 @@
+int a = 42;
+if(22 == 42)
+{
+let SSSadena = "hola mundo";
+if (cadena == "hola mundo")
+return 42;
+}

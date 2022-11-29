@@ -1,0 +1,22 @@
+<palabraReservada, let>
+<id, 1>
+<puntoComa, >
+<palabraReservada, switch>
+<abrePar, >
+<id, 0>
+<cierraPar, >
+<palabraReservada, case>
+<cadena, "numero1">
+<dosPuntos, >
+<palabraReservada, return>
+<abrePar, >
+<constEnt, 1>
+<cierraPar, >
+<puntoComa, >
+<palabraReservada, case>
+<cadena, "numero2">
+<dosPuntos, >
+<palabraReservada, return>
+<abrePar, ><constEnt, 2>
+<cierraPar, >
+<puntoComa, >

@@ -1,0 +1,11 @@
+function doble int(int num1)
+{
+	let  res int;
+	res=num1+num1;
+	return (res);
+}
+function int int(int num2)
+{
+    let int2 int;
+    return num2;
+}

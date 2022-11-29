@@ -1,0 +1,3 @@
+#0:
+* lexema: 'a'
+* lexema: 'asda'

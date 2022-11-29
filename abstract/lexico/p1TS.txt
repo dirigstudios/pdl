@@ -1,0 +1,4 @@
+#0:
+* lexema: 'a'
+* lexema: 'cadena'
+* lexema: 'SSSadena'
