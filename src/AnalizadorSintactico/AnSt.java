@@ -83,11 +83,11 @@ public class AnSt
                 }
             }
             //TODO: crear metodo para saber si un simbolo es acción semántica
-            else if (cima.isAccSem())
+            /*else if (cima.isAccSem())
             {
                 //TODO: métodoAnSm2
                 //ejecutar la accion semántica y sacarla de la pila
-            }
+            }*/
             else
             {
                 Regla regla = tablaM.getRule(cima, sigTok);
@@ -115,7 +115,7 @@ public class AnSt
             }
         }
         //TODO: comprobación final pilaAux sea igual que el axioma
-        if (!(sigTok.getTipo().equals("$") && pilaAux.peek() == simbolos.S))
+        if (!(sigTok.getTipo().equals("$") /*&& pilaAux.peek() == simbolos.S*/))
             System.out.println("Error Sintáctico: El texto no finaliza con \"$\", sino con <" + sigTok.getTipo() + ", " + sigTok.getAtributo() + ">.");
         return ;
     }

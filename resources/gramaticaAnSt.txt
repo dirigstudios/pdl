@@ -5,14 +5,14 @@ NoTerminales = { P S SS E R RR U UU V VV L Q X B T A K C F H O D }
 Terminales = { ! == + id ( ) constEnt cadena %= print input return , if break switch case int boolean string let function ; : = { } default }
 
 Producciones = {
-	E -> ! R
-	E -> R 
-	R -> U RR
-	RR -> + R
+	E -> R RR
+	RR -> == R RR
 	RR -> lambda
-	U -> V UU
+	R -> U UU
+	UU -> + U UU
 	UU -> lambda
-	UU -> == U
+	U -> ! V
+	U -> V
 	V -> id VV
 	V -> ( E )
 	V -> constEnt
@@ -20,7 +20,7 @@ Producciones = {
 	VV -> ( L )
 	VV -> lambda
 	S -> id SS
-	SS -> %= E ; 
+	SS -> %= E ;
 	SS -> = E ;
 	SS -> ( L ) ;
 	S -> print R ;
@@ -32,18 +32,20 @@ Producciones = {
 	Q -> lambda
 	X -> E
 	X -> lambda
+
 	B -> switch ( E ) { O }
-	B -> if ( E ) S 
-	O -> case E : P D O
-	O -> default : P D O
+	B -> if ( E ) S
+	O -> case constEnt : C D O
+	O -> default : C D O
 	O -> lambda
 	D -> break ;
 	D -> lambda
 	B -> let id T ;
-	T -> int 
-	T -> boolean 
+	T -> int
+	T -> boolean
 	T -> string
 	B -> S
+
 	F -> function id H ( A ) { C }
 	H -> T
 	H -> lambda
