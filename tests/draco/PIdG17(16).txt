@@ -1,0 +1,15 @@
+let x int;
+let b boolean;
+let z int;
+input z;
+print z;
+x=z;
+print z+1;
+b=!b;if (b)
+x =
+  x + 6
+    + z
+    + 1
+    + (2
+    + y
+    + 7);

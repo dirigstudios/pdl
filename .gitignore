@@ -5,3 +5,7 @@ out
 *.cpp
 out/production/pdl/pdl.class
 .gitignore
+tests/ejemplo
+tests/parser.txt
+tests/tokens.txt
+tests/ts.txt

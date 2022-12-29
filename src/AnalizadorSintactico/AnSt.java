@@ -2,6 +2,7 @@ package AnalizadorSintactico;
 
 import AnalizadorLexico.AnLex;
 import AnalizadorLexico.Token;
+import AnalizadorSemantico.AnSm;
 import AnalizadorSintactico.TablaM.simbolos;
 import AnalizadorSintactico.TablaM.Regla;
 
@@ -29,7 +30,7 @@ public class AnSt
         simbolos cima;
         salidaParser.print("Descendente ");
 
-        while (!(pila.peek() == simbolos.$))
+        while (pila.peek() != simbolos.$)
         {
             cima = pila.peek();
             if (simbolos.isTerminal(cima))
@@ -69,6 +70,9 @@ public class AnSt
                 if (simbolos.compare(aComparar, cima))
                 {
                     pila.pop();
+                    //TODO: método AnSm
+                    //y extraer sus atributos de la pila
+                    //meterlo todo en pilaAux 
                     sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS);
                 }
                 else
@@ -78,6 +82,12 @@ public class AnSt
                     return ;
                 }
             }
+            //TODO: crear metodo para saber si un simbolo es acción semántica
+            else if (cima.isAccSem())
+            {
+                //TODO: métodoAnSm2
+                //ejecutar la accion semántica y sacarla de la pila
+            }
             else
             {
                 Regla regla = tablaM.getRule(cima, sigTok);
@@ -86,6 +96,9 @@ public class AnSt
                     String numeroRegla = String.valueOf(regla.getNumero());
                     salidaParser.print(numeroRegla + " ");
                     pila.pop();
+                    //TODO: método AnSm
+                    //y extraer sus atributos de la pila
+                    //meterlo todo en pilaAux 
                     LinkedList<simbolos> consecuente = regla.getConsecuente();
                     int i = consecuente.size() - 1;
                     while (i >= 0)
@@ -101,8 +114,8 @@ public class AnSt
                 }
             }
         }
-
-        if (!sigTok.getTipo().equals("$"))
+        //TODO: comprobación final pilaAux sea igual que el axioma
+        if (!(sigTok.getTipo().equals("$") && pilaAux.peek() == simbolos.S))
             System.out.println("Error Sintáctico: El texto no finaliza con \"$\", sino con <" + sigTok.getTipo() + ", " + sigTok.getAtributo() + ">.");
         return ;
     }
