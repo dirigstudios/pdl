@@ -5,41 +5,74 @@ import AnalizadorLexico.Token;
 import java.util.LinkedList;
 
 public class TablaM {
-    static class Regla
+    //TODO: P->P`
+    public static class Regla
     {
         simbolos antecedente;
+
         LinkedList<simbolos> consecuente;
         int numero;
 
-        public Regla(simbolos antecedente, LinkedList<simbolos> consecuente, int numero) {
+        public Regla(simbolos antecedente, LinkedList<simbolos> consecuente, int numero)
+        {
             this.antecedente = antecedente;
             this.consecuente = consecuente;
             this.numero = numero;
         }
 
-        public simbolos getAntecedente() {
+        public simbolos getAntecedente()
+        {
             return antecedente;
         }
 
-        public LinkedList<simbolos> getConsecuente() {
+        public LinkedList<simbolos> getConsecuente()
+        {
             return consecuente;
         }
 
-        public int getNumero() {
+        public int getNumero()
+        {
             return numero;
         }
     }
 
     /*22 no terminales, 28 terminales*/
     //Este enum sirve para sacar las reglas
-    public enum simbolos{A,B,C,D,E,F,H,K,L,O,P,Q,R,RR,S,SS,T,U,UU,V,VV,X,negacion,asignacionResto,abrePar,cierraPar,suma,coma,dosPuntos,puntoComa,igual,comparacion,booleanR,cadena,caseR,defaultR,constEnt,function,id,input,intR,let,print,returnR,string,switchR,abreLlave,cierraLlave,breakR,ifR,$;
+    public enum simbolos{A,B,C,D,E,F,H,K,L,O,P,Q,R,RR,S,SS,T,U,UU,V,VV,X,negacion,asignacionResto,abrePar,cierraPar,suma,coma,dosPuntos,
+                        puntoComa,igual,comparacion,booleanR,cadena,caseR,defaultR,constEnt,function,id,input,
+                        intR,let,print,returnR,string,switchR,abreLlave,cierraLlave,breakR,ifR,$, unoUno, unoDos, dos, tres, cuatro, cincoUno, cincoDos,
+                        cincoTres, seis, siete, ocho, nueve, diez, once, doce, trece, catorce, quinceUno, quinceDos, quinceTres, dieciseisUno, dieciseisDos, dieciSiete,
+                        dieciOcho, dieciNueve, veinte, veintiUno, veintiDos, veintiTres, veintiCuatro, veintiCinco, veintiSeis, veintiSiete, veintiOcho, veintiNueve,
+                        treinta, treintaiUno, treintaiDos, treintaiTres, treintaiCuatro, treintaiCinco, treintaiSeis, treintaiSiete, treintaiOcho, treintaiNueve, cuarenta,
+                        cuarentaiUno, cuarentaiDos, cuarentaiTres, cuarentaiCuatro, cuarentaiCinco, cuarentaiSeis, cuarentaiSiete, cuarentaiOcho, cuarentaiNueve, cincuenta,
+                        cincuentaiUno, cincuentaiDos, cincuentaiTres;
 
-        public static boolean compare(String tipo, simbolos cima) {
+        public enum estados{ok, error, vacio, constEnt, cadena, booleanR};
+
+        estados estadoaActual = estados.vacio;
+        int nameId;
+
+        public int getNameId() { return nameId; }
+
+        public void setNameId(int nameId) { this.nameId = nameId; }
+
+        public estados getEstadoaActual() { return estadoaActual; }
+
+        public void setEstadoaActual(estados estadoaActual) { this.estadoaActual = estadoaActual; }
+
+        public static boolean compare(String tipo, simbolos cima)
+        {
             return cima.name().equals(tipo);
         }
 
-        public static boolean isTerminal(simbolos cima) {
-            return (cima.ordinal()>21);
+        public static boolean isTerminal(simbolos cima)
+        {
+            return ((49>=cima.ordinal())&&(cima.ordinal()>21));
+        }
+
+        public static boolean isSem(simbolos cima)
+        {
+            return (cima.ordinal()>49);
         }
     }
 
@@ -58,6 +91,7 @@ public class TablaM {
         templist = new LinkedList<>();
         templist.add(simbolos.R);
         templist.add(simbolos.RR);
+        templist.add(simbolos.cuarenta);
         Regla regla1 = new Regla(simbolos.E, templist, 1);
 
         // RR -> == R RR
@@ -65,16 +99,19 @@ public class TablaM {
         templist.add(simbolos.comparacion);
         templist.add(simbolos.R);
         templist.add(simbolos.RR);
+        templist.add(simbolos.cuarentaiUno);
         Regla regla2 = new Regla(simbolos.RR, templist, 2);
 
         // RR -> lambda
         templist = new LinkedList<>();
+        templist.add(simbolos.cuarentaiDos);
         Regla regla3 = new Regla(simbolos.RR, templist, 3);
 
         // R -> U UU
         templist = new LinkedList<>();
         templist.add(simbolos.U);
         templist.add(simbolos.UU);
+        templist.add(simbolos.cuarentaiTres);
         Regla regla4 = new Regla(simbolos.R, templist, 4);
 
         // UU -> + U UU
@@ -82,27 +119,32 @@ public class TablaM {
         templist.add(simbolos.suma);
         templist.add(simbolos.U);
         templist.add(simbolos.UU);
+        templist.add(simbolos.cuarentaiCuatro);
         Regla regla5 = new Regla(simbolos.UU, templist, 5);
 
         // UU -> lambda
         templist = new LinkedList<>();
+        templist.add(simbolos.cuarentaiCinco);
         Regla regla6 = new Regla(simbolos.UU, templist, 6);
 
         // U -> ! V
         templist = new LinkedList<>();
         templist.add(simbolos.negacion);
         templist.add(simbolos.V);
+        templist.add(simbolos.cuarentaiSeis);
         Regla regla7 = new Regla(simbolos.U, templist, 7);
 
         // U -> V
         templist = new LinkedList<>();
         templist.add(simbolos.V);
+        templist.add(simbolos.cuarentaiSiete);
         Regla regla8 = new Regla(simbolos.U, templist, 8);
 
         // V -> id VV
         templist = new LinkedList<>();
         templist.add(simbolos.id);
         templist.add(simbolos.VV);
+        templist.add(simbolos.cuarentaiOcho);
         Regla regla9 = new Regla(simbolos.V, templist, 9);
 
         // V -> ( E )
@@ -110,16 +152,19 @@ public class TablaM {
         templist.add(simbolos.abrePar);
         templist.add(simbolos.E);
         templist.add(simbolos.cierraPar);
+        templist.add(simbolos.cuarentaiNueve);
         Regla regla10 = new Regla(simbolos.V, templist, 10);
 
-        // V -> ent
+        // V -> constEnt
         templist = new LinkedList<>();
         templist.add(simbolos.constEnt);
+        templist.add(simbolos.cincuenta);
         Regla regla11 = new Regla(simbolos.V, templist, 11);
 
-        // V -> cad
+        // V -> cadena
         templist = new LinkedList<>();
         templist.add(simbolos.cadena);
+        templist.add(simbolos.cincuentaiUno);
         Regla regla12 = new Regla(simbolos.V, templist, 12);
 
         // VV -> ( L )
@@ -127,16 +172,19 @@ public class TablaM {
         templist.add(simbolos.abrePar);
         templist.add(simbolos.L);
         templist.add(simbolos.cierraPar);
+        templist.add(simbolos.cincuentaiDos);
         Regla regla13 = new Regla(simbolos.VV, templist, 13);
 
         // VV -> lambda
         templist = new LinkedList<>();
+        templist.add(simbolos.cincuentaiTres);
         Regla regla14 = new Regla(simbolos.VV, templist, 14);
 
         // S -> id SS
         templist = new LinkedList<>();
         templist.add(simbolos.id);
         templist.add(simbolos.SS);
+        templist.add(simbolos.veintiSiete);
         Regla regla15 = new Regla(simbolos.S, templist, 15);
 
         // SS -> %= E ;
@@ -144,6 +192,7 @@ public class TablaM {
         templist.add(simbolos.asignacionResto);
         templist.add(simbolos.E);
         templist.add(simbolos.puntoComa);
+        templist.add(simbolos.veintiOcho);
         Regla regla16 = new Regla(simbolos.SS, templist, 16);
 
         // SS -> = E ;
@@ -151,6 +200,7 @@ public class TablaM {
         templist.add(simbolos.igual);
         templist.add(simbolos.E);
         templist.add(simbolos.puntoComa);
+        templist.add(simbolos.veintiNueve);
         Regla regla17 = new Regla(simbolos.SS, templist, 17);
 
         // SS -> ( L ) ;
@@ -159,6 +209,7 @@ public class TablaM {
         templist.add(simbolos.L);
         templist.add(simbolos.cierraPar);
         templist.add(simbolos.puntoComa);
+        templist.add(simbolos.treinta);
         Regla regla18 = new Regla(simbolos.SS, templist, 18);
 
         // S -> print R ;
@@ -166,6 +217,7 @@ public class TablaM {
         templist.add(simbolos.print);
         templist.add(simbolos.R);
         templist.add(simbolos.puntoComa);
+        templist.add(simbolos.treintaiUno);
         Regla regla19 = new Regla(simbolos.S, templist, 19);
 
         // S -> input id ;
@@ -173,6 +225,7 @@ public class TablaM {
         templist.add(simbolos.input);
         templist.add(simbolos.id);
         templist.add(simbolos.puntoComa);
+        templist.add(simbolos.treintaiDos);
         Regla regla20 = new Regla(simbolos.S, templist, 20);
 
         // S -> return X ;
@@ -180,16 +233,19 @@ public class TablaM {
         templist.add(simbolos.returnR);
         templist.add(simbolos.X);
         templist.add(simbolos.puntoComa);
+        templist.add(simbolos.treintaiTres);
         Regla regla21 = new Regla(simbolos.S, templist, 21);
 
         // L -> E Q
         templist = new LinkedList<>();
         templist.add(simbolos.E);
         templist.add(simbolos.Q);
+        templist.add(simbolos.treintaiCuatro);
         Regla regla22 = new Regla(simbolos.L, templist, 22);
 
         // L -> lambda
         templist = new LinkedList<>();
+        templist.add(simbolos.treintaiCinco);
         Regla regla23 = new Regla(simbolos.L, templist, 23);
 
         // Q -> , E Q
@@ -197,30 +253,37 @@ public class TablaM {
         templist.add(simbolos.coma);
         templist.add(simbolos.E);
         templist.add(simbolos.Q);
+        templist.add(simbolos.treintaiSeis);
         Regla regla24 = new Regla(simbolos.Q, templist, 24);
 
         // Q -> lambda
         templist = new LinkedList<>();
+        templist.add(simbolos.treintaiSiete);
         Regla regla25 = new Regla(simbolos.Q, templist, 25);
 
         // X -> E
         templist = new LinkedList<>();
         templist.add(simbolos.E);
+        templist.add(simbolos.treintaiOcho);
         Regla regla26 = new Regla(simbolos.X, templist, 26);
 
         // X -> lambda
         templist = new LinkedList<>();
+        templist.add(simbolos.treintaiNueve);
         Regla regla27 = new Regla(simbolos.X, templist, 27);
 
         // B -> switch ( E ) { O }
         templist = new LinkedList<>();
         templist.add(simbolos.switchR);
+        templist.add(simbolos.quinceUno);
         templist.add(simbolos.abrePar);
         templist.add(simbolos.E);
         templist.add(simbolos.cierraPar);
+        templist.add(simbolos.quinceDos);
         templist.add(simbolos.abreLlave);
         templist.add(simbolos.O);
         templist.add(simbolos.cierraLlave);
+        templist.add(simbolos.quinceTres);
         Regla regla28 = new Regla(simbolos.B, templist, 28);
 
         // B -> if ( E ) S
@@ -230,16 +293,19 @@ public class TablaM {
         templist.add(simbolos.E);
         templist.add(simbolos.cierraPar);
         templist.add(simbolos.S);
+        templist.add(simbolos.catorce);
         Regla regla29 = new Regla(simbolos.B, templist, 29);
 
         // O -> case constEnt : C D O
         templist = new LinkedList<>();
         templist.add(simbolos.caseR);
         templist.add(simbolos.constEnt);
+        templist.add(simbolos.dieciseisUno);
         templist.add(simbolos.dosPuntos);
         templist.add(simbolos.C);
         templist.add(simbolos.D);
         templist.add(simbolos.O);
+        templist.add(simbolos.dieciseisDos);
         Regla regla30 = new Regla(simbolos.O, templist, 30);
 
         // O -> default : C D O
@@ -249,20 +315,24 @@ public class TablaM {
         templist.add(simbolos.C);
         templist.add(simbolos.D);
         templist.add(simbolos.O);
+        templist.add(simbolos.dieciSiete);
         Regla regla31 = new Regla(simbolos.O, templist, 31);
 
         // O -> lambda
         templist = new LinkedList<>();
+        templist.add(simbolos.dieciOcho);
         Regla regla32 = new Regla(simbolos.O, templist, 32);
 
         // D -> break ;
         templist = new LinkedList<>();
         templist.add(simbolos.breakR);
         templist.add(simbolos.puntoComa);
+        templist.add(simbolos.dieciNueve);
         Regla regla33 = new Regla(simbolos.D, templist, 33);
 
         // D -> lambda
         templist = new LinkedList<>();
+        templist.add(simbolos.veinte);
         Regla regla34 = new Regla(simbolos.D, templist, 34);
 
         // B -> let id T ;
@@ -271,48 +341,58 @@ public class TablaM {
         templist.add(simbolos.id);
         templist.add(simbolos.T);
         templist.add(simbolos.puntoComa);
+        templist.add(simbolos.veintiUno);
         Regla regla35 = new Regla(simbolos.B, templist, 35);
 
         // T -> int
         templist = new LinkedList<>();
         templist.add(simbolos.intR);
+        templist.add(simbolos.veintiDos);
         Regla regla36 = new Regla(simbolos.T, templist, 36);
 
         // T -> boolean
         templist = new LinkedList<>();
         templist.add(simbolos.booleanR);
+        templist.add(simbolos.veintiTres);
         Regla regla37 = new Regla(simbolos.T, templist, 37);
 
         // T -> string
         templist = new LinkedList<>();
         templist.add(simbolos.string);
+        templist.add(simbolos.veintiCuatro);
         Regla regla38 = new Regla(simbolos.T, templist, 38);
 
         // B -> S
         templist = new LinkedList<>();
         templist.add(simbolos.S);
+        templist.add(simbolos.veintiCinco);
         Regla regla39 = new Regla(simbolos.B, templist, 39);
 
         // F -> function id H ( A ) { C }
         templist = new LinkedList<>();
         templist.add(simbolos.function);
         templist.add(simbolos.id);
+        templist.add(simbolos.cincoUno);
         templist.add(simbolos.H);
         templist.add(simbolos.abrePar);
         templist.add(simbolos.A);
         templist.add(simbolos.cierraPar);
+        templist.add(simbolos.cincoDos);
         templist.add(simbolos.abreLlave);
         templist.add(simbolos.C);
         templist.add(simbolos.cierraLlave);
+        templist.add(simbolos.cincoTres);
         Regla regla40 = new Regla(simbolos.F, templist, 40);
 
         // H -> T
         templist = new LinkedList<>();
         templist.add(simbolos.T);
+        templist.add(simbolos.seis);
         Regla regla41 = new Regla(simbolos.H, templist, 41);
 
         // H -> lambda
         templist = new LinkedList<>();
+        templist.add(simbolos.siete);
         Regla regla42 = new Regla(simbolos.H, templist, 42);
 
         // A -> T id K
@@ -320,10 +400,12 @@ public class TablaM {
         templist.add(simbolos.T);
         templist.add(simbolos.id);
         templist.add(simbolos.K);
+        templist.add(simbolos.ocho);
         Regla regla43 = new Regla(simbolos.A, templist, 43);
 
         // A -> lambda
         templist = new LinkedList<>();
+        templist.add(simbolos.nueve);
         Regla regla44 = new Regla(simbolos.A, templist, 44);
 
         // K -> , T id K
@@ -332,36 +414,43 @@ public class TablaM {
         templist.add(simbolos.T);
         templist.add(simbolos.id);
         templist.add(simbolos.K);
+        templist.add(simbolos.diez);
         Regla regla45 = new Regla(simbolos.K, templist, 45);
 
         // K -> lambda
         templist = new LinkedList<>();
+        templist.add(simbolos.once);
         Regla regla46 = new Regla(simbolos.K, templist, 46);
 
         // C -> B C
         templist = new LinkedList<>();
         templist.add(simbolos.B);
         templist.add(simbolos.C);
+        templist.add(simbolos.doce);
         Regla regla47 = new Regla(simbolos.C, templist, 47);
 
         // C -> lambda
         templist = new LinkedList<>();
+        templist.add(simbolos.trece);
         Regla regla48 = new Regla(simbolos.C, templist, 48);
 
         // P -> B P
         templist = new LinkedList<>();
         templist.add(simbolos.B);
         templist.add(simbolos.P);
+        templist.add(simbolos.dos);
         Regla regla49 = new Regla(simbolos.P, templist, 49);
 
         // P -> F P
         templist = new LinkedList<>();
         templist.add(simbolos.F);
         templist.add(simbolos.P);
+        templist.add(simbolos.tres);
         Regla regla50 = new Regla(simbolos.P, templist, 50);
 
         // P -> lambda
         templist = new LinkedList<>();
+        templist.add(simbolos.cuatro);
         Regla regla51 = new Regla(simbolos.R, templist, 51);
 
         // Añadimos las reglas a la tabla

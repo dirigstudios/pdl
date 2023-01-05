@@ -1,6 +1,7 @@
 package AnalizadorSintactico;
 
 import AnalizadorLexico.AnLex;
+import AnalizadorLexico.TablaSimbolos;
 import AnalizadorLexico.Token;
 import AnalizadorSemantico.AnSm;
 import AnalizadorSintactico.TablaM.simbolos;
@@ -12,35 +13,35 @@ import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.Stack;
 
-public class AnSt 
-{
+public class AnSt {
+    public static TablaSimbolos tsG = new TablaSimbolos(0);
+    public static TablaSimbolos tsA;
+    public static simbolos simbolo_aux;
     private static Stack<simbolos> pila = new Stack<>();
+    public static Stack<simbolos> pilaAux = new Stack<>();
     static TablaM tablaM = new TablaM();
+    private static AnSm aux = new AnSm();
 
-    private static void initializeStack()
-    {
+    private static void initializeStack() {
         pila.push(simbolos.$); //apilo EOF
         pila.push(simbolos.P); //apilo el AXIOMA de la gramatica tipo 2
     }
 
-    public static void algorithmAnSt (FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS, PrintWriter salidaParser) throws IOException
-    {
+    public static void algorithmAnSt(FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS, PrintWriter salidaParser) throws IOException {
         initializeStack();
-        Token sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS);
+        Token sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, tsG);
         simbolos cima;
         salidaParser.print("Descendente ");
 
         while (pila.peek() != simbolos.$)
         {
+            System.out.println(pila.toString() + "\n" + pilaAux.toString() + "\n");
             cima = pila.peek();
-            if (simbolos.isTerminal(cima))
-            {
+            if (simbolos.isTerminal(cima)) {
                 String aComparar = sigTok.getTipo();
-                if (aComparar.equals("palabraReservada"))
-                {
+                if (aComparar.equals("palabraReservada")) {
                     aComparar = sigTok.getAtributo();
-                    switch (aComparar)
-                    {
+                    switch (aComparar) {
                         case "int":
                             aComparar = "intR";
                             break;
@@ -67,38 +68,30 @@ public class AnSt
                             break;
                     }
                 }
-                if (simbolos.compare(aComparar, cima))
-                {
-                    pila.pop();
-                    //TODO: método AnSm
-                    //y extraer sus atributos de la pila
-                    //meterlo todo en pilaAux 
-                    sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS);
-                }
-                else
-                {
+                if (simbolos.compare(aComparar, cima)) {
+                    simbolo_aux = pila.pop();
+                    if (aComparar.equals("id"))
+                        simbolo_aux.setNameId(Integer.parseInt(sigTok.getAtributo()));
+                    aux.añadirAtributos(simbolo_aux, pilaAux);
+                    sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, tsG);
+                } else {
                     System.out.println("Error Sintáctico: El terminal de la cima de la pila \"" +
-                        cima.name() + "\" no coincide con el token <" + sigTok.getTipo() + ", " + sigTok.getAtributo() + "> enviado por el AnLex.");
-                    return ;
+                            cima.name() + "\" no coincide con el token <" + sigTok.getTipo() + ", " + sigTok.getAtributo() + "> enviado por el AnLex.");
+                    return;
                 }
-            }
-            //TODO: crear metodo para saber si un simbolo es acción semántica
-            /*else if (cima.isAccSem())
+            } else if (simbolos.isSem(cima))
             {
-                //TODO: métodoAnSm2
-                //ejecutar la accion semántica y sacarla de la pila
-            }*/
-            else
+                aux.ejecutarRegla(cima, tsG, tsA, pila, pilaAux);
+                pila.pop();
+            } else
             {
                 Regla regla = tablaM.getRule(cima, sigTok);
                 if (regla != null)
                 {
                     String numeroRegla = String.valueOf(regla.getNumero());
                     salidaParser.print(numeroRegla + " ");
-                    pila.pop();
-                    //TODO: método AnSm
-                    //y extraer sus atributos de la pila
-                    //meterlo todo en pilaAux 
+                    simbolo_aux = pila.pop();
+                    aux.añadirAtributos(simbolo_aux, pilaAux);
                     LinkedList<simbolos> consecuente = regla.getConsecuente();
                     int i = consecuente.size() - 1;
                     while (i >= 0)
@@ -106,17 +99,19 @@ public class AnSt
                         pila.push(consecuente.get(i));
                         i--;
                     }
-                }
-                else
+
+                } else
                 {
                     System.out.println("Error Sintáctico: No existe regla para M[" + cima + ", <" + sigTok.getTipo() + ", " + sigTok.getAtributo() + ">].");
-                    return ;
+                    return;
                 }
             }
         }
         //TODO: comprobación final pilaAux sea igual que el axioma
-        if (!(sigTok.getTipo().equals("$") /*&& pilaAux.peek() == simbolos.S*/))
+        if (!(sigTok.getTipo().equals("$") && pilaAux.peek() == simbolos.P))
             System.out.println("Error Sintáctico: El texto no finaliza con \"$\", sino con <" + sigTok.getTipo() + ", " + sigTok.getAtributo() + ">.");
-        return ;
+        tsG.printTS(salidaTS);
+        System.out.println("P: " + pila.toString() + "\n" + "AUX: " + pilaAux.toString() + "\n");
+        return;
     }
 }

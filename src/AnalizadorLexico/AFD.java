@@ -83,7 +83,7 @@ public class AFD
                 // Generar id en tabla de simbolos
                 else if (!tablaSimbolos.containsKey(lex) && !Character.isDigit(c) && !Character.isAlphabetic(c) && c != '_')
                 {
-                    tablaSimbolos.put(lex, tablaSimbolos.size());
+                    tablaSimbolos.put(lex);
                     Token.genToken("id", String.valueOf(tablaSimbolos.size() - 1), fd);
                     tk = new Token("id", String.valueOf(tablaSimbolos.size()));
                     estadoactual = Estados.Inicial;
@@ -92,8 +92,8 @@ public class AFD
                 // Recoger id de la tabla de simbolos
                 else if (!Character.isDigit(c) && !Character.isAlphabetic(c) && c != '_')
                 {
-                    Token.genToken("id", String.valueOf(tablaSimbolos.get(lex)), fd);
-                    tk = new Token("id", String.valueOf(tablaSimbolos.get(lex)));
+                    Token.genToken("id", String.valueOf(tablaSimbolos.get(lex).getLexema()), fd);
+                    tk = new Token("id", String.valueOf(tablaSimbolos.get(lex).getLexema()));
                     estadoactual = Estados.Inicial;
                     return tk;
                 }

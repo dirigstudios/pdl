@@ -1,32 +1,106 @@
 package AnalizadorLexico;
 
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
+import AnalizadorSintactico.TablaM.simbolos.estados;
 
 public class TablaSimbolos 
 {
-    public static HashMap<String, Integer> tablaSimbolos;
-    public static int idTabla = 0;
-
-    public TablaSimbolos()
+    public class Entrada
     {
-        tablaSimbolos = new HashMap<String, Integer>();
+        private String lexema;
+        private estados tipo;
+        private int desplazamiento;
+
+        public String getLexema()
+        {
+            return lexema;
+        }
+
+        public void setLexema(String lexema) {
+            this.lexema = lexema;
+        }
+
+        public estados getTipo() {
+            return tipo;
+        }
+
+        public void setTipo(estados tipo) {
+            this.tipo = tipo;
+        }
+
+        public int getDesplazamiento() {
+            return desplazamiento;
+        }
+
+        public void setDesplazamiento(int desplazamiento) {
+            this.desplazamiento = desplazamiento;
+        }
+    }
+
+    class EntradaFuncion extends Entrada
+    {
+        int etiqueta;
+
+    }
+
+    public static int idTabla;
+    public List<Entrada> tablaSimbolos;
+
+    public TablaSimbolos(int idTabla)
+    {
+        this.idTabla = idTabla;
+        tablaSimbolos = new ArrayList<>();
+    }
+
+    public static int getIdTabla() {
+        return idTabla;
+    }
+
+    public static void setIdTabla(int idTabla) {
+        TablaSimbolos.idTabla = idTabla;
     }
 
     public boolean containsKey(String str)
     {
-        return tablaSimbolos.containsKey(str);
+        if (tablaSimbolos.size() == 0)
+            return false;
+        for (Entrada e : tablaSimbolos)
+        {
+            if (e.getLexema().equals(str))
+                return true;
+        }
+        return false;
     }
 
-    public Integer put(String k, Integer v)
+    public void put(String k)
     {
-        return tablaSimbolos.put(k, v);
+        Entrada aux = new Entrada();
+        aux.setLexema(k);
+        tablaSimbolos.add(aux);
     }
 
-    public Integer get(String str)
+    public Entrada get(String str)
     {
-        return tablaSimbolos.get(str);
+        for (Entrada e : tablaSimbolos)
+        {
+            if (e.getLexema().equals(str))
+                return e;
+        }
+        return null;
+    }
+
+    public estados tipoDeFuncion()
+    {
+        if (getIdTabla() == 0)
+            return null;
+        else
+            return tablaSimbolos.get(0).getTipo();
+    }
+
+    public void insertaTipoTS(int id, estados estado)
+    {
+        tablaSimbolos.get(id - 1).setTipo(estado);
     }
 
     public int size()
@@ -36,11 +110,8 @@ public class TablaSimbolos
 
     public void printTS(PrintWriter ts)
     {
-        Set<String> ids;
-
         ts.println("#" + idTabla + ":");
-        ids = tablaSimbolos.keySet();
-        for(String s : ids)
-            ts.println("    * lexema: '" + s + "'");
+        for(Entrada entrada : tablaSimbolos)
+            ts.println("    * lexema: '" + entrada.getLexema() + "'" + "     tipo: " + ((entrada.getTipo()==null)?"no declarado":entrada.getTipo()));
     }
 }

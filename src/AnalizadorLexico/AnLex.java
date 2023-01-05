@@ -6,12 +6,11 @@ import java.io.FileReader;
 
 public class AnLex 
 {
-    public static TablaSimbolos tablaSimbolos = new TablaSimbolos();
 
     public static boolean leerSigChar = true;
     public static char character;
 
-    public static Token getNextToken(FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS) throws IOException
+    public static Token getNextToken(FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS, TablaSimbolos tablaSimbolos) throws IOException
     {
         Token tk;
         int c;
@@ -42,7 +41,6 @@ public class AnLex
         tk = AFD.automata(' ', salidaTokens, tablaSimbolos);
         if (tk != null)
             return tk;
-        tablaSimbolos.printTS(salidaTS);
         return new Token("$","");
     }
 }

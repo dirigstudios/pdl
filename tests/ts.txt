@@ -1,5 +1,6 @@
 #0:
-    * lexema: 'b'
-    * lexema: 'x'
-    * lexema: 'y'
-    * lexema: 'z'
+    * lexema: 'x'     tipo: constEnt
+    * lexema: 'n'     tipo: cadena
+    * lexema: 'c'     tipo: booleanR
+    * lexema: 'b'     tipo: constEnt
+    * lexema: 'a'     tipo: cadena
