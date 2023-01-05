@@ -63,7 +63,7 @@ public class AnSm
                 pilaAux.pop();
                 aux = pilaAux.pop(); //H
                 aux2 = pilaAux.pop(); //id
-                tablaLocal.insertaTipoTS(aux2.getNameId(), aux.getEstadoaActual());
+                tablaGlobal.insertaTipoTS(aux2.getNameId(), aux.getEstadoaActual());
                 //TODO etiqueta
                 pilaAux.pop();
                 break;
@@ -72,7 +72,10 @@ public class AnSm
                 AnSt.destruirTablaAux();
                 break;
             case seis: case veintiCinco: case treintaiOcho: case cuarentaiSiete:
-                pilaAux.peek().setEstadoaActual(pilaAux.pop().getEstadoaActual());
+                aux = pilaAux.pop();
+                aux2 = pilaAux.pop();
+                aux2.setEstadoaActual(aux.getEstadoaActual());
+                pilaAux.push(aux2);
                 break;
             case ocho:
                 pilaAux.pop();
@@ -105,7 +108,7 @@ public class AnSm
                 else
                 {
                     tablaLocal.insertaTipoTS(aux.getNameId(), aux2.getEstadoaActual());
-                    System.out.println(tablaLocal.get(aux.getNameId() - 1).getLexema());
+                    System.out.println(tablaLocal.get(aux.getNameId()).getLexema());
                     System.out.println(aux.getNameId());
                     pilaAux.pop();
                 }
