@@ -22,6 +22,16 @@ public class AnSt {
     static TablaM tablaM = new TablaM();
     private static AnSm aux = new AnSm();
 
+    public static void crearTablaAux(int ntablas)
+    {
+        tsA = new TablaSimbolos(ntablas);
+    }
+
+    public static void destruirTablaAux()
+    {
+        tsA = null;
+    }
+
     private static void initializeStack() {
         pila.push(simbolos.$); //apilo EOF
         pila.push(simbolos.P); //apilo el AXIOMA de la gramatica tipo 2
@@ -71,9 +81,11 @@ public class AnSt {
                 if (simbolos.compare(aComparar, cima)) {
                     simbolo_aux = pila.pop();
                     if (aComparar.equals("id"))
+                    {
                         simbolo_aux.setNameId(Integer.parseInt(sigTok.getAtributo()));
+                    }
                     aux.añadirAtributos(simbolo_aux, pilaAux);
-                    sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, tsG);
+                    sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, (tsA == null?tsG:tsA));
                 } else {
                     System.out.println("Error Sintáctico: El terminal de la cima de la pila \"" +
                             cima.name() + "\" no coincide con el token <" + sigTok.getTipo() + ", " + sigTok.getAtributo() + "> enviado por el AnLex.");
@@ -81,7 +93,7 @@ public class AnSt {
                 }
             } else if (simbolos.isSem(cima))
             {
-                aux.ejecutarRegla(cima, tsG, tsA, pila, pilaAux);
+                aux.ejecutarRegla(tsG, tsA, pila.peek(), pilaAux, salidaTS);
                 pila.pop();
             } else
             {
@@ -112,6 +124,5 @@ public class AnSt {
             System.out.println("Error Sintáctico: El texto no finaliza con \"$\", sino con <" + sigTok.getTipo() + ", " + sigTok.getAtributo() + ">.");
         tsG.printTS(salidaTS);
         System.out.println("P: " + pila.toString() + "\n" + "AUX: " + pilaAux.toString() + "\n");
-        return;
     }
 }

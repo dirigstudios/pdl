@@ -1,6 +1,6 @@
-#0:
-    * lexema: 'x'     tipo: constEnt
-    * lexema: 'n'     tipo: cadena
-    * lexema: 'c'     tipo: booleanR
-    * lexema: 'b'     tipo: constEnt
-    * lexema: 'a'     tipo: cadena
+#1:
+    * lexema: 'num2'     tipo: no declarado
+    * lexema: 'num1'     tipo: vacio
+    * lexema: 'res'     tipo: constEnt
+#1:
+    * lexema: 'operacion'     tipo: no declarado

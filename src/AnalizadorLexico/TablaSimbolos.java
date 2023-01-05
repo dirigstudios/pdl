@@ -17,9 +17,7 @@ public class TablaSimbolos
             return lexema;
         }
 
-        public void setLexema(String lexema) {
-            this.lexema = lexema;
-        }
+        public void setLexema(String lexema) { this.lexema = lexema; }
 
         public estados getTipo() {
             return tipo;
@@ -41,7 +39,6 @@ public class TablaSimbolos
     class EntradaFuncion extends Entrada
     {
         int etiqueta;
-
     }
 
     public static int idTabla;
@@ -88,6 +85,11 @@ public class TablaSimbolos
                 return e;
         }
         return null;
+    }
+
+    public Entrada get(int id)
+    {
+        return tablaSimbolos.get(id);
     }
 
     public estados tipoDeFuncion()

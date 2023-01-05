@@ -1,5 +1,6 @@
-let x int;
-let n string;
-let c boolean;
-let b int;
-let a string;
+function operacion int(int num2,int num1)
+{
+	let  res int;
+	res=num1+num2;
+	return ((res));
+}
