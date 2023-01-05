@@ -36,8 +36,48 @@ public class TablaM {
         }
     }
 
+    /*
+    //Nueva clase para simbolos
+    public class Simbolo{
+
+        simbolos valor;
+        estados estadoaActual;
+        int nameId;
+
+        public int getNameId() { return nameId; }
+
+        public void setNameId(int nameId) { this.nameId = nameId; }
+
+        public estados getEstadoaActual() { return estadoaActual; }
+
+        public void setEstadoaActual(estados estadoaActual) { this.estadoaActual = estadoaActual; }
+
+        public static boolean isTerminal()
+        {
+            return ((49>=valor.ordinal())&&(valor.ordinal()>21));
+        }
+
+        public static boolean isSem()
+        {
+            return (valor.ordinal()>49);
+        }
+    }
+
+    //Esta funcion podria ir fuera o dentro
+    public boolean compare(String tipo, simbolos cima)
+    {
+            return cima.name().equals(tipo);
+    }
+
+    //Este enum tendria que estar declarado fuera
+    public enum estados{ok, error, vacio, constEnt, cadena, booleanR}
+    */
+
+
+
     /*22 no terminales, 28 terminales*/
     //Este enum sirve para sacar las reglas
+    //TODO eliminar
     public enum simbolos{A,B,C,D,E,F,H,K,L,O,P,Q,R,RR,S,SS,T,U,UU,V,VV,X,negacion,asignacionResto,abrePar,cierraPar,suma,coma,dosPuntos,
                         puntoComa,igual,comparacion,booleanR,cadena,caseR,defaultR,constEnt,function,id,input,
                         intR,let,print,returnR,string,switchR,abreLlave,cierraLlave,breakR,ifR,$, unoUno, unoDos, dos, tres, cuatro, cincoUno, cincoDos,
@@ -47,11 +87,9 @@ public class TablaM {
                         cuarentaiUno, cuarentaiDos, cuarentaiTres, cuarentaiCuatro, cuarentaiCinco, cuarentaiSeis, cuarentaiSiete, cuarentaiOcho, cuarentaiNueve, cincuenta,
                         cincuentaiUno, cincuentaiDos, cincuentaiTres;
 
-        public enum estados{ok, error, vacio, constEnt, cadena, booleanR};
-
-        estados estadoaActual = estados.vacio;
         int nameId;
-
+        public enum estados{ok, error, vacio, constEnt, cadena, booleanR}
+        estados estadoaActual;
         public int getNameId() { return nameId; }
 
         public void setNameId(int nameId) { this.nameId = nameId; }
