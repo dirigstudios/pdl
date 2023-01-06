@@ -1,6 +1,5 @@
-function operacion int(int num2,int num1)
-{
-	let  res int;
-	res=num1+num2;
-	return ((res));
-}
+let var int;
+var = 0;
+  switch (var){
+	case 0:	print var;
+  }

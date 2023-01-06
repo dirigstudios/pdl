@@ -89,7 +89,7 @@ public class TablaSimbolos
 
     public Entrada get(int id)
     {
-        return tablaSimbolos.get(id - 1);
+        return tablaSimbolos.get(id);
     }
 
     public estados tipoDeFuncion()
