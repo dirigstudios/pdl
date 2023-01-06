@@ -9,7 +9,8 @@ import AnalizadorSintactico.TablaM.simbolos;
 import java.io.PrintWriter;
 import java.util.Stack;
 import AnalizadorSintactico.TablaM.Regla;
-import AnalizadorSintactico.TablaM.simbolos.estados;
+import AnalizadorSintactico.TablaM.Simbolo;
+import AnalizadorSintactico.TablaM.estados;
 
 public class AnSm
 {
@@ -20,20 +21,20 @@ public class AnSm
     //TODO: añadir a las reglas de la TablaM las acciones semánticas (DONE)
     int tablasCreadas = 1;
 
-    public void añadirAtributos(simbolos simb, Stack<simbolos> pilaAux)
+    public void añadirAtributos(Simbolo simb, Stack<Simbolo> pilaAux)
     {
         pilaAux.push(simb);
     }
 
     //TODO: método AnSm
-    public void ejecutarRegla(TablaSimbolos tablaGlobal, TablaSimbolos tablaLocal, simbolos simbolo_cima, Stack<simbolos> pilaAux, PrintWriter ts)
+    public void ejecutarRegla(TablaSimbolos tablaGlobal, TablaSimbolos tablaLocal, Simbolo simbolo_cima, Stack<Simbolo> pilaAux, PrintWriter ts)
     {
-        simbolos id;
-        simbolos aux;
-        simbolos aux2;
-        simbolos s1;
-        simbolos s2;
-        switch (simbolo_cima)
+        Simbolo id;
+        Simbolo aux;
+        Simbolo aux2;
+        Simbolo s1;
+        Simbolo s2;
+        switch (simbolo_cima.getValor())
         {
             case unoUno:
                 tablaGlobal = new TablaSimbolos(0);
@@ -44,15 +45,15 @@ public class AnSm
             case dos: case tres:
                 s1 = pilaAux.pop(); // P2
                 s2 = pilaAux.pop(); // B/F
-                if (s1.getEstadoaActual() == estados.vacio && s2.getEstadoaActual() == estados.ok)
-                    pilaAux.peek().setEstadoaActual(estados.ok);
-                else if (s1.getEstadoaActual() == estados.ok && s2.getEstadoaActual() == estados.ok)
-                    pilaAux.peek().setEstadoaActual(estados.ok);
+                if (s1.getEstadoActual() == estados.vacio && s2.getEstadoActual() == estados.ok)
+                    pilaAux.peek().setEstadoActual(estados.ok);
+                else if (s1.getEstadoActual() == estados.ok && s2.getEstadoActual() == estados.ok)
+                    pilaAux.peek().setEstadoActual(estados.ok);
                 else
-                    pilaAux.peek().setEstadoaActual(estados.error);
+                    pilaAux.peek().setEstadoActual(estados.error);
                 break;
             case cuatro: case siete: case nueve: case once: case trece: case dieciOcho: case veinte: case treintaiCinco: case treintaiSiete: case treintaiNueve: case cuarentaiDos: case cuarentaiCinco: case cincuentaiTres:
-                pilaAux.peek().setEstadoaActual(estados.vacio);
+                pilaAux.peek().setEstadoActual(estados.vacio);
                 break;
             case cincoUno:
                 AnSt.crearTablaAux(tablasCreadas++);
@@ -63,7 +64,7 @@ public class AnSm
                 pilaAux.pop();
                 aux = pilaAux.pop(); //H
                 aux2 = pilaAux.pop(); //id
-                tablaGlobal.insertaTipoTS(aux2.getNameId(), aux.getEstadoaActual());
+                tablaGlobal.insertaTipoTS(aux2.getNameId(), aux.getEstadoActual());
                 //TODO etiqueta
                 pilaAux.pop();
                 break;
@@ -74,7 +75,7 @@ public class AnSm
             case seis: case veintiCinco: case treintaiOcho: case cuarentaiSiete:
                 aux = pilaAux.pop();
                 aux2 = pilaAux.pop();
-                aux2.setEstadoaActual(aux.getEstadoaActual());
+                aux2.setEstadoActual(aux.getEstadoActual());
                 pilaAux.push(aux2);
                 break;
             case ocho:
@@ -83,13 +84,13 @@ public class AnSm
                 aux2 = pilaAux.pop(); //T
                 if (tablaLocal == null)
                 {
-                    tablaGlobal.insertaTipoTS(aux.getNameId(), aux2.getEstadoaActual());
+                    tablaGlobal.insertaTipoTS(aux.getNameId(), aux2.getEstadoActual());
                     System.out.println(tablaGlobal.get(aux.getNameId() - 1).getLexema());
                     System.out.println(aux.getNameId());
                 }//TODO arreglar tabla de simbolos, por que no se declaran bien las cosas XD
                 else
                 {
-                    tablaLocal.insertaTipoTS(aux.getNameId(), aux2.getEstadoaActual());
+                    tablaLocal.insertaTipoTS(aux.getNameId(), aux2.getEstadoActual());
                     System.out.println(tablaLocal.get(aux.getNameId() - 1).getLexema());
                     System.out.println(aux.getNameId());
                 }
@@ -100,14 +101,14 @@ public class AnSm
                 aux2 = pilaAux.pop(); //T
                 if (tablaLocal == null)
                 {
-                    tablaGlobal.insertaTipoTS(aux.getNameId(), aux2.getEstadoaActual());
+                    tablaGlobal.insertaTipoTS(aux.getNameId(), aux2.getEstadoActual());
                     System.out.println(tablaGlobal.get(aux.getNameId() - 1).getLexema());
                     System.out.println(aux.getNameId());
                     pilaAux.pop();
                 }
                 else
                 {
-                    tablaLocal.insertaTipoTS(aux.getNameId(), aux2.getEstadoaActual());
+                    tablaLocal.insertaTipoTS(aux.getNameId(), aux2.getEstadoActual());
                     System.out.println(tablaLocal.get(aux.getNameId()).getLexema());
                     System.out.println(aux.getNameId());
                     pilaAux.pop();
@@ -133,7 +134,7 @@ public class AnSm
                 break;
             case veintiUno:
                 pilaAux.pop();
-                simbolos.estados T = pilaAux.pop().getEstadoaActual();
+                estados T = pilaAux.pop().getEstadoActual();
                 id = pilaAux.pop();
                 if (tablaLocal == null)
                 {
@@ -147,19 +148,19 @@ public class AnSm
                     System.out.println(id.getNameId());
                     pilaAux.pop();
                 }
-                pilaAux.peek().setEstadoaActual(estados.ok);
+                pilaAux.peek().setEstadoActual(estados.ok);
                 break;
             case veintiDos: case cincuenta:
                 pilaAux.pop();
-                pilaAux.peek().setEstadoaActual(estados.constEnt);
+                pilaAux.peek().setEstadoActual(estados.constEnt);
                 break;
             case veintiTres:
                 pilaAux.pop();
-                pilaAux.peek().setEstadoaActual(estados.booleanR);
+                pilaAux.peek().setEstadoActual(estados.booleanR);
                 break;
             case veintiCuatro: case cincuentaiUno:
                 pilaAux.pop();
-                pilaAux.peek().setEstadoaActual(estados.cadena);
+                pilaAux.peek().setEstadoActual(estados.cadena);
                 break;
             case veintiSeis:
                 break;
@@ -183,99 +184,99 @@ public class AnSm
                 pilaAux.pop(); // ;
                 s1 = pilaAux.pop(); // X
                 pilaAux.pop(); // return
-                if (tablaLocal.tipoDeFuncion() == s1.getEstadoaActual())
-                    pilaAux.peek().setEstadoaActual(estados.ok);
+                if (tablaLocal.tipoDeFuncion() == s1.getEstadoActual())
+                    pilaAux.peek().setEstadoActual(estados.ok);
                 else if (tablaLocal.tipoDeFuncion() == null)
                     //TODO PARCHE SINTACTICO RETURN EN MAIN
                     System.out.println("Error sintactico, return en main");
                 else
-                    pilaAux.peek().setEstadoaActual(estados.error);
+                    pilaAux.peek().setEstadoActual(estados.error);
                 break;
             case treintaiCuatro:
                 s1 = pilaAux.pop(); // Q
                 s2 = pilaAux.pop(); // E
-                if (s2.getEstadoaActual()!=estados.error && s2.getEstadoaActual()!=estados.vacio && s1.getEstadoaActual() != estados.error)
-                    pilaAux.peek().setEstadoaActual(estados.ok);
+                if (s2.getEstadoActual()!=estados.error && s2.getEstadoActual()!=estados.vacio && s1.getEstadoActual() != estados.error)
+                    pilaAux.peek().setEstadoActual(estados.ok);
                 else
-                    pilaAux.peek().setEstadoaActual(estados.error);
+                    pilaAux.peek().setEstadoActual(estados.error);
                 break;
             case treintaiSeis:
                 s1 = pilaAux.pop(); // Q2
                 s2 = pilaAux.pop(); // E
                 pilaAux.pop(); // ,
-                if (s2.getEstadoaActual()!=estados.error && s2.getEstadoaActual()!=estados.vacio && s1.getEstadoaActual() != estados.error)
-                    pilaAux.peek().setEstadoaActual(estados.ok);
+                if (s2.getEstadoActual()!=estados.error && s2.getEstadoActual()!=estados.vacio && s1.getEstadoActual() != estados.error)
+                    pilaAux.peek().setEstadoActual(estados.ok);
                 else
-                    pilaAux.peek().setEstadoaActual(estados.error);
+                    pilaAux.peek().setEstadoActual(estados.error);
                 break;
             case cuarenta:
                 s1 = pilaAux.pop(); // RR
                 s2 = pilaAux.pop(); // R
-                if (s2.getEstadoaActual()!=estados.vacio)
-                    pilaAux.peek().setEstadoaActual(estados.booleanR);
-                else if (s1.getEstadoaActual()!=estados.error && s2.getEstadoaActual()!=estados.error)
-                    pilaAux.peek().setEstadoaActual(s2.getEstadoaActual());
+                if (s2.getEstadoActual()!=estados.vacio)
+                    pilaAux.peek().setEstadoActual(estados.booleanR);
+                else if (s1.getEstadoActual()!=estados.error && s2.getEstadoActual()!=estados.error)
+                    pilaAux.peek().setEstadoActual(s2.getEstadoActual());
                 else
-                    pilaAux.peek().setEstadoaActual(estados.error);
+                    pilaAux.peek().setEstadoActual(estados.error);
                 break;
             case cuarentaiUno:
                 s1 = pilaAux.pop(); // RR
                 s2 = pilaAux.pop(); // R
-                if (s1.getEstadoaActual() != estados.error && s2.getEstadoaActual() != estados.error)
-                    pilaAux.peek().setEstadoaActual(estados.ok);
+                if (s1.getEstadoActual() != estados.error && s2.getEstadoActual() != estados.error)
+                    pilaAux.peek().setEstadoActual(estados.ok);
                 else
-                    pilaAux.peek().setEstadoaActual(estados.error);
+                    pilaAux.peek().setEstadoActual(estados.error);
                 break;
             case cuarentaiTres:
                 s1 = pilaAux.pop(); // UU
                 s2 = pilaAux.pop(); // U
-                if (s1.getEstadoaActual() == estados.vacio)
-                    pilaAux.peek().setEstadoaActual(s2.getEstadoaActual());
-                else if (s1.getEstadoaActual() == estados.constEnt && s2.getEstadoaActual() == estados.ok)
-                    pilaAux.peek().setEstadoaActual(estados.constEnt);
+                if (s1.getEstadoActual() == estados.vacio)
+                    pilaAux.peek().setEstadoActual(s2.getEstadoActual());
+                else if (s1.getEstadoActual() == estados.constEnt && s2.getEstadoActual() == estados.ok)
+                    pilaAux.peek().setEstadoActual(estados.constEnt);
                 else
-                    pilaAux.peek().setEstadoaActual(estados.vacio);
+                    pilaAux.peek().setEstadoActual(estados.vacio);
                     break;
             case cuarentaiCuatro:
                 s1 = pilaAux.pop(); // UU2
                 s2 = pilaAux.pop(); // U
-                if (s2.getEstadoaActual() == estados.constEnt && s1.getEstadoaActual() != estados.error)
-                    pilaAux.peek().setEstadoaActual(estados.ok);
+                if (s2.getEstadoActual() == estados.constEnt && s1.getEstadoActual() != estados.error)
+                    pilaAux.peek().setEstadoActual(estados.ok);
                 else
-                    pilaAux.peek().setEstadoaActual(estados.error);
+                    pilaAux.peek().setEstadoActual(estados.error);
                 pilaAux.pop();
                 break;
             case cuarentaiSeis:
-                simbolos V = pilaAux.pop();
+                Simbolo V = pilaAux.pop();
                 pilaAux.pop();
-                if (V.getEstadoaActual() == estados.booleanR)
-                    pilaAux.peek().setEstadoaActual(estados.booleanR);
+                if (V.getEstadoActual() == estados.booleanR)
+                    pilaAux.peek().setEstadoActual(estados.booleanR);
                 else
-                    pilaAux.peek().setEstadoaActual(estados.error);
+                    pilaAux.peek().setEstadoActual(estados.error);
                 break;
             case cuarentaiOcho:
-                simbolos VV = pilaAux.pop();
+                Simbolo VV = pilaAux.pop();
                 id = pilaAux.pop();
                 if (((tablaLocal != null && tablaLocal.get(id.getNameId()) != null) || tablaGlobal.get(id.getNameId()) != null)
-                                                        && VV.getEstadoaActual() != estados.error)
-                    pilaAux.peek().setEstadoaActual(id.getEstadoaActual());
+                                                        && VV.getEstadoActual() != estados.error)
+                    pilaAux.peek().setEstadoActual(id.getEstadoActual());
                 else
-                    pilaAux.peek().setEstadoaActual(estados.error);
+                    pilaAux.peek().setEstadoActual(estados.error);
                 break;
             case cuarentaiNueve:
                 pilaAux.pop();
-                simbolos E = pilaAux.pop();
+                Simbolo E = pilaAux.pop();
                 pilaAux.pop();
-                pilaAux.peek().setEstadoaActual(E.getEstadoaActual());
+                pilaAux.peek().setEstadoActual(E.getEstadoActual());
                 break;
             case cincuentaiDos:
                 pilaAux.pop();
-                simbolos L = pilaAux.pop();
+                Simbolo L = pilaAux.pop();
                 pilaAux.pop();
-                if (L.getEstadoaActual() != estados.error)
-                    pilaAux.peek().setEstadoaActual(estados.ok);
+                if (L.getEstadoActual() != estados.error)
+                    pilaAux.peek().setEstadoActual(estados.ok);
                 else
-                    pilaAux.peek().setEstadoaActual(estados.error);
+                    pilaAux.peek().setEstadoActual(estados.error);
                 break;
         }
     }

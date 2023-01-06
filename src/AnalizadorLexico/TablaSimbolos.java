@@ -2,7 +2,7 @@ package AnalizadorLexico;
 
 import java.io.PrintWriter;
 import java.util.*;
-import AnalizadorSintactico.TablaM.simbolos.estados;
+import AnalizadorSintactico.TablaM.estados;
 
 public class TablaSimbolos 
 {
@@ -89,7 +89,7 @@ public class TablaSimbolos
 
     public Entrada get(int id)
     {
-        return tablaSimbolos.get(id);
+        return tablaSimbolos.get(id - 1);
     }
 
     public estados tipoDeFuncion()
