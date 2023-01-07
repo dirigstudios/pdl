@@ -132,7 +132,7 @@ public class AnSm
                 else
                 {
                     tablaLocal.insertaTipoTS(aux.getNameId(), aux2.getEstadoActual());
-                    System.out.println(tablaLocal.get(aux.getNameId() - 1).getLexema());
+                    System.out.println(tablaLocal.get(aux.getNameId()).getLexema());
                     System.out.println(aux.getNameId());
                     pilaAux.pop();
                 }
@@ -327,10 +327,10 @@ public class AnSm
                 pilaAux.pop(); // ;
                 s1 = pilaAux.pop(); // X
                 pilaAux.pop(); // return
-                if (tablaLocal.tipoDeFuncion() == null)
+                if (tablaGlobal.get(tablaGlobal.size() - 1).getTipo() == null)
                     //TODO PARCHE SINTACTICO RETURN EN MAIN
                     System.out.println("Error sintactico, return en main");
-                else if (tablaLocal.tipoDeFuncion() == s1.getEstadoActual())
+                else if (tablaGlobal.get(tablaGlobal.size() - 1).getTipo() == s1.getEstadoActual())
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
                 {

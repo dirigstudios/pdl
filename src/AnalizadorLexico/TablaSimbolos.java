@@ -41,7 +41,7 @@ public class TablaSimbolos
         int etiqueta;
     }
 
-    public static int idTabla;
+    public int idTabla;
     public List<Entrada> tablaSimbolos;
 
     public TablaSimbolos(int idTabla)
@@ -50,12 +50,8 @@ public class TablaSimbolos
         tablaSimbolos = new ArrayList<>();
     }
 
-    public static int getIdTabla() {
+    public int getIdTabla() {
         return idTabla;
-    }
-
-    public static void setIdTabla(int idTabla) {
-        TablaSimbolos.idTabla = idTabla;
     }
 
     public boolean containsKey(String str)
@@ -92,17 +88,9 @@ public class TablaSimbolos
         return tablaSimbolos.get(id);
     }
 
-    public estados tipoDeFuncion()
-    {
-        if (getIdTabla() == 0)
-            return null;
-        else
-            return tablaSimbolos.get(0).getTipo();
-    }
-
     public void insertaTipoTS(int id, estados estado)
     {
-        tablaSimbolos.get(id - 1).setTipo(estado);
+        tablaSimbolos.get(id).setTipo(estado);
     }
 
     public int size()

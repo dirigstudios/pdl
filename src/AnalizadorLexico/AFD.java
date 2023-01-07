@@ -87,7 +87,7 @@ public class AFD
                 {
                     tablaSimbolos.put(lex);
                     Token.genToken("id", String.valueOf(tablaSimbolos.size() - 1), fd);
-                    tk = new Token("id", String.valueOf(tablaSimbolos.size()));
+                    tk = new Token("id", String.valueOf(tablaSimbolos.size() - 1));
                     estadoactual = Estados.Inicial;
                     return tk;
                 }

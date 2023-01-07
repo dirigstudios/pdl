@@ -1,1 +1,4 @@
+#1:
 #0:
+    * lexema: 'a'     tipo: constEnt
+    * lexema: 'ab'     tipo: constEnt

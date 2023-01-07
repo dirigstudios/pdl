@@ -1,3 +1,17 @@
+<palabraReservada, let>
+<id, 0>
+<palabraReservada, int>
+<puntoComa, >
+<palabraReservada, function>
+<id, 1>
+<palabraReservada, int>
+<abrePar, >
+<cierraPar, >
+<abreLlave, >
+<palabraReservada, return>
+<cadena, "among">
+<puntoComa, >
+<cierraLlave, >
 <palabraReservada, switch>
 <abrePar, >
 <constEnt, 1>
