@@ -1,5 +1,7 @@
 package AnalizadorLexico;
 
+import AnalizadorSintactico.AnSt;
+
 import java.io.PrintWriter;
 
 public class AFD 
@@ -11,7 +13,7 @@ public class AFD
     public static int counter;
     public static boolean leerSigCaracter = true;
     public static boolean isComment = false;
-    public static int lines = 1;
+    //public static int lines = 1;
 
 
     public static Estados nextStage(char c)
@@ -49,7 +51,7 @@ public class AFD
         return Estados.Inicial;
     }
 
-    public static Token automata(char c, PrintWriter fd, TablaSimbolos tablaSimbolos)
+    public static Token automata(char c, PrintWriter fd, TablaSimbolos tablaSimbolos, AnSt.Lines lines)
     {
         Token tk;
         
@@ -59,7 +61,7 @@ public class AFD
             estadoactual = nextStage(c);
         }
         if (c == '\n')
-            lines++;
+            lines.addLine();
         switch (estadoactual)
         {
             case Inicial:
@@ -102,7 +104,7 @@ public class AFD
             case Cadena:
                 if (lex.length() >= 66)
                 {
-                    System.out.println("Error en linea: " + lines + " -> " + "Error léxico: Cadena sobrepasa los 64 caracteres.");
+                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error léxico: Cadena sobrepasa los 64 caracteres.");
                     return new Token("$", "");
                 }
                 if (c == '"' && lex.length() >= 1)
@@ -120,7 +122,7 @@ public class AFD
             case Comentario:
                 if (!isComment && lex.length() >= 1 && c != '*')
                 {
-                    System.err.println("Error en linea: " + lines + " -> " + "Error lexico: Comentario mal formado, el fin debe" +
+                    System.err.println("Error en linea: " + lines.toString() + " -> " + "Error lexico: Comentario mal formado, el fin debe" +
                             " tener la forma */");
                     return new Token("$", "");
                 }
@@ -148,15 +150,15 @@ public class AFD
                 }
                 if (counter > 32767)
                 {
-                    System.out.println("Error en linea: " + lines + " -> " + "Error lexico, el valor numerico introducido" +
+                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error lexico, el valor numerico introducido" +
                             " excede el limite de 32767");
                     return new Token("$", "");
                 }
                 else if (!Character.isDigit(c))
                 {
                     Token.genToken("constEnt", Integer.toString(counter), fd);
-                    counter = 0;
                     tk = new Token("constEnt", Integer.toString(counter));
+                    counter = 0;
                     estadoactual = nextStage(c);
                     lex = String.valueOf(c);
                     return tk;
@@ -173,7 +175,7 @@ public class AFD
                 }
                 else if (lex.length() > 0)
                 {
-                    System.out.println("Error en linea: " + lines + " -> " + "Error lexico: caracter % no reconocido, se espera: %=");
+                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error lexico: caracter % no reconocido, se espera: %=");
                     return new Token("$", "");
                 }
 

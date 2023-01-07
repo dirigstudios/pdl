@@ -20,20 +20,11 @@ public class TablaM {
             this.numero = numero;
         }
 
-        public Simbolo getAntecedente()
-        {
-            return antecedente;
-        }
+        public Simbolo getAntecedente() { return antecedente; }
 
-        public LinkedList<Simbolo> getConsecuente()
-        {
-            return consecuente;
-        }
+        public LinkedList<Simbolo> getConsecuente() { return consecuente; }
 
-        public int getNumero()
-        {
-            return numero;
-        }
+        public int getNumero() { return numero; }
     }
 
 
@@ -44,9 +35,7 @@ public class TablaM {
         estados estadoaActual;
         int nameId;
 
-        public Simbolo(simbolos valor) {
-            this.valor = valor;
-        }
+        public Simbolo(simbolos valor) { this.valor = valor; }
 
         public int getNameId() { return nameId; }
 
@@ -56,23 +45,13 @@ public class TablaM {
 
         public void setEstadoActual(estados estadoaActual) { this.estadoaActual = estadoaActual; }
 
-        public boolean isTerminal()
-        {
-            return ((49>=valor.ordinal())&&(valor.ordinal()>21));
-        }
+        public boolean isTerminal() { return ((49>=valor.ordinal())&&(valor.ordinal()>21)); }
 
-        public boolean isSem()
-        {
-            return (valor.ordinal()>49);
-        }
+        public boolean isSem() { return (valor.ordinal()>49); }
 
-        public simbolos getValor() {
-            return valor;
-        }
+        public simbolos getValor() { return valor; }
 
-        public void setValor(simbolos valor) {
-            this.valor = valor;
-        }
+        public void setValor(simbolos valor) { this.valor = valor; }
 
         @Override
         public String toString() {

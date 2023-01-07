@@ -22,6 +22,19 @@ public class AnSt {
     public static Stack<Simbolo> pilaAux = new Stack<>();
     static TablaM tablaM = new TablaM();
     private static AnSm aux = new AnSm();
+    public static class Lines
+    {
+        public Integer lines;
+        Lines(Integer initial)
+        {
+            this.lines = initial;
+        }
+        public void addLine() { lines++; }
+
+        public String toString() {
+            return Integer.toString(lines);
+        }
+    }
 
     public static void crearTablaAux(int ntablas)
     {
@@ -40,7 +53,8 @@ public class AnSt {
 
     public static void algorithmAnSt(FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS, PrintWriter salidaParser) throws IOException {
         initializeStack();
-        Token sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, tsG);
+        Lines lines = new Lines(1);
+        Token sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, tsG, lines);
         Simbolo cima;
         salidaParser.print("Descendente ");
 
@@ -86,8 +100,10 @@ public class AnSt {
                     simbolo_aux = pila.pop();
                     if (aComparar.equals("id"))
                         simbolo_aux.setNameId(Integer.parseInt(sigTok.getAtributo()));
+                    else if (aComparar.equals("constEnt"))
+                        simbolo_aux.setNameId(Integer.parseInt(sigTok.getAtributo()));
                     aux.añadirAtributos(simbolo_aux, pilaAux);
-                    sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, (tsA == null?tsG:tsA));
+                    sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, (tsA == null?tsG:tsA), lines);
                 }
                 else
                 {
@@ -98,7 +114,7 @@ public class AnSt {
             }
             else if (cima.isSem())
             {
-                aux.ejecutarRegla(tsG, tsA, pila.peek(), pilaAux, salidaTS);
+                aux.ejecutarRegla(tsG, tsA, pila.peek(), pilaAux, salidaTS, lines);
                 pila.pop();
             }
             else
