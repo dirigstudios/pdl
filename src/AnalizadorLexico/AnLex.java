@@ -1,6 +1,7 @@
 package AnalizadorLexico;
 
 import AnalizadorSintactico.AnSt;
+import AnalizadorSintactico.TablaM;
 
 import javax.sound.sampled.Line;
 import java.io.IOException;
@@ -13,14 +14,15 @@ public class AnLex
     public static boolean leerSigChar = true;
     public static char character;
 
-    public static Token getNextToken(FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS, TablaSimbolos tablaSimbolos, AnSt.Lines lines) throws IOException
+    public static Token getNextToken(FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS, TablaSimbolos tablaSimbolos, TablaSimbolos tsLocal,
+                                     AnSt.Lines lines, boolean zonas_decl) throws IOException
     {
         Token tk;
         int c;
         
         if (!leerSigChar)
         {
-            tk = AFD.automata(character, salidaTokens, tablaSimbolos, lines);
+            tk = AFD.automata(character, salidaTokens, tablaSimbolos, tsLocal, lines, zonas_decl);
             if (tk != null)
             {
                 leerSigChar = true;
@@ -30,7 +32,7 @@ public class AnLex
         while((c = fuente.read()) != -1)
         {
             character = (char) c;
-            tk = AFD.automata(character, salidaTokens, tablaSimbolos, lines);
+            tk = AFD.automata(character, salidaTokens, tablaSimbolos, tsLocal ,lines, zonas_decl);
             if (tk != null)
             {
                 if (tk.getTipo().equals("palabraReservada") || tk.getTipo().equals("constEnt") ||
@@ -41,7 +43,7 @@ public class AnLex
                 return tk;
             }
         }
-        tk = AFD.automata(' ', salidaTokens, tablaSimbolos, lines);
+        tk = AFD.automata(' ', salidaTokens, tablaSimbolos, tsLocal, lines, zonas_decl);
         if (tk != null)
             return tk;
         return new Token("$","");

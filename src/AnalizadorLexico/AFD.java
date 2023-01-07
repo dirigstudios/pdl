@@ -11,7 +11,7 @@ public class AFD
     public static Estados estadoactual = Estados.Inicial;
     public static String lex;
     public static int counter;
-    public static boolean leerSigCaracter = true;
+//    public static boolean leerSigCaracter = true;
     public static boolean isComment = false;
     //public static int lines = 1;
 
@@ -51,7 +51,7 @@ public class AFD
         return Estados.Inicial;
     }
 
-    public static Token automata(char c, PrintWriter fd, TablaSimbolos tablaSimbolos, AnSt.Lines lines)
+    public static Token automata(char c, PrintWriter fd, TablaSimbolos tablaSimbolos, TablaSimbolos tsLocal ,AnSt.Lines lines, boolean zona_decl)
     {
         Token tk;
         
@@ -71,7 +71,7 @@ public class AFD
                 // Errores
                 if (lex.length() > 0 && Character.isDigit(lex.charAt(0)))
                 {
-                    System.out.println("Error : inicio de nombre de variable invalido.");
+                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error léxico: inicio de nombre de variable invalido.");
                     return new Token("$", "");
                 }
                 // Generar Token Palabra reservada
@@ -83,21 +83,30 @@ public class AFD
                     return tk;
                 }
                 // Generar id en tabla de simbolos
-                else if (!tablaSimbolos.containsKey(lex) && !Character.isDigit(c) && !Character.isAlphabetic(c) && c != '_')
-                {
-                    tablaSimbolos.put(lex);
-                    Token.genToken("id", String.valueOf(tablaSimbolos.size() - 1), fd);
-                    tk = new Token("id", String.valueOf(tablaSimbolos.size() - 1));
-                    estadoactual = Estados.Inicial;
-                    return tk;
-                }
-                // Recoger id de la tabla de simbolos
                 else if (!Character.isDigit(c) && !Character.isAlphabetic(c) && c != '_')
                 {
-                    Token.genToken("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))), fd);
-                    tk = new Token("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))));
-                    estadoactual = Estados.Inicial;
-                    return tk;
+                    if (!tablaSimbolos.containsKey(lex) && zona_decl)
+                    {
+                        tablaSimbolos.put(lex);
+                        Token.genToken("id", String.valueOf(tablaSimbolos.size() - 1), fd);
+                        tk = new Token("id", String.valueOf(tablaSimbolos.size() - 1));
+                        estadoactual = Estados.Inicial;
+                        return tk;
+                    }
+                    else if (tablaSimbolos.containsKey(lex) && zona_decl)
+                    {
+                        Token.genToken("id", String.valueOf(tablaSimbolos.size() - 1), fd);
+                        tk = new Token("id", String.valueOf(tablaSimbolos.size() - 1));
+                        estadoactual = Estados.Inicial;
+                        return tk;
+                    }
+                    else
+                    {
+                        Token.genToken("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))), fd);
+                        tk = new Token("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))));
+                        estadoactual = Estados.Inicial;
+                        return tk;
+                    }
                 }
                 break;
 
@@ -122,8 +131,7 @@ public class AFD
             case Comentario:
                 if (!isComment && lex.length() >= 1 && c != '*')
                 {
-                    System.err.println("Error en linea: " + lines.toString() + " -> " + "Error lexico: Comentario mal formado, el fin debe" +
-                            " tener la forma */");
+                    System.err.println("Error en linea: " + lines.toString() + " -> " + "Error lexico: Fin de comentario no válido.");
                     return new Token("$", "");
                 }
                 else if (!isComment && lex.length() >= 1)
@@ -150,7 +158,7 @@ public class AFD
                 }
                 if (counter > 32767)
                 {
-                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error lexico, el valor numerico introducido" +
+                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error lexico, el valor numerico" +
                             " excede el limite de 32767");
                     return new Token("$", "");
                 }

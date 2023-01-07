@@ -1,19 +1,17 @@
-let a int;
-function ab int ()
+let texto string;
+function alert (string msg_)
 {
-    return "among";
+	print msg_;
 }
-switch (1)
+function pideTexto ()
 {
-	case 0:	print 1;
-	case 1:
-	switch(2)
-	{
-	    case 1: print 2;
-	    case 2: print 4;
-	    case 2: print 5;
-	    case 0: print 2;
-	    break;
-	}
-	case 2: print 4;
+	print "Introduce un texto";
+	input texto;
 }
+pideTexto();
+let  textoAux  string;textoAux = texto;
+alert
+ (
+ textoAux
+ )
+ ;

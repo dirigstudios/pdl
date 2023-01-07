@@ -5,7 +5,6 @@ import AnalizadorLexico.Token;
 import java.util.LinkedList;
 
 public class TablaM {
-    //TODO: P->P`
     public static class Regla
     {
         Simbolo antecedente;
@@ -45,9 +44,9 @@ public class TablaM {
 
         public void setEstadoActual(estados estadoaActual) { this.estadoaActual = estadoaActual; }
 
-        public boolean isTerminal() { return ((49>=valor.ordinal())&&(valor.ordinal()>21)); }
+        public boolean isTerminal() { return ((50>=valor.ordinal())&&(valor.ordinal()>22)); }
 
-        public boolean isSem() { return (valor.ordinal()>49); }
+        public boolean isSem() { return (valor.ordinal()>50); }
 
         public simbolos getValor() { return valor; }
 
@@ -71,20 +70,20 @@ public class TablaM {
     /*22 no terminales, 28 terminales*/
     //Este enum sirve para sacar las reglas
     //TODO eliminar
-    public enum simbolos{A,B,C,D,E,F,H,K,L,O,P,Q,R,RR,S,SS,T,U,UU,V,VV,X,negacion,asignacionResto,abrePar,cierraPar,suma,coma,dosPuntos,
+    public enum simbolos{A,B,C,D,E,F,H,K,L,O,P,PP,Q,R,RR,S,SS,T,U,UU,V,VV,X,negacion,asignacionResto,abrePar,cierraPar,suma,coma,dosPuntos,
                         puntoComa,igual,comparacion,booleanR,cadena,caseR,defaultR,constEnt,function,id,input,
                         intR,let,print,returnR,string,switchR,abreLlave,cierraLlave,breakR,ifR,$, unoUno, unoDos, dos, tres, cuatro, cincoUno, cincoDos,
                         cincoTres, seis, siete, ocho, nueve, diez, once, doce, trece, catorce, quinceUno, quinceDos, quinceTres, dieciseisUno, dieciseisDos, dieciSiete,
-                        dieciOcho, dieciNueve, veinte, veintiUno, veintiDos, veintiTres, veintiCuatro, veintiCinco, veintiSeis, veintiSiete, veintiOcho, veintiNueve,
+                        dieciOcho, dieciNueve, veinte, veintiUnoUno, veintiUnoDos, veintiDos, veintiTres, veintiCuatro, veintiCinco, veintiSeis, veintiSiete, veintiOcho, veintiNueve,
                         treinta, treintaiUno, treintaiDos, treintaiTres, treintaiCuatro, treintaiCinco, treintaiSeis, treintaiSiete, treintaiOcho, treintaiNueve, cuarenta,
                         cuarentaiUno, cuarentaiDos, cuarentaiTres, cuarentaiCuatro, cuarentaiCinco, cuarentaiSeis, cuarentaiSiete, cuarentaiOcho, cuarentaiNueve, cincuenta,
                         cincuentaiUno, cincuentaiDos, cincuentaiTres;}
 
     //Estos enums sirven para ubicarnos en la matriz de reglas
-    private enum simbolosNoTerminales{A,B,C,D,E,F,H,K,L,O,P,Q,R,RR,S,SS,T,U,UU,V,VV,X}
+    private enum simbolosNoTerminales{A,B,C,D,E,F,H,K,L,O,P,PP,Q,R,RR,S,SS,T,U,UU,V,VV,X}
     private enum simbolosTerminales{negacion,asignacionResto,abrePar,cierraPar,suma,coma,dosPuntos,puntoComa,igual,comparacion,booleanR,breakR,cadena,caseR,defaultR,constEnt,function,id,ifR,input,intR,let,print,returnR,string,switchR,abreLlave,cierraLlave,$}
 
-    static Regla[][] tablaM = new Regla[22][29];
+    static Regla[][] tablaM = new Regla[23][29];
 
     public TablaM() {
         // Tabla para el consecuente
@@ -342,11 +341,12 @@ public class TablaM {
 
         // B -> let id T ;
         templist = new LinkedList<>();
+        templist.add(new Simbolo(simbolos.veintiUnoUno));
         templist.add(new Simbolo(simbolos.let));
         templist.add(new Simbolo(simbolos.id));
         templist.add(new Simbolo(simbolos.T));
         templist.add(new Simbolo(simbolos.puntoComa));
-        templist.add(new Simbolo(simbolos.veintiUno));
+        templist.add(new Simbolo(simbolos.veintiUnoDos));
         Regla regla35 = new Regla(new Simbolo(simbolos.B), templist, 35);
 
         // T -> int
@@ -458,6 +458,13 @@ public class TablaM {
         templist.add(new Simbolo(simbolos.cuatro));
         Regla regla51 = new Regla(new Simbolo(simbolos.R), templist, 51);
 
+        //PP -> P
+        templist = new LinkedList<>();
+        templist.add(new Simbolo(simbolos.unoUno));
+        templist.add(new Simbolo(simbolos.P));
+        templist.add(new Simbolo(simbolos.unoDos));
+        Regla regla52 = new Regla(new Simbolo(simbolos.PP), templist, 52);
+
         // Añadimos las reglas a la tabla
         // A -> lambda
         tablaM[simbolosNoTerminales.A.ordinal()][simbolosTerminales.cierraPar.ordinal()] = regla44;
@@ -562,6 +569,17 @@ public class TablaM {
 
         // P -> lambda
         tablaM[simbolosNoTerminales.P.ordinal()][simbolosTerminales.$.ordinal()] = regla51;
+
+        // PP -> P
+        tablaM[simbolosNoTerminales.PP.ordinal()][simbolosTerminales.id.ordinal()] = regla52;
+        tablaM[simbolosNoTerminales.PP.ordinal()][simbolosTerminales.ifR.ordinal()] = regla52;
+        tablaM[simbolosNoTerminales.PP.ordinal()][simbolosTerminales.input.ordinal()] = regla52;
+        tablaM[simbolosNoTerminales.PP.ordinal()][simbolosTerminales.function.ordinal()] = regla52;
+        tablaM[simbolosNoTerminales.PP.ordinal()][simbolosTerminales.let.ordinal()] = regla52;
+        tablaM[simbolosNoTerminales.PP.ordinal()][simbolosTerminales.print.ordinal()] = regla52;
+        tablaM[simbolosNoTerminales.PP.ordinal()][simbolosTerminales.returnR.ordinal()] = regla52;
+        tablaM[simbolosNoTerminales.PP.ordinal()][simbolosTerminales.switchR.ordinal()] = regla52;
+        tablaM[simbolosNoTerminales.PP.ordinal()][simbolosTerminales.$.ordinal()] = regla52;
 
         // Q -> , E Q
         tablaM[simbolosNoTerminales.Q.ordinal()][simbolosTerminales.coma.ordinal()] = regla24;

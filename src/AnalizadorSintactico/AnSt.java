@@ -7,6 +7,7 @@ import AnalizadorSemantico.AnSm;
 import AnalizadorSintactico.TablaM.simbolos;
 import AnalizadorSintactico.TablaM.Simbolo;
 import AnalizadorSintactico.TablaM.Regla;
+import javafx.scene.control.Tab;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,12 +17,13 @@ import java.util.Stack;
 
 public class AnSt {
     public static TablaSimbolos tsG = new TablaSimbolos(0);
-    public static TablaSimbolos tsA;
+    public static TablaSimbolos tsA = null;
     public static Simbolo simbolo_aux;
     private static Stack<Simbolo> pila = new Stack<>();
     public static Stack<Simbolo> pilaAux = new Stack<>();
     static TablaM tablaM = new TablaM();
     private static AnSm aux = new AnSm();
+    public static boolean zona_decl = false;
     public static class Lines
     {
         public Integer lines;
@@ -48,13 +50,13 @@ public class AnSt {
 
     private static void initializeStack() {
         pila.push(new Simbolo(simbolos.$)); //apilo EOF
-        pila.push(new Simbolo(simbolos.P)); //apilo el AXIOMA de la gramatica tipo 2
+        pila.push(new Simbolo(simbolos.PP)); //apilo el AXIOMA de la gramatica tipo 2
     }
 
     public static void algorithmAnSt(FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS, PrintWriter salidaParser) throws IOException {
         initializeStack();
         Lines lines = new Lines(1);
-        Token sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, tsG, lines);
+        Token sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, tsG, tsA, lines, zona_decl);
         Simbolo cima;
         salidaParser.print("Descendente ");
 
@@ -103,7 +105,7 @@ public class AnSt {
                     else if (aComparar.equals("constEnt"))
                         simbolo_aux.setNameId(Integer.parseInt(sigTok.getAtributo()));
                     aux.añadirAtributos(simbolo_aux, pilaAux);
-                    sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, (tsA == null?tsG:tsA), lines);
+                    sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, (tsA == null?tsG:tsA), tsA, lines, zona_decl);
                 }
                 else
                 {
@@ -114,7 +116,7 @@ public class AnSt {
             }
             else if (cima.isSem())
             {
-                aux.ejecutarRegla(tsG, tsA, pila.peek(), pilaAux, salidaTS, lines);
+                aux.ejecutarRegla(tsG, tsA, pila.peek(), pilaAux, salidaTS, lines, zona_decl);
                 pila.pop();
             }
             else
@@ -141,8 +143,7 @@ public class AnSt {
                 }
             }
         }
-        //TODO: comprobación final pilaAux sea igual que el axioma
-        if (!(sigTok.getTipo().equals("$") && pilaAux.peek().getValor() == simbolos.P))
+        if (!(sigTok.getTipo().equals("$") && pilaAux.peek().getValor() == simbolos.PP))
             System.out.println("Error Sintáctico: El texto no finaliza con \"$\", sino con <" + sigTok.getTipo() + ", " + sigTok.getAtributo() + ">.");
         tsG.printTS(salidaTS);
         System.out.println("P: " + pila.toString() + "\n" + "AUX: " + pilaAux.toString() + "\n");

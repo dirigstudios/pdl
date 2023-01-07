@@ -1,6 +1,6 @@
-Axioma = P
+Axioma = PP
 
-NoTerminales = { P S SS E R RR U UU V VV L Q X B T A K C F H O D }
+NoTerminales = { PP P S SS E R RR U UU V VV L Q X B T A K C F H O D }
 
 Terminales = { ! == + id ( ) constEnt cadena %= print input return , if break switch case int boolean string let function ; : = { } default }
 
@@ -32,7 +32,6 @@ Producciones = {
 	Q -> lambda
 	X -> E
 	X -> lambda
-
 	B -> switch ( E ) { O }
 	B -> if ( E ) S
 	O -> case constEnt : C D O
@@ -45,7 +44,6 @@ Producciones = {
 	T -> boolean
 	T -> string
 	B -> S
-
 	F -> function id H ( A ) { C }
 	H -> T
 	H -> lambda
@@ -58,4 +56,5 @@ Producciones = {
 	P -> B P
 	P -> F P
 	P -> lambda
+	PP -> P
 }

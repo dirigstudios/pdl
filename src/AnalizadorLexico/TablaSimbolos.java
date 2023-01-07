@@ -36,9 +36,11 @@ public class TablaSimbolos
         }
     }
 
-    class EntradaFuncion extends Entrada
+    public class EntradaFuncion extends Entrada
     {
-        int etiqueta;
+        ArrayList<estados> parametros;
+
+        public void añadirParametro(estados estado) { parametros.add(estado); }
     }
 
     public int idTabla;
