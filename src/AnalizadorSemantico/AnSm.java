@@ -51,23 +51,47 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
                 break;
-            case cuatro: case siete: case nueve: case once: case trece: case dieciOcho: case veinte: case treintaiCinco: case treintaiSiete: case treintaiNueve: case cuarentaiDos: case cuarentaiCinco: case cincuentaiTres:
+            case cuatro: case siete: case nueve: case once: case trece: case veinte: case treintaiCinco: case treintaiSiete: case treintaiNueve: case cuarentaiDos: case cuarentaiCinco: case cincuentaiTres:
+                pilaAux.peek().setEstadoActual(estados.vacio);
+                break;
+            case dieciOcho:
+                caseEnt.remove(casActual);
+                casActual--;
                 pilaAux.peek().setEstadoActual(estados.vacio);
                 break;
             case cincoUno:
                 AnSt.crearTablaAux(tablasCreadas++);
                 break;
             case cincoDos:
-                pilaAux.pop();
-                pilaAux.pop();
-                pilaAux.pop();
-                aux = pilaAux.pop(); //H
-                aux2 = pilaAux.pop(); //id
-                tablaGlobal.insertaTipoTS(aux2.getNameId(), aux.getEstadoActual());
+                a1 = pilaAux.pop(); // )
+                a2 = pilaAux.pop(); // A
+                a3 = pilaAux.pop(); // (
+                a4 = pilaAux.pop(); //H
+                a5 = pilaAux.pop(); //id
+                tablaGlobal.insertaTipoTS(a5.getNameId(), a4.getEstadoActual());
                 //TODO etiqueta
-                pilaAux.pop();
+                pilaAux.push(a5);
+                pilaAux.push(a4);
+                pilaAux.push(a3);
+                pilaAux.push(a2);
+                pilaAux.push(a1);
                 break;
             case cincoTres:
+                pilaAux.pop();  // }
+                s1 = pilaAux.pop(); // C
+                pilaAux.pop();  // {
+                pilaAux.pop();  // )
+                pilaAux.pop();  // A
+                pilaAux.pop();  // (
+                pilaAux.pop();  // id
+                pilaAux.pop();  // function
+                if (s1.getEstadoActual() == estados.error)
+                {
+                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: funcion mal formada\n");
+                    pilaAux.peek().setEstadoActual(estados.error);
+                }
+                else
+                    pilaAux.peek().setEstadoActual(estados.ok);
                 tablaLocal.printTS(ts);
                 AnSt.destruirTablaAux();
                 break;
@@ -151,22 +175,17 @@ public class AnSm
                 pilaAux.push(a4);
                 break;
             case quinceTres:
-                a1 = pilaAux.pop(); // }
+                pilaAux.pop(); // }
                 a2 = pilaAux.pop(); // O
-                a3 = pilaAux.pop(); // {
-                a4 = pilaAux.pop(); // )
+                pilaAux.pop(); // {
+                pilaAux.pop(); // )
                 a5 = pilaAux.pop(); // E
-                a6 = pilaAux.pop(); // (
-                a7 = pilaAux.pop(); // switch
+                pilaAux.pop(); // (
+                pilaAux.pop(); // switch
                 if (a5.getEstadoActual() == estados.constEnt && a2.getEstadoActual() == estados.ok)
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
                     pilaAux.peek().setEstadoActual(estados.error);
-//                pilaAux.push(a7);
-//                pilaAux.push(a6);
-//                pilaAux.push(a5);
-//                pilaAux.push(a4);
-                //no se introducen el resto porque no haran falta para la 15.2 ni 15.1
                 break;
             case dieciseisUno:
                 s1 = pilaAux.pop();    // ConstEnt
@@ -191,11 +210,6 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
                     pilaAux.peek().setEstadoActual(estados.error);
-                if (s1.getEstadoActual() == estados.vacio)
-                {
-                    caseEnt.remove(casActual);
-                    casActual--;
-                }
                 break;
             case dieciSiete:
                 s1 = pilaAux.pop(); // O

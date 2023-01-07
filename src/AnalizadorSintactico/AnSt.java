@@ -60,7 +60,7 @@ public class AnSt {
 
         while (pila.peek().getValor() != simbolos.$)
         {
-            System.out.println(pila.toString() + "\n" + pilaAux.toString() + "\n");
+//            System.out.println(pila.toString() + "\n" + pilaAux.toString() + "\n");
             cima = pila.peek();
             if (cima.isTerminal())
             {
