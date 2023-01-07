@@ -4,7 +4,6 @@ import AnalizadorLexico.TablaSimbolos;
 import AnalizadorSintactico.AnSt;
 import AnalizadorSintactico.AnSt.Lines;
 
-
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -438,6 +437,8 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
                     pilaAux.peek().setEstadoActual(estados.error);
+                break;
+            default:
                 break;
         }
     }

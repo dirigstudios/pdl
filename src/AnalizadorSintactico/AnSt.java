@@ -7,7 +7,6 @@ import AnalizadorSemantico.AnSm;
 import AnalizadorSintactico.TablaM.simbolos;
 import AnalizadorSintactico.TablaM.Simbolo;
 import AnalizadorSintactico.TablaM.Regla;
-import javafx.scene.control.Tab;
 
 import java.io.FileReader;
 import java.io.IOException;

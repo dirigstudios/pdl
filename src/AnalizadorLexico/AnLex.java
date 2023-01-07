@@ -1,9 +1,7 @@
 package AnalizadorLexico;
 
 import AnalizadorSintactico.AnSt;
-import AnalizadorSintactico.TablaM;
 
-import javax.sound.sampled.Line;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.FileReader;
