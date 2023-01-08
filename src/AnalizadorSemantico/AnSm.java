@@ -264,7 +264,7 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
                 {
-                    System.out.println("FALLO SEMANTICO : "+ lines.toString() + "\n\n\n");
+                    System.out.println("FALLO SEMANTICO : "+ lines.toString());
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
                 break;
@@ -419,8 +419,6 @@ public class AnSm
             case cuarentaiOcho:
                 s1 = pilaAux.pop(); // VV
                 id = pilaAux.pop(); // id
-                if (tablaLocal != null && tablaLocal.get(id.getNameId()) != null)
-                    System.out.println(tablaLocal.get(id.getNameId()).getLexema());
                 if (tablaLocal != null && (tablaLocal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error))
                     pilaAux.peek().setEstadoActual(tablaLocal.get(id.getNameId()).getTipo());
                 else if (tablaGlobal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error)

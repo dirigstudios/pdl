@@ -20,7 +20,6 @@ public class AnSt {
     public static Simbolo simbolo_aux;
     private static Stack<Simbolo> pila = new Stack<>();
     public static Stack<Simbolo> pilaAux = new Stack<>();
-    static TablaM tablaM = new TablaM();
     private static AnSm aux = new AnSm();
     public static class Zona_decl
     {
@@ -60,6 +59,7 @@ public class AnSt {
     public static void algorithmAnSt(FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS, PrintWriter salidaParser) throws IOException {
         initializeStack();
         Lines lines = new Lines(1);
+        TablaM tablaM = new TablaM();
         Zona_decl zona_decl = new Zona_decl();
         Token sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, tsG, tsL, lines, zona_decl);
         Simbolo cima;
@@ -107,7 +107,7 @@ public class AnSt {
                     simbolo_aux = pila.pop();
                     if (aComparar.equals("id"))
                     {
-                        simbolo_aux.setNameId(Integer.parseInt(String.valueOf(sigTok.getAtributo().charAt(0))));
+                        simbolo_aux.setNameId(Integer.parseInt(sigTok.getAtributo()));
                     }
                     else if (aComparar.equals("constEnt"))
                         simbolo_aux.setNameId(Integer.parseInt(sigTok.getAtributo()));
@@ -129,6 +129,7 @@ public class AnSt {
             else
             {
                 Regla regla = tablaM.getRule(cima.getValor(), sigTok);
+                tablaM = new TablaM();
                 if (regla != null)
                 {
                     String numeroRegla = String.valueOf(regla.getNumero());

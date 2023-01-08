@@ -17,15 +17,15 @@
     * lexema: 'i'     tipo: constEnt
 #5:
     * lexema: 'n1'     tipo: cadena
-    * lexema: 's1'     tipo: no declarado
+    * lexema: 's1'     tipo: booleanR
     * lexema: 'b1'     tipo: constEnt
     * lexema: 'nbs'     tipo: constEnt
     * lexema: 'f5'     tipo: cadena
 #6:
     * lexema: 'f2'     tipo: cadena
-    * lexema: 'f3'     tipo: no declarado
-    * lexema: 'f4'     tipo: no declarado
-    * lexema: 'f5'     tipo: no declarado
+    * lexema: 'f3'     tipo: booleanR
+    * lexema: 'f4'     tipo: constEnt
+    * lexema: 'f5'     tipo: constEnt
     * lexema: 'f7'     tipo: booleanR
     * lexema: 'ff'     tipo: constEnt
 #0:
@@ -42,5 +42,5 @@
     * lexema: 'f1'     tipo de return : vacio    Argumentos :     Numero de Argumentos : 0
     * lexema: 'f2'     tipo de return : vacio    Argumentos : cadena constEnt     Numero de Argumentos : 2
     * lexema: 'f3'     tipo de return : constEnt    Argumentos : constEnt     Numero de Argumentos : 1
-    * lexema: 'f4'     tipo de return : booleanR    Argumentos : constEnt constEnt cadena     Numero de Argumentos : 3
-    * lexema: 'f5'     tipo de return : cadena    Argumentos : booleanR booleanR booleanR booleanR cadena     Numero de Argumentos : 5
+    * lexema: 'f4'     tipo de return : booleanR    Argumentos : constEnt booleanR cadena     Numero de Argumentos : 3
+    * lexema: 'f5'     tipo de return : cadena    Argumentos : booleanR constEnt constEnt booleanR cadena     Numero de Argumentos : 5
