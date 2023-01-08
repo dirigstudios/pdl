@@ -33,6 +33,7 @@ public class TablaM {
         simbolos valor;
         estados estadoaActual;
         int nameId;
+        String id_name;
 
         public Simbolo(simbolos valor) { this.valor = valor; }
 
@@ -49,6 +50,10 @@ public class TablaM {
         public boolean isSem() { return (valor.ordinal()>50); }
 
         public simbolos getValor() { return valor; }
+
+        public String getId_name() { return id_name; }
+
+        public void setId_name(String name) {this.id_name = name; }
 
         @Override
         public String toString() {
@@ -675,6 +680,7 @@ public class TablaM {
         tablaM[simbolosNoTerminales.X.ordinal()][simbolosTerminales.abrePar.ordinal()] = regla26;
         tablaM[simbolosNoTerminales.X.ordinal()][simbolosTerminales.cadena.ordinal()] = regla26;
         tablaM[simbolosNoTerminales.X.ordinal()][simbolosTerminales.constEnt.ordinal()] = regla26;
+        tablaM[simbolosNoTerminales.X.ordinal()][simbolosTerminales.negacion.ordinal()] = regla26;
         tablaM[simbolosNoTerminales.X.ordinal()][simbolosTerminales.id.ordinal()] = regla26;
 
         // X -> lambda

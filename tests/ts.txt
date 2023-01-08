@@ -1,8 +1,46 @@
 #1:
-    * lexema: 'num1'     tipo: constEnt
-    * lexema: 'num2'     tipo: constEnt
+    * lexema: 'n4'     tipo: cadena
+    * lexema: 'bbb'     tipo: constEnt
+#2:
+    * lexema: 'nn'     tipo: cadena
+    * lexema: 'n1'     tipo: booleanR
+#3:
+    * lexema: 'n4'     tipo: constEnt
+    * lexema: 's4'     tipo: cadena
+    * lexema: 'n1'     tipo: constEnt
+    * lexema: 'b1'     tipo: cadena
+    * lexema: 'n5'     tipo: constEnt
+#4:
+    * lexema: 'n1'     tipo: constEnt
+    * lexema: 's1'     tipo: cadena
+    * lexema: 'n2'     tipo: constEnt
+    * lexema: 'i'     tipo: constEnt
+#5:
+    * lexema: 'n1'     tipo: cadena
+    * lexema: 's1'     tipo: no declarado
+    * lexema: 'b1'     tipo: constEnt
+    * lexema: 'nbs'     tipo: constEnt
+    * lexema: 'f5'     tipo: cadena
+#6:
+    * lexema: 'f2'     tipo: cadena
+    * lexema: 'f3'     tipo: no declarado
+    * lexema: 'f4'     tipo: no declarado
+    * lexema: 'f5'     tipo: no declarado
+    * lexema: 'f7'     tipo: booleanR
+    * lexema: 'ff'     tipo: constEnt
 #0:
-    * lexema: 'a'     tipo: constEnt
-    * lexema: 'b'     tipo: constEnt
-    * lexema: 'number'     tipo: constEnt
-    * lexema: 'operacion'     tipo de return : constEnt    Argumentos : constEnt constEnt     Numero de Argumentos : 2
+    * lexema: 'n1'     tipo: constEnt
+    * lexema: 'n2'     tipo: constEnt
+    * lexema: 'n3'     tipo: constEnt
+    * lexema: 'b1'     tipo: booleanR
+    * lexema: 'b2'     tipo: booleanR
+    * lexema: 'b3'     tipo: booleanR
+    * lexema: 's1'     tipo: cadena
+    * lexema: 's2'     tipo: cadena
+    * lexema: 's3'     tipo: cadena
+    * lexema: 'f7'     tipo de return : cadena    Argumentos : cadena     Numero de Argumentos : 1
+    * lexema: 'f1'     tipo de return : vacio    Argumentos :     Numero de Argumentos : 0
+    * lexema: 'f2'     tipo de return : vacio    Argumentos : cadena constEnt     Numero de Argumentos : 2
+    * lexema: 'f3'     tipo de return : constEnt    Argumentos : constEnt     Numero de Argumentos : 1
+    * lexema: 'f4'     tipo de return : booleanR    Argumentos : constEnt constEnt cadena     Numero de Argumentos : 3
+    * lexema: 'f5'     tipo de return : cadena    Argumentos : booleanR booleanR booleanR booleanR cadena     Numero de Argumentos : 5

@@ -106,7 +106,9 @@ public class AnSt {
                 {
                     simbolo_aux = pila.pop();
                     if (aComparar.equals("id"))
-                        simbolo_aux.setNameId(Integer.parseInt(sigTok.getAtributo()));
+                    {
+                        simbolo_aux.setNameId(Integer.parseInt(String.valueOf(sigTok.getAtributo().charAt(0))));
+                    }
                     else if (aComparar.equals("constEnt"))
                         simbolo_aux.setNameId(Integer.parseInt(sigTok.getAtributo()));
                     aux.añadirAtributos(simbolo_aux, pilaAux);
