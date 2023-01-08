@@ -122,21 +122,23 @@ public class TablaSimbolos
 
     public void printTS(PrintWriter ts) {
         ts.println("#" + idTabla + ":");
+        int desplAC = 0;
         for (Entrada entrada : tablaSimbolos) {
             if (entrada.isFunction())
             {
-                ts.print("    * lexema: '" + entrada.getLexema() + "'" + "     tipo de return : " + ((entrada.getTipo() == null) ? "no declarado" : entrada.getTipo()) + "    Argumentos : ");
-
-                int c;
-                for ( c = 0 ; c < entrada.parametros.size() ; c++ )
+                ts.println("* LEXEMA : '" + entrada.getLexema() + "'" + "\n\tATRIBUTOS :\n\t\t+tipo : '" + "funcion'" + "\n\t\t +numParam : " + entrada.parametros.size());
+                for ( int c = 0 ; c < entrada.parametros.size() ; c++ )
                 {
-                    ts.print(entrada.parametros.get(c) + " ");
+                    ts.println("\t\t  +TipoParam" + c + " : '" + entrada.parametros.get(c) + "'");
+                    ts.println("\t\t   +ModoParam" + c + " : " + "1");
                 }
-                ts.println("    Numero de Argumentos : " + c);
+                ts.println("\t\t+TipoRetorno : '" + entrada.getTipo() + "'");
+                ts.println("\t\t+EtiqFuncion : 'Et" + entrada.getLexema() + "01'");
             }
             else
             {
-                ts.println("    * lexema: '" + entrada.getLexema() + "'" + "     tipo: " + ((entrada.getTipo() == null) ? "no declarado" : entrada.getTipo()) + "  desplazamiento : " + entrada.desplazamiento);
+                desplAC = desplAC + entrada.desplazamiento;
+                ts.println("* LEXEMA : '" + entrada.getLexema() + "'" + "\n\tATRIBUTOS :\n\t\t+tipo : '" + ((entrada.getTipo() == null) ? "no declarado" : entrada.getTipo()) + "'\n\t\t+despl : " + desplAC);
             }
         }
     }
