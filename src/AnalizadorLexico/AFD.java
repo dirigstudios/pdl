@@ -51,7 +51,7 @@ public class AFD
         return Estados.Inicial;
     }
 
-    public static Token automata(char c, PrintWriter fd, TablaSimbolos tablaSimbolos, TablaSimbolos tsLocal ,AnSt.Lines lines, boolean zona_decl)
+    public static Token automata(char c, PrintWriter fd, TablaSimbolos tablaSimbolos, TablaSimbolos tsLocal ,AnSt.Lines lines, AnSt.Zona_decl zona_decl)
     {
         Token tk;
         
@@ -85,27 +85,67 @@ public class AFD
                 // Generar id en tabla de simbolos
                 else if (!Character.isDigit(c) && !Character.isAlphabetic(c) && c != '_')
                 {
-                    if (!tablaSimbolos.containsKey(lex) && zona_decl)
+                    if (tsLocal != null)
                     {
-                        tablaSimbolos.put(lex);
-                        Token.genToken("id", String.valueOf(tablaSimbolos.size() - 1), fd);
-                        tk = new Token("id", String.valueOf(tablaSimbolos.size() - 1));
-                        estadoactual = Estados.Inicial;
-                        return tk;
-                    }
-                    else if (tablaSimbolos.containsKey(lex) && zona_decl)
-                    {
-                        Token.genToken("id", String.valueOf(tablaSimbolos.size() - 1), fd);
-                        tk = new Token("id", String.valueOf(tablaSimbolos.size() - 1));
-                        estadoactual = Estados.Inicial;
-                        return tk;
+                        // id no declarado y zona_decl valida -> se genera el id en la ts local
+                        if (!tsLocal.containsKey(lex) && zona_decl.zona_decl)
+                        {
+                            tsLocal.put(lex);
+                            Token.genToken("id", String.valueOf(tsLocal.size() - 1), fd);
+                            tk = new Token("id", String.valueOf(tsLocal.size() - 1));
+                            estadoactual = Estados.Inicial;
+                            return tk;
+                        }
+                        // id ya generado en tabla global o local, y zona_decl habilitada, generamos id, pero con errror al ya estar declarado
+                        else if ((tablaSimbolos.containsKey(lex) || tsLocal.containsKey(lex)) && zona_decl.zona_decl)
+                        {
+                            if (tsLocal.containsKey(lex))
+                            {
+                                Token.genToken("id", String.valueOf(tsLocal.size() - 1), fd);
+                                tk = new Token("id", String.valueOf(tsLocal.size() - 1));
+                            }
+                            else
+                            {
+                                Token.genToken("id", String.valueOf(tablaSimbolos.size() - 1), fd);
+                                tk = new Token("id", String.valueOf(tablaSimbolos.size() - 1));
+                            }
+                            System.out.println("Error en linea: " + lines.toString() + " -> " + "Error léxico: Variable: "+ lex +" ya declarada\n");
+                            estadoactual = Estados.Inicial;
+                            return tk;
+                        }
+                        //  zona_decl falsa, por lo que generamos el id
+                        else
+                        {
+                            Token.genToken("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))), fd);
+                            tk = new Token("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))));
+                            estadoactual = Estados.Inicial;
+                            return tk;
+                        }
                     }
                     else
                     {
-                        Token.genToken("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))), fd);
-                        tk = new Token("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))));
-                        estadoactual = Estados.Inicial;
-                        return tk;
+                        if (!tablaSimbolos.containsKey(lex) && zona_decl.zona_decl)
+                        {
+                            tablaSimbolos.put(lex);
+                            Token.genToken("id", String.valueOf(tablaSimbolos.size() - 1), fd);
+                            tk = new Token("id", String.valueOf(tablaSimbolos.size() - 1));
+                            estadoactual = Estados.Inicial;
+                            return tk;
+                        }
+                        else if (tablaSimbolos.containsKey(lex) && zona_decl.zona_decl)
+                        {
+                            Token.genToken("id", String.valueOf(tablaSimbolos.size() - 1), fd);
+                            tk = new Token("id", String.valueOf(tablaSimbolos.size() - 1));
+                            System.out.println("Error en linea: " + lines.toString() + " -> " + "Error léxico: Variable: "+ lex +" ya declarada\n");
+                            estadoactual = Estados.Inicial;
+                            return tk;
+                        } else
+                        {
+                            Token.genToken("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))), fd);
+                            tk = new Token("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))));
+                            estadoactual = Estados.Inicial;
+                            return tk;
+                        }
                     }
                 }
                 break;

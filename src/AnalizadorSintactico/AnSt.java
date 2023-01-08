@@ -22,7 +22,13 @@ public class AnSt {
     public static Stack<Simbolo> pilaAux = new Stack<>();
     static TablaM tablaM = new TablaM();
     private static AnSm aux = new AnSm();
-    public static boolean zona_decl = false;
+    public static class Zona_decl
+    {
+        public Boolean zona_decl;
+        Zona_decl() { this.zona_decl = false; }
+        public void changeTo(boolean value) { zona_decl = value; }
+        public String toString() { return Boolean.toString(zona_decl); }
+    }
     public static class Lines
     {
         public Integer lines;
@@ -31,7 +37,6 @@ public class AnSt {
             this.lines = initial;
         }
         public void addLine() { lines++; }
-
         public String toString() {
             return Integer.toString(lines);
         }
@@ -55,6 +60,7 @@ public class AnSt {
     public static void algorithmAnSt(FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS, PrintWriter salidaParser) throws IOException {
         initializeStack();
         Lines lines = new Lines(1);
+        Zona_decl zona_decl = new Zona_decl();
         Token sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, tsG, tsA, lines, zona_decl);
         Simbolo cima;
         salidaParser.print("Descendente ");

@@ -3,6 +3,7 @@ package AnalizadorSemantico;
 import AnalizadorLexico.TablaSimbolos;
 import AnalizadorSintactico.AnSt;
 import AnalizadorSintactico.AnSt.Lines;
+import AnalizadorSintactico.AnSt.Zona_decl;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class AnSm
     public void añadirAtributos(Simbolo simb, Stack<Simbolo> pilaAux) { pilaAux.push(simb); }
 
     public void ejecutarRegla(TablaSimbolos tablaGlobal, TablaSimbolos tablaLocal, Simbolo simbolo_cima, Stack<Simbolo> pilaAux,
-                              PrintWriter ts, Lines lines, boolean zona_decl)
+                              PrintWriter ts, Lines lines, Zona_decl zona_decl)
     {
         Simbolo id;
         Simbolo aux;
@@ -109,7 +110,7 @@ public class AnSm
                 aux = pilaAux.pop(); //id
                 aux2 = pilaAux.pop(); //T
                 tablaLocal.insertaTipoTS(aux.getNameId(), aux2.getEstadoActual());
-                TablaSimbolos.EntradaFuncion entrada = (TablaSimbolos.EntradaFuncion) tablaGlobal.get(tablaGlobal.size() - 1);
+                TablaSimbolos.EntradaFuncion entrada = (TablaSimbolos.EntradaFuncion) tablaGlobal.get(tablaGlobal.size());
                 entrada.añadirParametro(aux2.getEstadoActual());
                 break;
             case diez:
@@ -218,11 +219,11 @@ public class AnSm
                 else
                     tablaLocal.insertaTipoTS(id.getNameId(), T);
                 pilaAux.pop();
-                zona_decl = false;
+                zona_decl.zona_decl = false;
                 pilaAux.peek().setEstadoActual(estados.ok);
                 break;
             case veintiUnoUno:
-                zona_decl = true;
+                zona_decl.zona_decl = true;
                 break;
             case veintiDos: case cincuenta:
                 pilaAux.pop();
@@ -320,10 +321,10 @@ public class AnSm
                 pilaAux.pop(); // ;
                 s1 = pilaAux.pop(); // X
                 pilaAux.pop(); // return
-                if (tablaGlobal.get(tablaGlobal.size() - 1).getTipo() == null)
+                if (tablaGlobal.get(tablaGlobal.size()).getTipo() == null)
                     //TODO PARCHE SINTACTICO RETURN EN MAIN
                     System.out.println("Error sintactico, return en main");
-                else if (tablaGlobal.get(tablaGlobal.size() - 1).getTipo() == s1.getEstadoActual())
+                else if (tablaGlobal.get(tablaGlobal.size()).getTipo() == s1.getEstadoActual())
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
                 {

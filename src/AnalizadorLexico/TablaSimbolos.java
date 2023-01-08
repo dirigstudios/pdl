@@ -92,6 +92,7 @@ public class TablaSimbolos
 
     public void insertaTipoTS(int id, estados estado)
     {
+
         tablaSimbolos.get(id).setTipo(estado);
     }
 
@@ -100,10 +101,24 @@ public class TablaSimbolos
         return tablaSimbolos.size();
     }
 
-    public void printTS(PrintWriter ts)
-    {
+    public void printTS(PrintWriter ts) {
         ts.println("#" + idTabla + ":");
-        for(Entrada entrada : tablaSimbolos)
-            ts.println("    * lexema: '" + entrada.getLexema() + "'" + "     tipo: " + ((entrada.getTipo()==null)?"no declarado":entrada.getTipo()));
+        for (Entrada entrada : tablaSimbolos) {
+            if (entrada instanceof EntradaFuncion)
+            {
+                ts.print("    * lexema: '" + entrada.getLexema() + "'" + "     tipo de return : " + ((entrada.getTipo() == null) ? "no declarado" : entrada.getTipo()) + "    Argumentos : ");
+                EntradaFuncion entradaaux = (EntradaFuncion)entrada;
+                int c;
+                for ( c = 0 ; c < entradaaux.parametros.size() ; c++ )
+                {
+                    ts.print(entradaaux.parametros.get(c));
+                }
+                ts.println("    Numero de Argumentos : " + c);
+            }
+            else
+            {
+                ts.println("    * lexema: '" + entrada.getLexema() + "'" + "     tipo: " + ((entrada.getTipo() == null) ? "no declarado" : entrada.getTipo()));
+            }
+        }
     }
 }

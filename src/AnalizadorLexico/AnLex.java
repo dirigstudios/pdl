@@ -13,7 +13,7 @@ public class AnLex
     public static char character;
 
     public static Token getNextToken(FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS, TablaSimbolos tablaSimbolos, TablaSimbolos tsLocal,
-                                     AnSt.Lines lines, boolean zonas_decl) throws IOException
+                                     AnSt.Lines lines, AnSt.Zona_decl zonas_decl) throws IOException
     {
         Token tk;
         int c;
