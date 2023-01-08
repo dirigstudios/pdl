@@ -50,9 +50,6 @@ public class TablaSimbolos
         }
     }
 
-
-
-
     public int idTabla;
     public List<Entrada> tablaSimbolos;
 
@@ -104,7 +101,17 @@ public class TablaSimbolos
 
     public void insertaTipoTS(int id, estados estado)
     {
-
+        switch (estado)
+        {
+            case booleanR: case constEnt:
+                tablaSimbolos.get(id).setDesplazamiento(1);
+                break;
+            case cadena:
+                tablaSimbolos.get(id).setDesplazamiento(64);
+                break;
+            default:
+                break;
+        }
         tablaSimbolos.get(id).setTipo(estado);
     }
 
@@ -129,7 +136,7 @@ public class TablaSimbolos
             }
             else
             {
-                ts.println("    * lexema: '" + entrada.getLexema() + "'" + "     tipo: " + ((entrada.getTipo() == null) ? "no declarado" : entrada.getTipo()));
+                ts.println("    * lexema: '" + entrada.getLexema() + "'" + "     tipo: " + ((entrada.getTipo() == null) ? "no declarado" : entrada.getTipo()) + "  desplazamiento : " + entrada.desplazamiento);
             }
         }
     }

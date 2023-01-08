@@ -47,6 +47,8 @@ function f3 int (int n1)
 	return n3;
 }
 
+
+
 function f4 boolean (string n1, boolean s1, int b1)
 {
 	let nbs int;
@@ -62,3 +64,62 @@ function f5 string (string f2, boolean f3, int f4, int f5, boolean  f7)
 	if (ff == f7) return f2;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b2
+   =
+      (n1 == f3 (n1));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b3
+	=
+
+		! f4 ("fin", b3, f3(nnnn));

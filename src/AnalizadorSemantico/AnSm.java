@@ -219,9 +219,13 @@ public class AnSm
                 estados T = pilaAux.pop().getEstadoActual();
                 id = pilaAux.pop();
                 if (tablaLocal == null)
+                {
                     tablaGlobal.insertaTipoTS(id.getNameId(), T);
+                }
                 else
+                {
                     tablaLocal.insertaTipoTS(id.getNameId(), T);
+                }
                 pilaAux.pop();
                 pilaAux.peek().setEstadoActual(estados.ok);
                 break;

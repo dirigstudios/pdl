@@ -33,7 +33,7 @@ public class TablaM {
         simbolos valor;
         estados estadoaActual;
         int nameId;
-        String id_name;
+        boolean tipoTabla = true; // true = tsG, false = tsL
 
         public Simbolo(simbolos valor) { this.valor = valor; }
 
@@ -51,9 +51,9 @@ public class TablaM {
 
         public simbolos getValor() { return valor; }
 
-        public String getId_name() { return id_name; }
+        public boolean getTipòTabla() { return tipoTabla; }
 
-        public void setId_name(String name) {this.id_name = name; }
+        public void setTipoTabla(boolean value) { tipoTabla = value; }
 
         @Override
         public String toString() {
