@@ -16,7 +16,7 @@ import java.util.Stack;
 
 public class AnSt {
     public static TablaSimbolos tsG = new TablaSimbolos(0);
-    public static TablaSimbolos tsA = null;
+    public static TablaSimbolos tsL = null;
     public static Simbolo simbolo_aux;
     private static Stack<Simbolo> pila = new Stack<>();
     public static Stack<Simbolo> pilaAux = new Stack<>();
@@ -44,12 +44,12 @@ public class AnSt {
 
     public static void crearTablaAux(int ntablas)
     {
-        tsA = new TablaSimbolos(ntablas);
+        tsL = new TablaSimbolos(ntablas);
     }
 
     public static void destruirTablaAux()
     {
-        tsA = null;
+        tsL = null;
     }
 
     private static void initializeStack() {
@@ -61,7 +61,7 @@ public class AnSt {
         initializeStack();
         Lines lines = new Lines(1);
         Zona_decl zona_decl = new Zona_decl();
-        Token sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, tsG, tsA, lines, zona_decl);
+        Token sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, tsG, tsL, lines, zona_decl);
         Simbolo cima;
         salidaParser.print("Descendente ");
 
@@ -110,7 +110,7 @@ public class AnSt {
                     else if (aComparar.equals("constEnt"))
                         simbolo_aux.setNameId(Integer.parseInt(sigTok.getAtributo()));
                     aux.añadirAtributos(simbolo_aux, pilaAux);
-                    sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, (tsA == null?tsG:tsA), tsA, lines, zona_decl);
+                    sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, tsG, tsL, lines, zona_decl);
                 }
                 else
                 {
@@ -121,7 +121,7 @@ public class AnSt {
             }
             else if (cima.isSem())
             {
-                aux.ejecutarRegla(tsG, tsA, pila.peek(), pilaAux, salidaTS, lines, zona_decl);
+                aux.ejecutarRegla(tsG, tsL, pila.peek(), pilaAux, salidaTS, lines, zona_decl);
                 pila.pop();
             }
             else

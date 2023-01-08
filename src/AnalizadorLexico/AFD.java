@@ -61,7 +61,10 @@ public class AFD
             estadoactual = nextStage(c);
         }
         if (c == '\n')
+        {
             lines.addLine();
+            //System.out.println(lines.toString());
+        }
         switch (estadoactual)
         {
             case Inicial:
@@ -116,8 +119,22 @@ public class AFD
                         //  zona_decl falsa, por lo que generamos el id
                         else
                         {
-                            Token.genToken("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))), fd);
-                            tk = new Token("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))));
+                            if (tsLocal.containsKey(lex))
+                            {
+                                Token.genToken("id", String.valueOf(tsLocal.tablaSimbolos.indexOf(tsLocal.get(lex))), fd);
+                                tk = new Token("id", String.valueOf(tsLocal.tablaSimbolos.indexOf(tsLocal.get(lex))));
+                            }
+                            else if (tablaSimbolos.containsKey(lex))
+                            {
+                                Token.genToken("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))), fd);
+                                tk = new Token("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))));
+                            }
+                            else
+                            {
+                                System.out.println("Error en linea: " + lines.toString() + " -> " + "Error léxico: Variable: " + lex + " no declarada\n");
+                                Token.genToken("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))), fd);
+                                tk = new Token("id", String.valueOf(tablaSimbolos.tablaSimbolos.indexOf(tablaSimbolos.get(lex))));
+                            }
                             estadoactual = Estados.Inicial;
                             return tk;
                         }

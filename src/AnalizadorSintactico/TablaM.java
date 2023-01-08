@@ -50,8 +50,6 @@ public class TablaM {
 
         public simbolos getValor() { return valor; }
 
-        public void setValor(simbolos valor) { this.valor = valor; }
-
         @Override
         public String toString() {
             return valor.toString();
@@ -72,9 +70,9 @@ public class TablaM {
     //TODO eliminar
     public enum simbolos{A,B,C,D,E,F,H,K,L,O,P,PP,Q,R,RR,S,SS,T,U,UU,V,VV,X,negacion,asignacionResto,abrePar,cierraPar,suma,coma,dosPuntos,
                         puntoComa,igual,comparacion,booleanR,cadena,caseR,defaultR,constEnt,function,id,input,
-                        intR,let,print,returnR,string,switchR,abreLlave,cierraLlave,breakR,ifR,$, unoUno, unoDos, dos, tres, cuatro, cincoUno, cincoDos,
+                        intR,let,print,returnR,string,switchR,abreLlave,cierraLlave,breakR,ifR,$, unoUno, unoDos, dos, tresUno, tresDos ,cuatro, cincoUno, cincoDos,
                         cincoTres, seis, siete, ocho, nueve, diez, once, doce, trece, catorce, quinceUno, quinceDos, quinceTres, dieciseisUno, dieciseisDos, dieciSiete,
-                        dieciOcho, dieciNueve, veinte, veintiUnoUno, veintiUnoDos, veintiDos, veintiTres, veintiCuatro, veintiCinco, veintiSeis, veintiSiete, veintiOcho, veintiNueve,
+                        dieciOcho, dieciNueve, veinte, veintiUnoUno, veintiUnoDos, veintiUnoTres, veintiDos, veintiTres, veintiCuatro, veintiCinco, veintiSeis, veintiSiete, veintiOcho, veintiNueve,
                         treinta, treintaiUno, treintaiDos, treintaiTres, treintaiCuatro, treintaiCinco, treintaiSeis, treintaiSiete, treintaiOcho, treintaiNueve, cuarenta,
                         cuarentaiUno, cuarentaiDos, cuarentaiTres, cuarentaiCuatro, cuarentaiCinco, cuarentaiSeis, cuarentaiSiete, cuarentaiOcho, cuarentaiNueve, cincuenta,
                         cincuentaiUno, cincuentaiDos, cincuentaiTres;}
@@ -345,8 +343,9 @@ public class TablaM {
         templist.add(new Simbolo(simbolos.let));
         templist.add(new Simbolo(simbolos.id));
         templist.add(new Simbolo(simbolos.T));
-        templist.add(new Simbolo(simbolos.puntoComa));
         templist.add(new Simbolo(simbolos.veintiUnoDos));
+        templist.add(new Simbolo(simbolos.puntoComa));
+        templist.add(new Simbolo(simbolos.veintiUnoTres));
         Regla regla35 = new Regla(new Simbolo(simbolos.B), templist, 35);
 
         // T -> int
@@ -448,9 +447,10 @@ public class TablaM {
 
         // P -> F P
         templist = new LinkedList<>();
+        templist.add(new Simbolo(simbolos.tresUno));
         templist.add(new Simbolo(simbolos.F));
         templist.add(new Simbolo(simbolos.P));
-        templist.add(new Simbolo(simbolos.tres));
+        templist.add(new Simbolo(simbolos.tresDos));
         Regla regla50 = new Regla(new Simbolo(simbolos.P), templist, 50);
 
         // P -> lambda

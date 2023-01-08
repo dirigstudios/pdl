@@ -1,0 +1,8 @@
+#1:
+    * lexema: 'num1'     tipo: constEnt
+    * lexema: 'num2'     tipo: constEnt
+#0:
+    * lexema: 'a'     tipo: constEnt
+    * lexema: 'b'     tipo: constEnt
+    * lexema: 'number'     tipo: constEnt
+    * lexema: 'operacion'     tipo de return : constEnt    Argumentos : constEnt constEnt     Numero de Argumentos : 2

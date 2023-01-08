@@ -1,17 +1,74 @@
-let texto string;
-function alert (string msg_)
+let a    int   ;
+let b     int  ;
+let number int ;
+print  "Introduce el primer operando" ;
+input a;
+print "Introduce el segundo operando";input
+	b;
+function operacion int (int num1, int num2)
 {
-	print msg_;
+	return num1+num2;
 }
-function pideTexto ()
-{
-	print "Introduce un texto";
-	input texto;
-}
-pideTexto();
-let  textoAux  string;textoAux = texto;
-alert
- (
- textoAux
- )
- ;
+
+number = operacion (a, b);
+print number;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b2
+   =
+      (n1 == f3 (n1));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+b3
+	=
+
+		! f4 ("fin", b3, f3(nnnn));

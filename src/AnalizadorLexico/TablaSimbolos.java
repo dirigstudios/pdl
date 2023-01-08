@@ -11,6 +11,20 @@ public class TablaSimbolos
         private String lexema;
         private estados tipo;
         private int desplazamiento;
+        ArrayList<estados> parametros  = new ArrayList<>();;
+        boolean function = false;
+
+        public void setFunction()
+        {
+            function = true;
+        }
+
+        public boolean isFunction()
+        {
+            return function;
+        }
+
+        public void añadirParametro(estados estado) { parametros.add(estado); }
 
         public String getLexema()
         {
@@ -36,12 +50,8 @@ public class TablaSimbolos
         }
     }
 
-    public class EntradaFuncion extends Entrada
-    {
-        ArrayList<estados> parametros;
 
-        public void añadirParametro(estados estado) { parametros.add(estado); }
-    }
+
 
     public int idTabla;
     public List<Entrada> tablaSimbolos;
@@ -87,6 +97,8 @@ public class TablaSimbolos
 
     public Entrada get(int id)
     {
+        if (id >= size() || id < 0 || size() == 0)
+            return null;
         return tablaSimbolos.get(id);
     }
 
@@ -104,14 +116,14 @@ public class TablaSimbolos
     public void printTS(PrintWriter ts) {
         ts.println("#" + idTabla + ":");
         for (Entrada entrada : tablaSimbolos) {
-            if (entrada instanceof EntradaFuncion)
+            if (entrada.isFunction())
             {
                 ts.print("    * lexema: '" + entrada.getLexema() + "'" + "     tipo de return : " + ((entrada.getTipo() == null) ? "no declarado" : entrada.getTipo()) + "    Argumentos : ");
-                EntradaFuncion entradaaux = (EntradaFuncion)entrada;
+
                 int c;
-                for ( c = 0 ; c < entradaaux.parametros.size() ; c++ )
+                for ( c = 0 ; c < entrada.parametros.size() ; c++ )
                 {
-                    ts.print(entradaaux.parametros.get(c));
+                    ts.print(entrada.parametros.get(c) + " ");
                 }
                 ts.println("    Numero de Argumentos : " + c);
             }
