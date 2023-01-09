@@ -120,12 +120,12 @@ public class AnSm
                 tablaGlobal.tablaSimbolos.get(tablaGlobal.tablaSimbolos.size() - 1).añadirParametro(aux2.getEstadoActual());
                 break;
             case diez:
-                pilaAux.pop();
+                pilaAux.pop();  // K
                 aux = pilaAux.pop(); //id
                 aux2 = pilaAux.pop(); //T
                 tablaLocal.insertaTipoTS(aux.getNameId(), aux2.getEstadoActual());
                 tablaGlobal.tablaSimbolos.get(tablaGlobal.tablaSimbolos.size() - 1).añadirParametro(aux2.getEstadoActual());
-                pilaAux.pop();
+                pilaAux.pop();  // ,
                 break;
             case doce:
                 s2 = pilaAux.pop(); // C
@@ -180,7 +180,6 @@ public class AnSm
             case dieciseisUno:
                 s1 = pilaAux.pop();    // ConstEnt
                 s2 = pilaAux.pop();    // case
-//                System.out.println(s1.getNameId() + "\n");
                 int ent = s1.getNameId();   //constEnt
                 if(caseEnt.get(casActual).contains(ent))
                     System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: existen uno o multiples cases con la misma constante entera\n");
@@ -222,13 +221,9 @@ public class AnSm
                 estados T = pilaAux.pop().getEstadoActual();
                 id = pilaAux.pop();
                 if (tablaLocal == null)
-                {
                     tablaGlobal.insertaTipoTS(id.getNameId(), T);
-                }
                 else
-                {
                     tablaLocal.insertaTipoTS(id.getNameId(), T);
-                }
                 pilaAux.pop();
                 pilaAux.peek().setEstadoActual(estados.ok);
                 break;
@@ -335,7 +330,6 @@ public class AnSm
                 s1 = pilaAux.pop(); // X
                 pilaAux.pop(); // return
                 if (tablaGlobal.get(tablaLocal.getIdLocal()).getTipo() == null)
-                    //TODO PARCHE SINTACTICO RETURN EN MAIN
                     System.out.println("Error sintactico, return en main");
                 else if (tablaGlobal.get(tablaLocal.getIdLocal()).getTipo() == s1.getEstadoActual())
                     pilaAux.peek().setEstadoActual(estados.ok);
