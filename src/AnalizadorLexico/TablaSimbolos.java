@@ -13,6 +13,11 @@ public class TablaSimbolos
         private int desplazamiento;
         ArrayList<estados> parametros  = new ArrayList<>();;
         boolean function = false;
+        int id;
+
+        public int getId() { return id; }
+
+        public void setId(int id) { this.id = id; }
 
         public void setFunction()
         {
@@ -52,6 +57,11 @@ public class TablaSimbolos
 
     public int idTabla;
     public List<Entrada> tablaSimbolos;
+    public int idLocal;
+
+    public int getIdLocal() { return idLocal; }
+
+    public void setIdLocal(int idLocal) { this.idLocal = idLocal; }
 
     public TablaSimbolos(int idTabla)
     {
@@ -75,10 +85,13 @@ public class TablaSimbolos
         return false;
     }
 
-    public void put(String k)
+    public void put(String k, int id)
     {
         Entrada aux = new Entrada();
         aux.setLexema(k);
+        aux.setId(id);
+        aux.setTipo(estados.constEnt);
+        aux.setDesplazamiento(1);
         tablaSimbolos.add(aux);
     }
 
@@ -94,25 +107,39 @@ public class TablaSimbolos
 
     public Entrada get(int id)
     {
-        if (id >= size() || id < 0 || size() == 0)
-            return null;
-        return tablaSimbolos.get(id);
+        Entrada ret = null;
+//        if (id >= size() || id < 0 || size() == 0)
+//            return null;
+        for(Entrada e : tablaSimbolos)
+        {
+            if (e.getId() == id)
+                ret = e;
+        }
+        return ret;
     }
 
     public void insertaTipoTS(int id, estados estado)
     {
+        Entrada aux = null;
+        for(Entrada e : tablaSimbolos)
+        {
+            if (e.getId() == id)
+                aux = e;
+        }
+        if (aux == null)
+            return;
         switch (estado)
         {
             case booleanR: case constEnt:
-                tablaSimbolos.get(id).setDesplazamiento(1);
+                aux.setDesplazamiento(1);
                 break;
             case cadena:
-                tablaSimbolos.get(id).setDesplazamiento(64);
+                aux.setDesplazamiento(64);
                 break;
             default:
                 break;
         }
-        tablaSimbolos.get(id).setTipo(estado);
+        aux.setTipo(estado);
     }
 
     public int size()

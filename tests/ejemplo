@@ -20,6 +20,7 @@ function f1 ()
 			string ;
 	let n1
 			boolean;
+	print n + 8;
 }
 
 
@@ -42,8 +43,7 @@ function f3 int (int n1)
 ;
 	let i int;
 	s3=s1;
-	if (n1 == n2)
-	    n1 = (n1 + 2);
+	if (n1 == n2) n4= f3 (n1 + 2);
 	return n3;
 }
 
@@ -53,13 +53,15 @@ function f4 boolean (string n1, boolean s1, int b1)
 {
 	let nbs int;
 	let  f5	string;
-	return ! s1;
+	n=88;
+	return ! b2;
 }
 
 
-function f5 (string f2, boolean f3, int f4, int f5, boolean  f7)
+function f5 string (string f2, boolean f3, int f4, int f5, boolean  f7)
 {
 	let ff int ;
+	if (ff == f7) return f2;
 }
 
 
@@ -116,3 +118,8 @@ b2
 
 
 
+
+b3
+	=
+
+		! f4 ("fin", b3, f3(nnnn));

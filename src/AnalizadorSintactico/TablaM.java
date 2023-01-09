@@ -76,7 +76,7 @@ public class TablaM {
     public enum simbolos{A,B,C,D,E,F,H,K,L,O,P,PP,Q,R,RR,S,SS,T,U,UU,V,VV,X,negacion,asignacionResto,abrePar,cierraPar,suma,coma,dosPuntos,
                         puntoComa,igual,comparacion,booleanR,cadena,caseR,defaultR,constEnt,function,id,input,
                         intR,let,print,returnR,string,switchR,abreLlave,cierraLlave,breakR,ifR,$, unoUno, unoDos, dos, tresUno, tresDos ,cuatro, cincoUno, cincoDos,
-                        cincoTres, seis, siete, ocho, nueve, diez, once, doce, trece, catorce, quinceUno, quinceDos, quinceTres, dieciseisUno, dieciseisDos, dieciSiete,
+                        cincoTres, cincoCuatro , seis, siete, ocho, nueve, diez, once, doce, trece, catorce, quinceUno, quinceDos, quinceTres, dieciseisUno, dieciseisDos, dieciSiete,
                         dieciOcho, dieciNueve, veinte, veintiUnoUno, veintiUnoDos, veintiUnoTres, veintiDos, veintiTres, veintiCuatro, veintiCinco, veintiSeis, veintiSiete, veintiOcho, veintiNueve,
                         treinta, treintaiUno, treintaiDos, treintaiTres, treintaiCuatro, treintaiCinco, treintaiSeis, treintaiSiete, treintaiOcho, treintaiNueve, cuarenta,
                         cuarentaiUno, cuarentaiDos, cuarentaiTres, cuarentaiCuatro, cuarentaiCinco, cuarentaiSeis, cuarentaiSiete, cuarentaiOcho, cuarentaiNueve, cincuenta,
@@ -389,8 +389,9 @@ public class TablaM {
         templist.add(new Simbolo(simbolos.cincoDos));
         templist.add(new Simbolo(simbolos.abreLlave));
         templist.add(new Simbolo(simbolos.C));
-        templist.add(new Simbolo(simbolos.cierraLlave));
         templist.add(new Simbolo(simbolos.cincoTres));
+        templist.add(new Simbolo(simbolos.cierraLlave));
+        templist.add(new Simbolo(simbolos.cincoCuatro));
         Regla regla40 = new Regla(new Simbolo(simbolos.F), templist, 40);
 
         // H -> T

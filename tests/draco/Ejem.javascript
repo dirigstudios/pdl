@@ -1,16 +1,16 @@
 /* Programa de ejemplo  */
-/******* José Luis Fuertes, julio, 2022 *********/
+/******* Josï¿½ Luis Fuertes, julio, 2022 *********/
 /* El ejemplo incorpora elementos del lenguaje opcionales y elementos que no todos los grupos tienen que implementar */
 
 let s string;	/* variable global cadena */
 
-function FactorialRecursivo int (int n)	/* n: parámetro formal de la función entera */
+function FactorialRecursivo int (int n)	/* n: parï¿½metro formal de la funciï¿½n entera */
 {
 	if (n == 0)	return 1;
-	return n * FactorialRecursivo (n - 1);	/* llamada recursiva */
+	return n + FactorialRecursivo (n + 1);	/* llamada recursiva */
 }
 
-let uno int = 1;	// la inicialización es de implementación opcional
+let uno int = 1;	// la inicializaciï¿½n es de implementaciï¿½n opcional
 let UNO int= uno;
 
 function salto string ()
@@ -31,7 +31,7 @@ function FactorialDo int (int n)
 function FactorialWhile int ()
 {
 	let factorial int = 1;	// variables locales: factorial inicializada a 1
-	let i	int;			// variables locales: i inicializada a 0 por omisión
+	let i	int;			// variables locales: i inicializada a 0 por omisiï¿½n
 	while (i < num)			// num es variable global entera sin declarar
 	{
 		factorial *= ++i;	// equivale a: i = i + 1; factorial = factorial * i;
@@ -42,7 +42,7 @@ function FactorialWhile int ()
 function FactorialFor int (int n)
 {
 	let i int;
-	let factorial int = UNO;	/* declaración de variables locales */
+	let factorial int = UNO;	/* declaraciï¿½n de variables locales */
 	for (i = 1; i <= n; i++)
 	{
 		factorial *= i;
@@ -54,27 +54,27 @@ let For int;
 let Do int;
 let While int;	// tres variables globales
 
-function imprime (string s, string msg, int f)	/* función que recibe 3 argumentos */
+function imprime (string s, string msg, int f)	/* funciï¿½n que recibe 3 argumentos */
 {
 	print s;print msg ;print (f);
-	print salto();	// imprime un salto de línea */
-	return;	/* finaliza la ejecución de la función (en este caso, se podría omitir) */
+	print salto();	// imprime un salto de lï¿½nea */
+	return;	/* finaliza la ejecuciï¿½n de la funciï¿½n (en este caso, se podrï¿½a omitir) */
 }
 
 function cadena string (boolean log)
 {
 	if (!log) {return s;}
 	else      {return"Fin";}
-}	// fin cadena: función que devuelve una cadena
+}	// fin cadena: funciï¿½n que devuelve una cadena
 
 // Parte del programa principal:
-s = "El factorial ";	// Primera sentencia que se ejecutaría
+s = "El factorial ";	// Primera sentencia que se ejecutarï¿½a
 
 print s;
 print
- "\nIntroduce un 'número'.";
+ "\nIntroduce un 'nï¿½mero'.";
 input 
- num;	/* se lee un número del teclado y se guarda en la variable global num */
+ num;	/* se lee un nï¿½mero del teclado y se guarda en la variable global num */
 
 switch (num)
 {
@@ -109,7 +109,7 @@ function bisiesto boolean (int a)
 {			
 	return 
 		(a % 4 == 0 && a % 100 != 0 || a % 400 == 0);	//se tienen en cuenta la precedencia de operadores
-} // fin de bisiesto: función lógica
+} // fin de bisiesto: funciï¿½n lï¿½gica
 
 function dias int (int m, int a)
 {
@@ -123,7 +123,7 @@ function dias int (int m, int a)
 			return(28);
 		default: print "Error: mes incorrecto: "; print m; print salto(); return 0;
 	}
-} // fin de dias. Todos los return devuelven un entero y la función es entera
+} // fin de dias. Todos los return devuelven un entero y la funciï¿½n es entera
 
 function esFechaCorrecta boolean (int d, int m, int a)	
 {
@@ -144,14 +144,14 @@ function potencia (int z, int dim)
 		z *= z;
 		imprime ("Potencia:", " ", z);
 	}
-} // fin de potencia: función que no devuelve nada
+} // fin de potencia: funciï¿½n que no devuelve nada
 
-function demo ()	/* definición de la función demo, sin argumentos y que no devuelve nada */
+function demo ()	/* definiciï¿½n de la funciï¿½n demo, sin argumentos y que no devuelve nada */
 {
 	let v1 int; let v2 int; let v3 int;
 	let zv int ; // Variables locales
 
-	print'Escriba "tres" números: ';
+	print'Escriba "tres" nï¿½meros: ';
 	input v1; input v2; input v3;
 	
 	if (v3 == 0) return;
@@ -163,7 +163,7 @@ function demo ()	/* definición de la función demo, sin argumentos y que no devue
 		input s;
 		if (v2 < v3)	/* si v2<v3, v0=v2; en otro caso v0=1/v3 */
 		{
-			let  v0 int= v2; // se declara v0 aquí, por lo que se puede utilizar hasta el final de la función
+			let  v0 int= v2; // se declara v0 aquï¿½, por lo que se puede utilizar hasta el final de la funciï¿½n
 		}
 		else
 		{
@@ -178,7 +178,7 @@ function demo ()	/* definición de la función demo, sin argumentos y que no devue
 	}
 	else
 	{
-		print s; imprimeSuma (uno, -UNO); print (".\n");	// imprime: `El primer valor era 0.\n´
+		print s; imprimeSuma (uno, -UNO); print (".\n");	// imprime: `El primer valor era 0.\nï¿½
 	}
 
 	potencia (v0, 4);
@@ -192,6 +192,6 @@ function demo ()	/* definición de la función demo, sin argumentos y que no devue
 }
 
 demo();
-/* esto constituye la llamada a una función sin argumentos. 
-Es en este instante cuando se llama a esta función y, por tanto, 
-cuando se ejecuta todo el código de dicha función */
+/* esto constituye la llamada a una funciï¿½n sin argumentos. 
+Es en este instante cuando se llama a esta funciï¿½n y, por tanto, 
+cuando se ejecuta todo el cï¿½digo de dicha funciï¿½n */

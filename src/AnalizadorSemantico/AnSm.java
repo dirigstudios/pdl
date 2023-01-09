@@ -76,6 +76,7 @@ public class AnSm
                 a5 = pilaAux.pop(); // id
                 tablaGlobal.insertaTipoTS(a5.getNameId(), a4.getEstadoActual());
                 tablaGlobal.get(a5.getNameId()).setFunction();
+                tablaLocal.setIdLocal(a5.getNameId());
                 pilaAux.push(a5);
                 pilaAux.push(a4);
                 pilaAux.push(a3);
@@ -84,6 +85,10 @@ public class AnSm
                 zona_decl.zona_decl = false;
                 break;
             case cincoTres:
+                tablaLocal.printTS(ts);
+                AnSt.destruirTablaAux();
+                break;
+            case cincoCuatro:
                 pilaAux.pop();  // }
                 s1 = pilaAux.pop(); // C
                 pilaAux.pop();  // {
@@ -100,8 +105,6 @@ public class AnSm
                 }
                 else
                     pilaAux.peek().setEstadoActual(estados.ok);
-                tablaLocal.printTS(ts);
-                AnSt.destruirTablaAux();
                 break;
             case seis: case treintaiOcho: case cuarentaiSiete:
                 aux = pilaAux.pop();
@@ -114,14 +117,14 @@ public class AnSm
                 aux = pilaAux.pop(); //id
                 aux2 = pilaAux.pop(); //T
                 tablaLocal.insertaTipoTS(aux.getNameId(), aux2.getEstadoActual());
-                tablaGlobal.get(tablaGlobal.size() - 1).añadirParametro(aux2.getEstadoActual());
+                tablaGlobal.tablaSimbolos.get(tablaGlobal.tablaSimbolos.size() - 1).añadirParametro(aux2.getEstadoActual());
                 break;
             case diez:
                 pilaAux.pop();
                 aux = pilaAux.pop(); //id
                 aux2 = pilaAux.pop(); //T
                 tablaLocal.insertaTipoTS(aux.getNameId(), aux2.getEstadoActual());
-                tablaGlobal.get(tablaGlobal.size() - 1).añadirParametro(aux2.getEstadoActual());
+                tablaGlobal.tablaSimbolos.get(tablaGlobal.tablaSimbolos.size() - 1).añadirParametro(aux2.getEstadoActual());
                 pilaAux.pop();
                 break;
             case doce:
@@ -193,7 +196,7 @@ public class AnSm
                 pilaAux.pop();      // :
                 pilaAux.pop(); // constEnt
                 pilaAux.pop(); // case
-                if (s2.getEstadoActual() == estados.ok && (s1.getEstadoActual() == estados.ok || s1.getEstadoActual() == estados.vacio))
+                if ((s2.getEstadoActual() == estados.ok || s2.getEstadoActual() == estados.vacio) && (s1.getEstadoActual() == estados.ok || s1.getEstadoActual() == estados.vacio))
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
                     pilaAux.peek().setEstadoActual(estados.error);
@@ -331,10 +334,10 @@ public class AnSm
                 pilaAux.pop(); // ;
                 s1 = pilaAux.pop(); // X
                 pilaAux.pop(); // return
-                if (tablaGlobal.get(tablaGlobal.size() - 1).getTipo() == null)
+                if (tablaGlobal.get(tablaLocal.getIdLocal()).getTipo() == null)
                     //TODO PARCHE SINTACTICO RETURN EN MAIN
                     System.out.println("Error sintactico, return en main");
-                else if (tablaGlobal.get(tablaGlobal.size() - 1).getTipo() == s1.getEstadoActual())
+                else if (tablaGlobal.get(tablaLocal.getIdLocal()).getTipo() == s1.getEstadoActual())
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
                 {

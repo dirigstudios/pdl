@@ -151,6 +151,10 @@
 		 +numParam : 0
 		+TipoRetorno : 'vacio'
 		+EtiqFuncion : 'Etf101'
+* LEXEMA : 'n'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 199
 * LEXEMA : 'f2'
 	ATRIBUTOS :
 		+tipo : 'funcion'
@@ -169,6 +173,10 @@
 		   +ModoParam0 : 1
 		+TipoRetorno : 'constEnt'
 		+EtiqFuncion : 'Etf301'
+* LEXEMA : 'n4'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 200
 * LEXEMA : 'f4'
 	ATRIBUTOS :
 		+tipo : 'funcion'
@@ -195,5 +203,9 @@
 		   +ModoParam3 : 1
 		  +TipoParam4 : 'cadena'
 		   +ModoParam4 : 1
-		+TipoRetorno : 'vacio'
+		+TipoRetorno : 'cadena'
 		+EtiqFuncion : 'Etf501'
+* LEXEMA : 'nnnn'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 201
