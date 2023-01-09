@@ -111,7 +111,7 @@ public class AnSt {
                     }
                     else if (aComparar.equals("constEnt"))
                         simbolo_aux.setNameId(Integer.parseInt(sigTok.getAtributo()));
-                    aux.añadirAtributos(simbolo_aux, pilaAux);
+                    aux.anadirAtributos(simbolo_aux, pilaAux);
                     sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, tsG, tsL, lines, zona_decl);
                 }
                 else
@@ -135,7 +135,7 @@ public class AnSt {
                     String numeroRegla = String.valueOf(regla.getNumero());
                     salidaParser.print(numeroRegla + " ");
                     simbolo_aux = pila.pop();
-                    aux.añadirAtributos(simbolo_aux, pilaAux);
+                    aux.anadirAtributos(simbolo_aux, pilaAux);
                     LinkedList<Simbolo> consecuente = regla.getConsecuente();
                     int i = consecuente.size() - 1;
                     while (i >= 0)

@@ -1,0 +1,17 @@
+#0:
+* LEXEMA : 'a'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1
+* LEXEMA : 'b'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 2
+* LEXEMA : 'bbb'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 3
+* LEXEMA : 'c'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 4

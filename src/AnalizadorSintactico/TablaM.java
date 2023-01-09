@@ -51,10 +51,6 @@ public class TablaM {
 
         public simbolos getValor() { return valor; }
 
-        public boolean getTipòTabla() { return tipoTabla; }
-
-        public void setTipoTabla(boolean value) { tipoTabla = value; }
-
         @Override
         public String toString() {
             return valor.toString();

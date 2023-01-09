@@ -29,7 +29,7 @@ public class TablaSimbolos
             return function;
         }
 
-        public void añadirParametro(estados estado) { parametros.add(estado); }
+        public void anadirParametro(estados estado) { parametros.add(estado); }
 
         public String getLexema()
         {

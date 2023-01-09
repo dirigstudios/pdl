@@ -20,7 +20,7 @@ public class AnSm
     public int casActual = -1;
     public List<List<Integer>> caseEnt = new ArrayList<>();
 
-    public void añadirAtributos(Simbolo simb, Stack<Simbolo> pilaAux) { pilaAux.push(simb); }
+    public void anadirAtributos(Simbolo simb, Stack<Simbolo> pilaAux) { pilaAux.push(simb); }
 
     public void ejecutarRegla(TablaSimbolos tablaGlobal, TablaSimbolos tablaLocal, Simbolo simbolo_cima, Stack<Simbolo> pilaAux,
                               PrintWriter ts, Lines lines, Zona_decl zona_decl)
@@ -114,14 +114,14 @@ public class AnSm
                 aux = pilaAux.pop(); //id
                 aux2 = pilaAux.pop(); //T
                 tablaLocal.insertaTipoTS(aux.getNameId(), aux2.getEstadoActual());
-                tablaGlobal.tablaSimbolos.get(tablaGlobal.tablaSimbolos.size() - 1).añadirParametro(aux2.getEstadoActual());
+                tablaGlobal.tablaSimbolos.get(tablaGlobal.tablaSimbolos.size() - 1).anadirParametro(aux2.getEstadoActual());
                 break;
             case diez:
                 pilaAux.pop();  // K
                 aux = pilaAux.pop(); //id
                 aux2 = pilaAux.pop(); //T
                 tablaLocal.insertaTipoTS(aux.getNameId(), aux2.getEstadoActual());
-                tablaGlobal.tablaSimbolos.get(tablaGlobal.tablaSimbolos.size() - 1).añadirParametro(aux2.getEstadoActual());
+                tablaGlobal.tablaSimbolos.get(tablaGlobal.tablaSimbolos.size() - 1).anadirParametro(aux2.getEstadoActual());
                 pilaAux.pop();  // ,
                 break;
             case doce:
@@ -279,7 +279,7 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(s1.getEstadoActual());
                 else
                 {
-                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: la asignación con resto debe realizarse con un calor entero\n");
+                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: la asignación con resto debe realizarse con un valor entero\n");
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
                 break;
@@ -373,7 +373,7 @@ public class AnSm
                 s2 = pilaAux.pop(); // R
                 if (s1.getEstadoActual() != estados.vacio && s2.getEstadoActual() == estados.constEnt)
                     pilaAux.peek().setEstadoActual(estados.booleanR);
-                else if (s1.getEstadoActual()!=estados.error && s2.getEstadoActual()!=estados.error && s1.getEstadoActual()!=estados.vacio)
+                else if (s1.getEstadoActual()!=estados.error && s2.getEstadoActual()!=estados.error)
                     pilaAux.peek().setEstadoActual(s2.getEstadoActual());
                 else
                 {

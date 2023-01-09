@@ -1,6 +1,14 @@
 let a int;
-let a string;
+let   b  int  ;
+let bbb boolean ;
+a = 3;
+b=a					    		 	 	 	 	 	 	 	 	 	 	 	 	 	 	 													;
+let c boolean ;
+c = a == b;
+if (c) b %= 1;
+if (a == b) b = 44;
+a = a + b;
+print a ;
+print b;
 
-if ("hola")
-    print 2.2;
 
