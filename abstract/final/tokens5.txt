@@ -1,0 +1,13 @@
+<palabraReservada, function>
+<id, 1>
+<abrePar, >
+<cierraPar, >
+<abreLlave, >
+<id, 2>
+<igual, >
+<constEnt, 4>
+<puntoComa, >
+<cierraLlave, >
+<palabraReservada, print>
+<id, 2>
+<puntoComa, >

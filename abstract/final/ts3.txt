@@ -1,0 +1,9 @@
+#0:
+* LEXEMA : 'global1'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1
+* LEXEMA : 'global2'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 2

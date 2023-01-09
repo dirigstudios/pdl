@@ -1,0 +1,8 @@
+let a int;
+let b int;
+function suma int(int a, int b)
+{
+    let s string;
+    return (a + s + b);
+}
+b = "cadena de prueba"

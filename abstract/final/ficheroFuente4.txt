@@ -1,0 +1,11 @@
+let int1 int;
+function funcion4_1 int ()
+{
+    int1 = int1 + 1;
+    return int1;
+}
+function funcion4_2 ()
+{
+    print funcion4_1();
+}
+funcion4_2();

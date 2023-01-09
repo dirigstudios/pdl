@@ -1,0 +1,13 @@
+let global1 int;
+let global2 int;
+if (global1 == global2)
+    global1 = 0;
+switch(global1)
+{
+    case 0:
+        print "global 1 igual a global 2";
+        break;
+    default:
+        print "global 1 es diferente a global 2";
+        break;
+}

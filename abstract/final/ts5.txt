@@ -1,0 +1,12 @@
+#1:
+#0:
+* LEXEMA : 'funcion5'
+	ATRIBUTOS :
+		+tipo : 'funcion'
+		 +numParam : 0
+		+TipoRetorno : 'vacio'
+		+EtiqFuncion : 'Etfuncion501'
+* LEXEMA : 'a'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1

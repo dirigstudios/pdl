@@ -1,0 +1,7 @@
+let a int;
+let b string;
+if (a == b)
+    a = 2;
+let c boolean;
+input c;
+====

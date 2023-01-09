@@ -1,0 +1,6 @@
+function funcion1 string (int arg1, boolean arg2, boolean arg3, boolean arg4)
+{
+	if (arg4 == arg3)
+	    return arg2;
+	return arg1;
+}

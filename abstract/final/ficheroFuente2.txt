@@ -1,0 +1,6 @@
+let global int;
+global = 4;
+function funcion2 int (int arg1)
+{
+	return (arg1 + global);
+}

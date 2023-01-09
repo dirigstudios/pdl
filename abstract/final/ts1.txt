@@ -1,0 +1,32 @@
+#1:
+* LEXEMA : 'arg1'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 1
+* LEXEMA : 'arg2'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 2
+* LEXEMA : 'arg3'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 3
+* LEXEMA : 'arg4'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 4
+#0:
+* LEXEMA : 'funcion1'
+	ATRIBUTOS :
+		+tipo : 'funcion'
+		 +numParam : 4
+		  +TipoParam1 : 'booleanR'
+		   +ModoParam1 : 1
+		  +TipoParam2 : 'booleanR'
+		   +ModoParam2 : 1
+		  +TipoParam3 : 'booleanR'
+		   +ModoParam3 : 1
+		  +TipoParam4 : 'booleanR'
+		   +ModoParam4 : 1
+		+TipoRetorno : 'booleanR'
+		+EtiqFuncion : 'Etfuncion101'

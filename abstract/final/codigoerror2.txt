@@ -1,0 +1,8 @@
+let log boolean;
+let b int;
+let c string;
+
+if (! log)
+    print log;
+
+case 22:

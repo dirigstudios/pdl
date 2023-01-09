@@ -1,0 +1,18 @@
+#1:
+* LEXEMA : 'arg1'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1
+#0:
+* LEXEMA : 'global'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1
+* LEXEMA : 'funcion2'
+	ATRIBUTOS :
+		+tipo : 'funcion'
+		 +numParam : 1
+		  +TipoParam1 : 'constEnt'
+		   +ModoParam1 : 1
+		+TipoRetorno : 'constEnt'
+		+EtiqFuncion : 'Etfuncion201'

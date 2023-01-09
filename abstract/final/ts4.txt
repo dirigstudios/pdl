@@ -1,0 +1,19 @@
+#1:
+#2:
+#0:
+* LEXEMA : 'int1'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1
+* LEXEMA : 'funcion4_1'
+	ATRIBUTOS :
+		+tipo : 'funcion'
+		 +numParam : 0
+		+TipoRetorno : 'constEnt'
+		+EtiqFuncion : 'Etfuncion4_101'
+* LEXEMA : 'funcion4_2'
+	ATRIBUTOS :
+		+tipo : 'funcion'
+		 +numParam : 0
+		+TipoRetorno : 'vacio'
+		+EtiqFuncion : 'Etfuncion4_201'

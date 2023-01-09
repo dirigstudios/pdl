@@ -1,0 +1,7 @@
+switch("hola")
+{
+    case 1: case 2: case 4: case 1:
+        print 2;
+    case "hola":
+        input a;
+}
