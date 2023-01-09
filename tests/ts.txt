@@ -141,8 +141,8 @@
 	ATRIBUTOS :
 		+tipo : 'funcion'
 		 +numParam : 1
-		  +TipoParam0 : 'cadena'
-		   +ModoParam0 : 1
+		  +TipoParam1 : 'cadena'
+		   +ModoParam1 : 1
 		+TipoRetorno : 'cadena'
 		+EtiqFuncion : 'Etf701'
 * LEXEMA : 'f1'
@@ -159,18 +159,18 @@
 	ATRIBUTOS :
 		+tipo : 'funcion'
 		 +numParam : 2
-		  +TipoParam0 : 'cadena'
-		   +ModoParam0 : 1
-		  +TipoParam1 : 'constEnt'
+		  +TipoParam1 : 'cadena'
 		   +ModoParam1 : 1
+		  +TipoParam2 : 'constEnt'
+		   +ModoParam2 : 1
 		+TipoRetorno : 'vacio'
 		+EtiqFuncion : 'Etf201'
 * LEXEMA : 'f3'
 	ATRIBUTOS :
 		+tipo : 'funcion'
 		 +numParam : 1
-		  +TipoParam0 : 'constEnt'
-		   +ModoParam0 : 1
+		  +TipoParam1 : 'constEnt'
+		   +ModoParam1 : 1
 		+TipoRetorno : 'constEnt'
 		+EtiqFuncion : 'Etf301'
 * LEXEMA : 'n4'
@@ -181,28 +181,28 @@
 	ATRIBUTOS :
 		+tipo : 'funcion'
 		 +numParam : 3
-		  +TipoParam0 : 'constEnt'
-		   +ModoParam0 : 1
-		  +TipoParam1 : 'booleanR'
+		  +TipoParam1 : 'constEnt'
 		   +ModoParam1 : 1
-		  +TipoParam2 : 'cadena'
+		  +TipoParam2 : 'booleanR'
 		   +ModoParam2 : 1
+		  +TipoParam3 : 'cadena'
+		   +ModoParam3 : 1
 		+TipoRetorno : 'booleanR'
 		+EtiqFuncion : 'Etf401'
 * LEXEMA : 'f5'
 	ATRIBUTOS :
 		+tipo : 'funcion'
 		 +numParam : 5
-		  +TipoParam0 : 'booleanR'
-		   +ModoParam0 : 1
-		  +TipoParam1 : 'constEnt'
+		  +TipoParam1 : 'booleanR'
 		   +ModoParam1 : 1
 		  +TipoParam2 : 'constEnt'
 		   +ModoParam2 : 1
-		  +TipoParam3 : 'booleanR'
+		  +TipoParam3 : 'constEnt'
 		   +ModoParam3 : 1
-		  +TipoParam4 : 'cadena'
+		  +TipoParam4 : 'booleanR'
 		   +ModoParam4 : 1
+		  +TipoParam5 : 'cadena'
+		   +ModoParam5 : 1
 		+TipoRetorno : 'cadena'
 		+EtiqFuncion : 'Etf501'
 * LEXEMA : 'nnnn'
