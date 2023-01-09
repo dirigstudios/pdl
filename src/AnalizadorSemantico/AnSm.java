@@ -20,7 +20,7 @@ public class AnSm
     public int casActual = -1;
     public List<List<Integer>> caseEnt = new ArrayList<>();
 
-    public void añadirAtributos(Simbolo simb, Stack<Simbolo> pilaAux) { pilaAux.push(simb); }
+    public void anadirAtributos(Simbolo simb, Stack<Simbolo> pilaAux) { pilaAux.push(simb); }
 
     public void ejecutarRegla(TablaSimbolos tablaGlobal, TablaSimbolos tablaLocal, Simbolo simbolo_cima, Stack<Simbolo> pilaAux,
                               PrintWriter ts, Lines lines, Zona_decl zona_decl)
@@ -49,10 +49,7 @@ public class AnSm
                 else if (s1.getEstadoActual() == estados.ok && s2.getEstadoActual() == estados.ok)
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
-                {
-                    System.out.println("ERROR: B:" + s2.getEstadoActual().toString() + "\n");
                     pilaAux.peek().setEstadoActual(estados.error);
-                }
                 break;
             case tresUno:
                 zona_decl.zona_decl = true;
@@ -100,7 +97,7 @@ public class AnSm
                 pilaAux.pop();  // function
                 if (s1.getEstadoActual() == estados.error)
                 {
-                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: cuerpo de la funcion mal formada\n");
+//                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: cuerpo de la funcion mal formada\n");
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
                 else
@@ -117,15 +114,15 @@ public class AnSm
                 aux = pilaAux.pop(); //id
                 aux2 = pilaAux.pop(); //T
                 tablaLocal.insertaTipoTS(aux.getNameId(), aux2.getEstadoActual());
-                tablaGlobal.tablaSimbolos.get(tablaGlobal.tablaSimbolos.size() - 1).añadirParametro(aux2.getEstadoActual());
+                tablaGlobal.tablaSimbolos.get(tablaGlobal.tablaSimbolos.size() - 1).anadirParametro(aux2.getEstadoActual());
                 break;
             case diez:
-                pilaAux.pop();
+                pilaAux.pop();  // K
                 aux = pilaAux.pop(); //id
                 aux2 = pilaAux.pop(); //T
                 tablaLocal.insertaTipoTS(aux.getNameId(), aux2.getEstadoActual());
-                tablaGlobal.tablaSimbolos.get(tablaGlobal.tablaSimbolos.size() - 1).añadirParametro(aux2.getEstadoActual());
-                pilaAux.pop();
+                tablaGlobal.tablaSimbolos.get(tablaGlobal.tablaSimbolos.size() - 1).anadirParametro(aux2.getEstadoActual());
+                pilaAux.pop();  // ,
                 break;
             case doce:
                 s2 = pilaAux.pop(); // C
@@ -158,7 +155,10 @@ public class AnSm
                 if (a5.getEstadoActual() == estados.ok)
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
+                {
+                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: Expresion incorrecta para la evaluación del switch, debe ser de tipo entero\n");
                     pilaAux.peek().setEstadoActual(estados.error);
+                }
                 pilaAux.push(a7);
                 pilaAux.push(a6);
                 pilaAux.push(a5);
@@ -180,7 +180,6 @@ public class AnSm
             case dieciseisUno:
                 s1 = pilaAux.pop();    // ConstEnt
                 s2 = pilaAux.pop();    // case
-//                System.out.println(s1.getNameId() + "\n");
                 int ent = s1.getNameId();   //constEnt
                 if(caseEnt.get(casActual).contains(ent))
                     System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: existen uno o multiples cases con la misma constante entera\n");
@@ -222,13 +221,9 @@ public class AnSm
                 estados T = pilaAux.pop().getEstadoActual();
                 id = pilaAux.pop();
                 if (tablaLocal == null)
-                {
                     tablaGlobal.insertaTipoTS(id.getNameId(), T);
-                }
                 else
-                {
                     tablaLocal.insertaTipoTS(id.getNameId(), T);
-                }
                 pilaAux.pop();
                 pilaAux.peek().setEstadoActual(estados.ok);
                 break;
@@ -262,18 +257,19 @@ public class AnSm
             case veintiSiete:
                 s1 = pilaAux.pop(); // SS
                 s2 = pilaAux.pop(); // id
-//                System.out.println(s1.getEstadoActual().name() + "\n\n\n");
                 if (s1.getEstadoActual() == estados.ok || (tablaLocal != null && tablaLocal.get(s2.getNameId()) != null &&
                         tablaLocal.get(s2.getNameId()).getTipo() == s1.getEstadoActual()))
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else if (s1.getEstadoActual() == estados.ok || (tablaGlobal.get(s2.getNameId()) != null &&
                         tablaGlobal.get(s2.getNameId()).getTipo() == s1.getEstadoActual()))
                     pilaAux.peek().setEstadoActual(estados.ok);
-                else
+                else if (s1.getEstadoActual() != estados.error)
                 {
-                    System.out.println("FALLO SEMANTICO : "+ lines.toString());
+                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: el tipo de variable no coincide con el tipo de valor que se intenta asignar\n");
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
+                else
+                    pilaAux.peek().setEstadoActual(estados.error);
                 break;
             case veintiOcho:
                 pilaAux.pop(); // ;
@@ -282,7 +278,10 @@ public class AnSm
                 if (s1.getEstadoActual() == estados.constEnt)
                     pilaAux.peek().setEstadoActual(s1.getEstadoActual());
                 else
+                {
+                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: la asignación con resto debe realizarse con un valor entero\n");
                     pilaAux.peek().setEstadoActual(estados.error);
+                }
                 break;
             case veintiNueve:
                 pilaAux.pop(); // ;
@@ -291,7 +290,9 @@ public class AnSm
                 if (s1.getEstadoActual() != estados.error && s1.getEstadoActual() != estados.vacio)
                     pilaAux.peek().setEstadoActual(s1.getEstadoActual());
                 else
+                {
                     pilaAux.peek().setEstadoActual(estados.error);
+                }
                 break;
             case treinta:
                 pilaAux.pop(); // ;
@@ -309,7 +310,7 @@ public class AnSm
                 pilaAux.pop(); // print
                 if (s1.getEstadoActual() == estados.booleanR || s1.getEstadoActual() == estados.error)
                 {
-                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: Expresion mal formada o variable boolean no admitida\n");
+                    System.out.println("Error en linea: " + lines.toString()+ " -> " + "Error semantico: Expresion mal formada o variable boolean no admitida\n");
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
                 else
@@ -326,7 +327,7 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
                 {
-                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: id no declarado anteriormente\n");
+                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: variable booleana no admitida\n");
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
                 break;
@@ -335,7 +336,6 @@ public class AnSm
                 s1 = pilaAux.pop(); // X
                 pilaAux.pop(); // return
                 if (tablaGlobal.get(tablaLocal.getIdLocal()).getTipo() == null)
-                    //TODO PARCHE SINTACTICO RETURN EN MAIN
                     System.out.println("Error sintactico, return en main");
                 else if (tablaGlobal.get(tablaLocal.getIdLocal()).getTipo() == s1.getEstadoActual())
                     pilaAux.peek().setEstadoActual(estados.ok);
@@ -371,23 +371,26 @@ public class AnSm
             case cuarenta:
                 s1 = pilaAux.pop(); // RR
                 s2 = pilaAux.pop(); // R
-                if (s1.getEstadoActual() != estados.vacio)
+                if (s1.getEstadoActual() != estados.vacio && s2.getEstadoActual() == estados.constEnt)
                     pilaAux.peek().setEstadoActual(estados.booleanR);
                 else if (s1.getEstadoActual()!=estados.error && s2.getEstadoActual()!=estados.error)
                     pilaAux.peek().setEstadoActual(s2.getEstadoActual());
                 else
+                {
+                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: La expresion no esta bien formada\n");
                     pilaAux.peek().setEstadoActual(estados.error);
+                }
                 break;
             case cuarentaiUno:
                 s1 = pilaAux.pop(); // RR
                 s2 = pilaAux.pop(); // R
                 pilaAux.pop();      // ==
-                if (s1.getEstadoActual() != estados.error && s2.getEstadoActual() != estados.error)
+                if (s2.getEstadoActual() == estados.constEnt && s1.getEstadoActual() != estados.error)
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
                 {
                     pilaAux.peek().setEstadoActual(estados.error);
-                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: Expresion mal formada\n");
+                    System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: La comparacion solo admite valores enteros\n");
                 }
                 break;
             case cuarentaiTres:

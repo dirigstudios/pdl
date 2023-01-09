@@ -29,7 +29,7 @@ public class TablaSimbolos
             return function;
         }
 
-        public void añadirParametro(estados estado) { parametros.add(estado); }
+        public void anadirParametro(estados estado) { parametros.add(estado); }
 
         public String getLexema()
         {
@@ -156,8 +156,8 @@ public class TablaSimbolos
                 ts.println("* LEXEMA : '" + entrada.getLexema() + "'" + "\n\tATRIBUTOS :\n\t\t+tipo : '" + "funcion'" + "\n\t\t +numParam : " + entrada.parametros.size());
                 for ( int c = 0 ; c < entrada.parametros.size() ; c++ )
                 {
-                    ts.println("\t\t  +TipoParam" + c + " : '" + entrada.parametros.get(c) + "'");
-                    ts.println("\t\t   +ModoParam" + c + " : " + "1");
+                    ts.println("\t\t  +TipoParam" + (c + 1) + " : '" + entrada.parametros.get(c) + "'");
+                    ts.println("\t\t   +ModoParam" + (c + 1) + " : " + "1");
                 }
                 ts.println("\t\t+TipoRetorno : '" + entrada.getTipo() + "'");
                 ts.println("\t\t+EtiqFuncion : 'Et" + entrada.getLexema() + "01'");
