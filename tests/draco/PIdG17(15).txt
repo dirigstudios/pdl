@@ -1,5 +1,5 @@
 let a int;
-let   b  int  ;
+let   b  string  ;
 let bbb boolean ;
 a = 3;
 b=a					    		 	 	 	 	 	 	 	 	 	 	 	 	 	 	 													;

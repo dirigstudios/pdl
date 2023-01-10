@@ -152,7 +152,7 @@ public class AnSm
                 a5 = pilaAux.pop(); // E
                 a6 = pilaAux.pop(); // (
                 a7 = pilaAux.pop(); // switch
-                if (a5.getEstadoActual() == estados.ok)
+                if (a5.getEstadoActual() == estados.ok || a5.getEstadoActual() == estados.constEnt)
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
                 {
