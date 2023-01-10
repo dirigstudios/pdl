@@ -560,7 +560,7 @@ else B.tipo := tipo.error\\ \tab \tab \tab \tab
 POP(5)$\rbrace$_{14}$}\\
 
 \tab B $\rightarrow$ switch \textcolor{OliveGreen}{$ $\lbrace$initCases()$\rbrace$_{15.1}$}\\ \tab \tab \tab
-( E ) \textcolor{OliveGreen}{$ $\lbrace$if (E.tipo = tipo.ok) \\ \tab \tab \tab \tab \tab
+( E ) \textcolor{OliveGreen}{$ $\lbrace$if (E.tipo = tipo.ok || E.tipo = tipo.constEnt) \\ \tab \tab \tab \tab \tab
 then B := tipo.ok \\ \tab \tab \tab \tab
 else B.tipo := tipo.error)$\rbrace$_{15.2}$}\\ \tab \tab \tab
 $\lbrace$ O $\rbrace$ \textcolor{OliveGreen}{$ $\lbrace$if (E.tipo := constEnt \&\& tipo.O := tipo.ok) \\ \tab \tab \tab \tab \tab
