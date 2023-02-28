@@ -1,0 +1,2 @@
+El programa traduce código fuente a 3-d (cuartetos)
+    - Cada símbolo (no terminal) tiene atributos (lugar, etiqueta, izq, param, long)

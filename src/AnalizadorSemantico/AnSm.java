@@ -14,7 +14,7 @@ import AnalizadorSintactico.TablaM.estados;
 
 public class AnSm
 {
-    //TODO: hacer el EdT de la gramática (ON TESTING)
+
     int tablasCreadas = 1;
 
     public int casActual = -1;

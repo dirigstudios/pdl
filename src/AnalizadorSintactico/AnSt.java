@@ -56,7 +56,8 @@ public class AnSt {
         pila.push(new Simbolo(simbolos.PP)); //apilo el AXIOMA de la gramatica tipo 2
     }
 
-    public static void algorithmAnSt(FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS, PrintWriter salidaParser) throws IOException {
+    //TODO: implementar que escriba el Código Intermedio en el fichero salidaGCI
+    public static void algorithmAnSt(FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS, PrintWriter salidaParser, PrintWriter salidaGCI) throws IOException {
         initializeStack();
         Lines lines = new Lines(1);
         TablaM tablaM = new TablaM();
