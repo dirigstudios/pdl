@@ -1,17 +1,29 @@
 #0:
-* LEXEMA : 'a'
+* LEXEMA : 'var'
 	ATRIBUTOS :
 		+tipo : 'constEnt'
 		+despl : 1
-* LEXEMA : 'b'
+* LEXEMA : 'temp1'
 	ATRIBUTOS :
 		+tipo : 'constEnt'
 		+despl : 2
-* LEXEMA : 'bbb'
+* LEXEMA : 'temp2'
 	ATRIBUTOS :
-		+tipo : 'booleanR'
+		+tipo : 'constEnt'
 		+despl : 3
-* LEXEMA : 'c'
+* LEXEMA : 'temp3'
 	ATRIBUTOS :
-		+tipo : 'booleanR'
+		+tipo : 'constEnt'
 		+despl : 4
+* LEXEMA : 'temp4'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 5
+* LEXEMA : 'temp5'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 6
+* LEXEMA : 'temp6'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 7

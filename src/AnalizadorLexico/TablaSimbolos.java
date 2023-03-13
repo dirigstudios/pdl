@@ -95,6 +95,15 @@ public class TablaSimbolos
         tablaSimbolos.add(aux);
     }
 
+    public int putnew(estados estado){
+        Entrada aux = new Entrada();
+        aux.setLexema("temp" + tablaSimbolos.size());
+        aux.setId(tablaSimbolos.size());
+        tablaSimbolos.add(aux);
+        insertaTipoTS(aux.id, estado);
+        return aux.id;
+    }
+
     public Entrada get(String str)
     {
         for (Entrada e : tablaSimbolos)

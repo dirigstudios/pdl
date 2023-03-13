@@ -1,6 +1,7 @@
 package AnalizadorSintactico;
 
 import AnalizadorLexico.Token;
+import AnalizadorLexico.TablaSimbolos;
 
 import java.util.LinkedList;
 
@@ -33,6 +34,12 @@ public class TablaM {
         simbolos valor;
         estados estadoaActual;
         int nameId;
+        String lugar;
+
+        public String getLugar() { return lugar; }
+
+        public void setLugar(String lugar) { this.lugar = lugar; }
+
         boolean tipoTabla = true; // true = tsG, false = tsL
 
         public Simbolo(simbolos valor) { this.valor = valor; }
@@ -69,7 +76,7 @@ public class TablaM {
     /*22 no terminales, 28 terminales*/
     //Este enum sirve para sacar las reglas
     //TODO eliminar
-    public enum simbolos{A,B,C,D,E,F,H,K,L,O,P,PP,Q,R,RR,S,SS,T,U,UU,V,VV,X,negacion,asignacionResto,abrePar,cierraPar,suma,coma,dosPuntos,
+    public enum simbolos{A,B,C,D,E,F,H,K,L,O,P,PP,Q,R,RR,S,SS,T,U,UU,V,VV,X,negacion,asignacionResto, asignacion, abrePar,cierraPar,suma,coma,dosPuntos,
                         puntoComa,igual,comparacion,booleanR,cadena,caseR,defaultR,constEnt,function,id,input,
                         intR,let,print,returnR,string,switchR,abreLlave,cierraLlave,breakR,ifR,$, unoUno, unoDos, dos, tresUno, tresDos ,cuatro, cincoUno, cincoDos,
                         cincoTres, cincoCuatro , seis, siete, ocho, nueve, diez, once, doce, trece, catorce, quinceUno, quinceDos, quinceTres, dieciseisUno, dieciseisDos, dieciSiete,

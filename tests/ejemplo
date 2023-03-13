@@ -1,14 +1,4 @@
-let a int;
-let   b  int  ;
-let bbb boolean ;
-a = 3;
-b=a					    		 	 	 	 	 	 	 	 	 	 	 	 	 	 	 													;
-let c boolean ;
-c = a == b;
-if (c) b %= 1;
-if (a == b) b = 44;
-a = a + b;
-print a ;
-print b;
+let var int;
 
-
+var = 32;
+var = 55 + 5;

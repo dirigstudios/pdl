@@ -124,7 +124,7 @@ public class AnSt {
             }
             else if (cima.isSem())
             {
-                aux.ejecutarRegla(tsG, tsL, pila.peek(), pilaAux, salidaTS, lines, zona_decl);
+                aux.ejecutarRegla(tsG, tsL, pila.peek(), pilaAux, salidaTS, lines, zona_decl, salidaGCI);
                 pila.pop();
             }
             else
