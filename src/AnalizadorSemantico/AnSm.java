@@ -83,6 +83,7 @@ public class AnSm
                 pilaAux.push(a2);
                 pilaAux.push(a1);
                 zona_decl.zona_decl = false;
+                GCI.emite(":", "Et" + tablaGlobal.get(a5.getNameId()).getLexema() + "01", null, null, fichGCI);
                 break;
             case cincoTres:
                 tablaLocal.printTS(ts);
@@ -105,6 +106,7 @@ public class AnSm
                 }
                 else
                     pilaAux.peek().setEstadoActual(estados.ok);
+                GCI.emite("return", null, null, null, fichGCI);
                 break;
             case seis: case treintaiOcho:
                 aux = pilaAux.pop();
@@ -149,6 +151,10 @@ public class AnSm
             case quinceUno:
                 caseEnt.add(new ArrayList<>());
                 casActual++;
+                //GCI
+                //pilaAux.peek().setBreak(GCI.nuevaEt()); //B.break := nuevaEt() //TODO implementar esta etiqueta
+                //pilaAux.peek().setEvaluado(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.booleanR)); //B.evaluado := nuevaTemp()
+                //GCI.emite(":=", pilaAux.peek().getEvaluado(), null, 0);
                 break;
             case quinceDos:
                 a4 = pilaAux.pop(); // )
@@ -218,6 +224,8 @@ public class AnSm
                 pilaAux.pop(); // ;
                 pilaAux.pop(); // break
                 pilaAux.peek().setEstadoActual(estados.ok);
+                //GCI
+                //GCI.emite("goto", pilaAux.peek().getBreak(), null, null, fichGCI); //goto D.break //TODO implementar esta etiqueta
                 break;
             case veintiUnoTres:
                 pilaAux.pop();
@@ -273,6 +281,7 @@ public class AnSm
                 }
                 else
                     pilaAux.peek().setEstadoActual(estados.error);
+                //GCI
                 break;
             case veintiOcho:
                 pilaAux.pop(); // ;
@@ -318,6 +327,9 @@ public class AnSm
                 }
                 else
                     pilaAux.peek().setEstadoActual(estados.ok);
+                //GCI
+                GCI.emite("param", s1.getLugar(), null, null, fichGCI);
+                GCI.emite("call", "input", null, null, fichGCI);
                 break;
             case treintaiDos:
                 pilaAux.pop(); // ;
@@ -333,6 +345,9 @@ public class AnSm
                     System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: variable booleana no admitida\n");
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
+                //GCI
+                GCI.emite("param", tablaGlobal.buscaLugarTS(s1.getNameId()), null, null, fichGCI);
+                GCI.emite("call", "input", null, null, fichGCI);
                 break;
             case treintaiTres:
                 pilaAux.pop(); // ;
@@ -347,6 +362,8 @@ public class AnSm
                     System.out.println("Error semantico, tipo de funcion no coincide con el valor de return\n");
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
+                //GCI
+                GCI.emite("return", s1.getLugar(), null, null, fichGCI);
                 break;
             case treintaiCuatro:
                 s1 = pilaAux.pop(); // Q
@@ -461,6 +478,7 @@ public class AnSm
                 aux = pilaAux.pop(); // V
                 aux2 = pilaAux.pop(); // U
                 aux2.setEstadoActual(aux.getEstadoActual());
+                //GCI
                 aux2.setLugar(aux.getLugar());
                 pilaAux.push(aux2);
                 break;
@@ -487,12 +505,14 @@ public class AnSm
             case cincuenta:
                 s1 = pilaAux.pop(); // consEnt
                 pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.constEnt));
+                //GCI
                 GCI.emite(":=", Integer.toString(s1.getNameId()), null, pilaAux.peek().getLugar(), fichGCI);
                 pilaAux.peek().setEstadoActual(estados.constEnt);
                 break;
             case cincuentaiUno:
                 s1 = pilaAux.pop(); // cadena
                 pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.cadena));
+                //GCI
                 GCI.emite(":=", Integer.toString(s1.getNameId()), null, pilaAux.peek().getLugar(), fichGCI);
                 pilaAux.peek().setEstadoActual(estados.cadena);
                 break;

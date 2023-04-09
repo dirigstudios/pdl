@@ -151,6 +151,10 @@ public class TablaSimbolos
         aux.setTipo(estado);
     }
 
+    public String buscaLugarTS(int idpos) {
+        return this.getIdTabla() + "." + this.tablaSimbolos.get(idpos).desplazamiento;
+    }
+
     public int size()
     {
         return tablaSimbolos.size();

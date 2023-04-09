@@ -35,6 +35,9 @@ public class TablaM {
         estados estadoaActual;
         int nameId;
         String lugar;
+        String etbreak;
+        boolean evaluado;
+        String etcase;
 
         public String getLugar() { return lugar; }
 
