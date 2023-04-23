@@ -9,7 +9,7 @@ import AnalizadorSintactico.TablaM.estados;
 public class GCI
 {
     private int nTemps = 0;
-    private int nEts = 0;
+    private static int nEts = 0;
     public enum operador{suma, igual, negacion, asignacion, goTo, If, asigancionResto}
 
     /***
@@ -45,7 +45,7 @@ public class GCI
      * genera una nueva etiqueta para el Código Intermedio
      * @return devuelve el nombre de la nueva etiqueta generada
      */
-    public String nuevaEt()
+    public static String nuevaEt()
     {
         nEts++;
         return "et0" + Integer.toString(nEts);

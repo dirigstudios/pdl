@@ -10,10 +10,18 @@ public class TablaSimbolos
     {
         private String lexema;
         private estados tipo;
-        private int desplazamiento;
+        private int desplazamiento; //cuanto ocupa el tipo de variable
         ArrayList<estados> parametros  = new ArrayList<>();;
         boolean function = false;
         int id;
+
+        public String getEtiqueta()
+        {
+            if (function)
+                return "Et" + lexema + "01";
+            else
+                return null;
+        }
 
         public int getId() { return id; }
 

@@ -13,7 +13,6 @@ import AnalizadorSintactico.TablaM.Simbolo;
 import AnalizadorSintactico.TablaM.estados;
 import AnalizadorSintactico.TablaM.simbolos;
 import GCI.GCI;
-import sun.misc.GC;
 
 public class AnSm
 {
@@ -190,10 +189,15 @@ public class AnSm
                 s1 = pilaAux.pop();    // ConstEnt
                 s2 = pilaAux.pop();    // case
                 int ent = s1.getNameId();   //constEnt
+                //TODO implementar D.break := O.break, como sacar D de la pila?¿?¿?
                 if(caseEnt.get(casActual).contains(ent))
                     System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: existen uno o multiples cases con la misma constante entera\n");
                 else
                     caseEnt.get(casActual).add(ent);
+                simbolo_cima.setEtbreak(GCI.nuevaEt());
+                GCI.emite("if==", simbolo_cima.isEvaluado()?"1":"0", "1", "2", fichGCI);
+                GCI.emite("if!=", simbolo_cima.getEtcase(), String.valueOf(ent), simbolo_cima.getSiguiente(), fichGCI);
+
                 pilaAux.push(s2);
                 pilaAux.push(s1);
                 break;
@@ -225,7 +229,7 @@ public class AnSm
                 pilaAux.pop(); // break
                 pilaAux.peek().setEstadoActual(estados.ok);
                 //GCI
-                //GCI.emite("goto", pilaAux.peek().getBreak(), null, null, fichGCI); //goto D.break //TODO implementar esta etiqueta
+                GCI.emite("goto", pilaAux.peek().getEtbreak(), null, null, fichGCI); //goto D.break //TODO implementar esta etiqueta
                 break;
             case veintiUnoTres:
                 pilaAux.pop();
@@ -482,7 +486,7 @@ public class AnSm
                 aux2.setLugar(aux.getLugar());
                 pilaAux.push(aux2);
                 break;
-            case cuarentaiOcho: //TODO GCI
+            case cuarentaiOcho:
                 s1 = pilaAux.pop(); // VV
                 id = pilaAux.pop(); // id
                 if (tablaLocal != null && (tablaLocal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error))
@@ -494,18 +498,41 @@ public class AnSm
                     System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: id no declarado anteriormente\n");
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
+                //GCI
+                Simbolo V = pilaAux.peek();
+                V.setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, id.getEstadoActual())); //V.lugar := nuevaTemp(BuscaTipoTS(id.pos))
+
+                //comprobamos si el id es function entrando en la TS correspondiente
+                boolean isFunction = false;
+                if (tablaLocal != null && (tablaLocal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error))
+                    isFunction = tablaLocal.get(id.getNameId()).isFunction();
+                else if (tablaGlobal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error)
+                    isFunction = tablaGlobal.get(id.getNameId()).isFunction();
+
+                if (isFunction) //if BuscaTipoTS(id.pos) != funcion
+                    GCI.emite("", id.getEstadoActual().toString(), "", V.getLugar(), fichGCI); //then emite(NULL, buscaLugarTS(id.pos), NULL, V.lugar)
+                else
+                {
+                    //extraemos el id.pos para buscar la etiqueta en la TS correspondiente
+                    if (tablaLocal != null && (tablaLocal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error))
+                        s1.setEtiq(tablaLocal.get(id.getNameId()).getEtiqueta()); //VV.etiq := BuscaEtiqTS(id.pos)
+                    else if (tablaGlobal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error)
+                        s1.setEtiq(tablaGlobal.get(id.getNameId()).getEtiqueta()); //VV.etiq := BuscaEtiqTS(id.pos)
+                    V.setLugar(s1.getLugar()); //V.lugar := VV.lugar;
+                }
                 break;
             case cuarentaiNueve:
                 pilaAux.pop();       // )
                 s1 = pilaAux.pop();  // E
                 pilaAux.pop();       // (
-                pilaAux.peek().setLugar(s1.getLugar());
                 pilaAux.peek().setEstadoActual(s1.getEstadoActual());
+                //GCI
+                pilaAux.peek().setLugar(s1.getLugar());
                 break;
             case cincuenta:
                 s1 = pilaAux.pop(); // consEnt
-                pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.constEnt));
                 //GCI
+                pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.constEnt));
                 GCI.emite(":=", Integer.toString(s1.getNameId()), null, pilaAux.peek().getLugar(), fichGCI);
                 pilaAux.peek().setEstadoActual(estados.constEnt);
                 break;

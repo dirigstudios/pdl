@@ -33,11 +33,33 @@ public class TablaM {
 
         simbolos valor;
         estados estadoaActual;
-        int nameId;
+        int nameId; //id.pos -> desplazamiento en contexto de la tabla símbolos
         String lugar;
         String etbreak;
         boolean evaluado;
         String etcase;
+        String siguiente;
+        String etiq;
+
+        public String getEtiq() { return etiq; }
+
+        public void setEtiq(String etiq) { this.etiq = etiq; }
+
+        public String getSiguiente() { return siguiente; }
+
+        public void setSiguiente(String siguiente) { this.siguiente = siguiente; }
+
+        public boolean isEvaluado() { return evaluado; }
+
+        public void setEvaluado(boolean evaluado) { this.evaluado = evaluado; }
+
+        public String getEtbreak() { return etbreak; }
+
+        public void setEtbreak(String etbreak) { this.etbreak = etbreak; }
+
+        public String getEtcase() { return etbreak; }
+
+        public void setEtcase(String etcase) { this.etcase = etcase; }
 
         public String getLugar() { return lugar; }
 
@@ -47,6 +69,9 @@ public class TablaM {
 
         public Simbolo(simbolos valor) { this.valor = valor; }
 
+        /**
+         * devuelve su posición en la tabla de símbolos
+         */
         public int getNameId() { return nameId; }
 
         public void setNameId(int nameId) { this.nameId = nameId; }
@@ -65,6 +90,7 @@ public class TablaM {
         public String toString() {
             return valor.toString();
         }
+
     }
 
     //Esta funcion podria ir fuera o dentro
