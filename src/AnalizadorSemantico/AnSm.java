@@ -151,9 +151,9 @@ public class AnSm
                 caseEnt.add(new ArrayList<>());
                 casActual++;
                 //GCI
-                //pilaAux.peek().setBreak(GCI.nuevaEt()); //B.break := nuevaEt() //TODO implementar esta etiqueta
-                //pilaAux.peek().setEvaluado(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.booleanR)); //B.evaluado := nuevaTemp()
-                //GCI.emite(":=", pilaAux.peek().getEvaluado(), null, 0);
+                pilaAux.peek().setEtbreak(GCI.nuevaEt()); //B.break := nuevaEt() //TODO implementar esta etiqueta
+                //pilaAux.peek().setEvaluado(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.booleanR)); //B.evaluado := nuevaTemp() // se hace solo
+                GCI.emite(":=", String.valueOf(pilaAux.peek().isEvaluado()), null, "0", fichGCI);
                 break;
             case quinceDos:
                 a4 = pilaAux.pop(); // )
@@ -167,6 +167,7 @@ public class AnSm
                     System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: Expresion incorrecta para la evaluación del switch, debe ser de tipo entero\n");
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
+
                 pilaAux.push(a7);
                 pilaAux.push(a6);
                 pilaAux.push(a5);
@@ -184,6 +185,7 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
                     pilaAux.peek().setEstadoActual(estados.error);
+                GCI.emite(":", simbolo_cima.getEtbreak(), null, null, fichGCI);
                 break;
             case dieciseisUno:
                 s1 = pilaAux.pop();    // ConstEnt
@@ -213,6 +215,12 @@ public class AnSm
                 else
                     pilaAux.peek().setEstadoActual(estados.error);
                 break;
+            /*case dieciseisTres:
+                GCI.emite(":", O.siguiente(), null, null, fichGCI);
+                break;
+            case dieciSiete:
+                GCI.emite("if==", O.isevaluado(), "1", O.breakEt, fichGCI);
+                break;*/
             case dieciSiete:
                 s1 = pilaAux.pop(); // O
                 pilaAux.pop();      // D
