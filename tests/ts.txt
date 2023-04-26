@@ -1,5 +1,5 @@
 #0:
-* LEXEMA : 'var'
+* LEXEMA : 'temp0'
 	ATRIBUTOS :
 		+tipo : 'constEnt'
 		+despl : 1
@@ -7,23 +7,3 @@
 	ATRIBUTOS :
 		+tipo : 'constEnt'
 		+despl : 2
-* LEXEMA : 'temp2'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 3
-* LEXEMA : 'temp3'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 4
-* LEXEMA : 'temp4'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 5
-* LEXEMA : 'temp5'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 6
-* LEXEMA : 'temp6'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 7

@@ -4,6 +4,7 @@ import AnalizadorLexico.Token;
 import AnalizadorLexico.TablaSimbolos;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class TablaM {
     public static class Regla
@@ -41,8 +42,13 @@ public class TablaM {
         String siguiente;
         String etiq;
 
+        List<String> params;
+
         public String getEtiq() { return etiq; }
 
+        public List<String> getParams() {return params;}
+
+        public void setParams(List<String> params) {this.params = params;}
         public void setEtiq(String etiq) { this.etiq = etiq; }
 
         public String getSiguiente() { return siguiente; }
@@ -108,7 +114,7 @@ public class TablaM {
     public enum simbolos{A,B,C,D,E,F,H,K,L,O,P,PP,Q,R,RR,S,SS,T,U,UU,V,VV,X,negacion,asignacionResto, asignacion, abrePar,cierraPar,suma,coma,dosPuntos,
                         puntoComa,igual,comparacion,booleanR,cadena,caseR,defaultR,constEnt,function,id,input,
                         intR,let,print,returnR,string,switchR,abreLlave,cierraLlave,breakR,ifR,$, unoUno, unoDos, dos, tresUno, tresDos ,cuatro, cincoUno, cincoDos,
-                        cincoTres, cincoCuatro , seis, siete, ocho, nueve, diez, once, doce, trece, catorce, quinceUno, quinceDos, quinceTres, dieciseisUno, dieciseisDos, dieciSiete,
+                        cincoTres, cincoCuatro , seis, siete, ocho, nueve, diez, once, doce, trece, catorce, catorceUno, quinceUno, quinceDos, quinceTres, dieciseisUno, dieciseisDos, dieciseisTres, dieciSiete, dieciSieteUno,
                         dieciOcho, dieciNueve, veinte, veintiUnoUno, veintiUnoDos, veintiUnoTres, veintiDos, veintiTres, veintiCuatro, veintiCinco, veintiSeis, veintiSiete, veintiOcho, veintiNueve,
                         treinta, treintaiUno, treintaiDos, treintaiTres, treintaiCuatro, treintaiCinco, treintaiSeis, treintaiSiete, treintaiOcho, treintaiNueve, cuarenta,
                         cuarentaiUno, cuarentaiDos, cuarentaiTres, cuarentaiCuatro, cuarentaiCinco, cuarentaiSeis, cuarentaiSiete, cuarentaiOcho, cuarentaiNueve, cincuenta,
@@ -331,6 +337,7 @@ public class TablaM {
         templist.add(new Simbolo(simbolos.abrePar));
         templist.add(new Simbolo(simbolos.E));
         templist.add(new Simbolo(simbolos.cierraPar));
+        templist.add(new Simbolo(simbolos.catorceUno));
         templist.add(new Simbolo(simbolos.S));
         templist.add(new Simbolo(simbolos.catorce));
         Regla regla29 = new Regla(new Simbolo(simbolos.B), templist, 29);
@@ -343,6 +350,7 @@ public class TablaM {
         templist.add(new Simbolo(simbolos.dosPuntos));
         templist.add(new Simbolo(simbolos.C));
         templist.add(new Simbolo(simbolos.D));
+        templist.add(new Simbolo(simbolos.dieciseisTres));
         templist.add(new Simbolo(simbolos.O));
         templist.add(new Simbolo(simbolos.dieciseisDos));
         Regla regla30 = new Regla(new Simbolo(simbolos.O), templist, 30);
@@ -351,6 +359,7 @@ public class TablaM {
         templist = new LinkedList<>();
         templist.add(new Simbolo(simbolos.defaultR));
         templist.add(new Simbolo(simbolos.dosPuntos));
+        templist.add(new Simbolo(simbolos.dieciSieteUno));
         templist.add(new Simbolo(simbolos.C));
         templist.add(new Simbolo(simbolos.D));
         templist.add(new Simbolo(simbolos.O));

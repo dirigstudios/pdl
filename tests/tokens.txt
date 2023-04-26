@@ -1,14 +1,3 @@
-<palabraReservada, let>
-<id, 1>
-<palabraReservada, int>
-<puntoComa, >
-<id, 1>
-<igual, >
+<palabraReservada, print>
 <constEnt, 32>
-<puntoComa, >
-<id, 1>
-<igual, >
-<constEnt, 55>
-<suma, >
-<constEnt, 5>
 <puntoComa, >
