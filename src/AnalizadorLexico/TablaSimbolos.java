@@ -160,7 +160,7 @@ public class TablaSimbolos
     }
 
     public String buscaLugarTS(int idpos) {
-        return this.getIdTabla() + "." + this.tablaSimbolos.get(idpos).desplazamiento;
+        return this.getIdTabla() + "." + idpos;
     }
 
     public int size()
