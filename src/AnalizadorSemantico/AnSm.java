@@ -34,6 +34,7 @@ public class AnSm
         Simbolo s2;
         //aux para el switch -> acc sem 15
         Simbolo a1, a2, a3, a4, a5, a6, a7;
+        String idLugar="";
         switch (simbolo_cima.getValor())
         {
             case unoUno:
@@ -293,7 +294,9 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
                 break;
-            case veintiSiete:
+            case veintiSieteUno:
+                break;
+            case veintiSieteDos:
                 s1 = pilaAux.pop(); // SS
                 s2 = pilaAux.pop(); // id
                 if (s1.getEstadoActual() == estados.ok || (tablaLocal != null && tablaLocal.get(s2.getNameId()) != null &&
@@ -309,25 +312,6 @@ public class AnSm
                 }
                 else
                     pilaAux.peek().setEstadoActual(estados.error);
-                //GCI
-                GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.constEnt); //SS.lugar := nuevaTemp(entero)
-                //comprobar si esta alocado en tablaLocal o tablaGlobal
-                if (tablaLocal != null && (tablaLocal.get(s2.getNameId()) != null && s2.getEstadoActual() != estados.error))
-                {
-                    s2.setEstadoActual(tablaLocal.get(s2.getNameId()).getTipo()); //id.tipo:=buscaTipoTS(id.pos)
-                    if (tablaLocal.get(s2.getNameId()).isFunction()) //if (id.tipo = function)
-                        s1.setEtiq(tablaLocal.get(s2.getNameId()).getEtiqueta()); //SS.etiq = buscaEtiqTS(id.pos)
-                    else
-                        s1.setLugar(tablaLocal.buscaLugarTS(s2.getNameId())); //SS.lugar = BuscaLugarTS(id.pos)
-                }
-                else if (tablaGlobal.get(s2.getNameId()) != null && s2.getEstadoActual() != estados.error)
-                {
-                    s2.setEstadoActual(tablaGlobal.get(s2.getNameId()).getTipo()); //id.tipo:=buscaTipoTS(id.pos)
-                    if (tablaGlobal.get(s2.getNameId()).isFunction()) //if (id.tipo = function)
-                        s1.setEtiq(tablaGlobal.get(s2.getNameId()).getEtiqueta()); //SS.etiq = buscaEtiqTS(id.pos)
-                    else
-                        s1.setLugar(tablaGlobal.buscaLugarTS(s2.getNameId())); //SS.lugar = BuscaLugarTS(id.pos)
-                }
                 break;
             case veintiOcho:
                 pilaAux.pop(); // ;
@@ -341,7 +325,10 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
                 //GCI
-                GCI.emite("%", s1.getLugar(), pilaAux.peek().getLugar(), pilaAux.peek().getLugar(), fichGCI);
+                s2 = pilaAux.pop(); // SS, por lo que en la cima de la pila esta id!!
+                idLugar = tablaGlobal.buscaLugarTS(pilaAux.peek().getNameId());  // Revisar que hacer si es la local la que hay que ver
+                GCI.emite("%", s1.getLugar(), idLugar, idLugar, fichGCI);
+                pilaAux.push(s2); // devuelvo SS a donde debe estar, habiendo accedido a id
                 break;
             case veintiNueve:
                 pilaAux.pop(); // ;
@@ -352,8 +339,11 @@ public class AnSm
                 else
                     pilaAux.peek().setEstadoActual(estados.error);
                 //GCI
-                //diferenciar entre logico y entero VS cadena (?????)
-                GCI.emite(":=", s1.getLugar(), "", pilaAux.peek().getLugar(), fichGCI);
+                //diferenciar entre logico y entero VS cadena (asiganr una cadena conlleva mas instruccion objeto que asignar un logico u entero)
+                s2 = pilaAux.pop(); // SS, por lo que en la cima de la pila esta id!!
+                idLugar = tablaGlobal.buscaLugarTS(pilaAux.peek().getNameId());  // Revisar que hacer si es la local la que hay que ver
+                GCI.emite(":=", s1.getLugar(), "null", idLugar, fichGCI);
+                pilaAux.push(s2); // devuelvo SS a donde debe estar, habiendo accedido a id
                 break;
             case treinta:
                 pilaAux.pop(); // ;
@@ -504,11 +494,14 @@ public class AnSm
                 else
                     pilaAux.peek().setEstadoActual(estados.vacio);
                 //GCI
-                pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, s2.getEstadoActual()));
+                //pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, s2.getEstadoActual()));
                 if (s1.getEstadoActual() == estados.vacio)
                     pilaAux.peek().setLugar(s2.getLugar());
                 else
+                {
+                    pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, s2.getEstadoActual()));
                     GCI.emite("+", s2.getLugar(), s1.getLugar(), pilaAux.peek().getLugar(), fichGCI);
+                }
                 break;
             case cuarentaiCuatro:
                 s1 = pilaAux.pop(); // UU1

@@ -115,7 +115,7 @@ public class TablaM {
                         puntoComa,igual,comparacion,booleanR,cadena,caseR,defaultR,constEnt,function,id,input,
                         intR,let,print,returnR,string,switchR,abreLlave,cierraLlave,breakR,ifR,$, unoUno, unoDos, dos, tresUno, tresDos ,cuatro, cincoUno, cincoDos,
                         cincoTres, cincoCuatro , seis, siete, ocho, nueve, diez, once, doce, trece, catorce, catorceUno, quinceUno, quinceDos, quinceTres, dieciseisUno, dieciseisDos, dieciseisTres, dieciSiete, dieciSieteUno,
-                        dieciOcho, dieciNueve, veinte, veintiUnoUno, veintiUnoDos, veintiUnoTres, veintiDos, veintiTres, veintiCuatro, veintiCinco, veintiSeis, veintiSiete, veintiOcho, veintiNueve,
+                        dieciOcho, dieciNueve, veinte, veintiUnoUno, veintiUnoDos, veintiUnoTres, veintiDos, veintiTres, veintiCuatro, veintiCinco, veintiSeis, veintiSieteUno,veintiSieteDos, veintiOcho, veintiNueve,
                         treinta, treintaiUno, treintaiDos, treintaiTres, treintaiCuatro, treintaiCinco, treintaiSeis, treintaiSiete, treintaiOcho, treintaiNueve, cuarenta,
                         cuarentaiUno, cuarentaiDos, cuarentaiTres, cuarentaiCuatro, cuarentaiCinco, cuarentaiSeis, cuarentaiSiete, cuarentaiOcho, cuarentaiNueve, cincuenta,
                         cincuentaiUno, cincuentaiDos, cincuentaiTres;}
@@ -227,8 +227,9 @@ public class TablaM {
         // S -> id SS
         templist = new LinkedList<>();
         templist.add(new Simbolo(simbolos.id));
+        templist.add(new Simbolo(simbolos.veintiSieteUno));
         templist.add(new Simbolo(simbolos.SS));
-        templist.add(new Simbolo(simbolos.veintiSiete));
+        templist.add(new Simbolo(simbolos.veintiSieteDos));
         Regla regla15 = new Regla(new Simbolo(simbolos.S), templist, 15);
 
         // SS -> %= E ;
