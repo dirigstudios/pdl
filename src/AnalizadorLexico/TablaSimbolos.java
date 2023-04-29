@@ -175,7 +175,7 @@ public class TablaSimbolos
             if (entrada.isFunction())
             {
                 ts.println("* LEXEMA : '" + entrada.getLexema() + "'" + "\n\tATRIBUTOS :\n\t\t+tipo : '" + "funcion'" + "\n\t\t +numParam : " + entrada.parametros.size());
-                for ( int c = 0 ; c < entrada.parametros.size() ; c++ )
+                for ( int c = 0 ; c < entrada.parametros.size(); c++ )
                 {
                     ts.println("\t\t  +TipoParam" + (c + 1) + " : '" + entrada.parametros.get(c) + "'");
                     ts.println("\t\t   +ModoParam" + (c + 1) + " : " + "1");
@@ -185,8 +185,8 @@ public class TablaSimbolos
             }
             else
             {
-                desplAC = desplAC + entrada.desplazamiento;
                 ts.println("* LEXEMA : '" + entrada.getLexema() + "'" + "\n\tATRIBUTOS :\n\t\t+tipo : '" + ((entrada.getTipo() == null) ? "no declarado" : entrada.getTipo()) + "'\n\t\t+despl : " + desplAC);
+                desplAC = desplAC + entrada.desplazamiento;
             }
         }
     }

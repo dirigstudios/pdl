@@ -294,9 +294,7 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
                 break;
-            case veintiSieteUno:
-                break;
-            case veintiSieteDos:
+            case veintiSiete:
                 s1 = pilaAux.pop(); // SS
                 s2 = pilaAux.pop(); // id
                 if (s1.getEstadoActual() == estados.ok || (tablaLocal != null && tablaLocal.get(s2.getNameId()) != null &&
@@ -569,8 +567,8 @@ public class AnSm
                 else if (tablaGlobal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error)
                     isFunction = tablaGlobal.get(id.getNameId()).isFunction();
 
-                if (isFunction) //if BuscaTipoTS(id.pos) != funcion
-                    GCI.emite("", id.getEstadoActual().toString(), "", V.getLugar(), fichGCI); //then emite(NULL, buscaLugarTS(id.pos), NULL, V.lugar)
+                if (!isFunction) //if BuscaTipoTS(id.pos) != funcion
+                    GCI.emite(":=", tablaGlobal.buscaLugarTS(id.getNameId()), "null", V.getLugar(), fichGCI); //then emite(NULL, buscaLugarTS(id.pos), NULL, V.lugar)
                 else
                 {
                     //extraemos el id.pos para buscar la etiqueta en la TS correspondiente

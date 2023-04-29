@@ -1,1 +1,5 @@
-print 32;
+let var1 int;
+var1 = 3;
+let var2 int;
+var2 = var1;
+va4 = 4 + 4;

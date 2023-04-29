@@ -1,9 +1,0 @@
-#0:
-* LEXEMA : 'temp0'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 1
-* LEXEMA : 'temp1'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 2
