@@ -1,0 +1,26 @@
+#1:
+* LEXEMA : 'ss'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 0
+* LEXEMA : 'temp11'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1
+#0:
+* LEXEMA : 'among'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 0
+* LEXEMA : 'ff'
+	ATRIBUTOS :
+		+tipo : 'funcion'
+		 +numParam : 1
+		  +TipoParam1 : 'booleanR'
+		   +ModoParam1 : 1
+		+TipoRetorno : 'booleanR'
+		+EtiqFuncion : 'Etff01'
+* LEXEMA : 'varglobal'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1

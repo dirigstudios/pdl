@@ -1,5 +1,5 @@
-let var1 int;
-var1 = 3;
-let var2 int;
-var2 = var1;
-va4 = 4 + 4;
+let among boolean;
+function ff boolean(boolean ss)
+{
+	varglobal = 3333;
+}

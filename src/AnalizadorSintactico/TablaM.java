@@ -87,9 +87,9 @@ public class TablaM {
 
         public void setEstadoActual(estados estadoaActual) { this.estadoaActual = estadoaActual; }
 
-        public boolean isTerminal() { return ((50>=valor.ordinal())&&(valor.ordinal()>22)); }
+        public boolean isTerminal() { return ((52>=valor.ordinal())&&(valor.ordinal()>22)); }
 
-        public boolean isSem() { return (valor.ordinal()>50); }
+        public boolean isSem() { return (valor.ordinal()>52); }
 
         public simbolos getValor() { return valor; }
 

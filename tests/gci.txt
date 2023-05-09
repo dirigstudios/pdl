@@ -1,0 +1,4 @@
+: Etff01 null null
+:= 3333 null 1.2
+:= 1.2 null 0.4
+return null null null
