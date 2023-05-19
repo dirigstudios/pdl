@@ -341,7 +341,10 @@ public class AnSm
                 //GCI
                 //diferenciar entre logico y entero VS cadena (asiganr una cadena conlleva mas instruccion objeto que asignar un logico u entero)
                 s2 = pilaAux.pop(); // SS, por lo que en la cima de la pila esta id!!
-                idLugar = tablaGlobal.buscaLugarTS(pilaAux.peek().getNameId());  // Revisar que hacer si es la local la que hay que ver
+                if(tablaLocal != null)
+                    idLugar = tablaLocal.buscaLugarTS(pilaAux.peek().getNameId());  // Revisar que hacer si es la local la que hay que ver
+                else
+                    idLugar = tablaGlobal.buscaLugarTS(pilaAux.peek().getNameId());
                 GCI.emite(":=", s1.getLugar(), "null", idLugar, fichGCI);
                 pilaAux.push(s2); // devuelvo SS a donde debe estar, habiendo accedido a id
                 break;
@@ -532,7 +535,7 @@ public class AnSm
                     System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: operando ! solo admite variables de tipo boolean\n");
                 }
                 //GCI
-                pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaGlobal, estados.booleanR));
+                pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.booleanR));
                 GCI.emite("not", s1.getLugar(), null, pilaAux.peek().getLugar(), fichGCI);
                 break;
             case cuarentaiSiete:
@@ -556,11 +559,7 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
                 //GCI
-                Simbolo V = pilaAux.peek();
-                if (tablaLocal != null && (tablaLocal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error))
-                    V.setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, tablaLocal.get(id.getNameId()).getTipo())); //V.lugar := nuevaTemp(BuscaTipoTS(id.pos))
-                else if (tablaGlobal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error)
-                    V.setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, tablaGlobal.get(id.getNameId()).getTipo())); //V.lugar := nuevaTemp(BuscaTipoTS(id.pos))
+                Simbolo V = pilaAux.pop();
 
                 //comprobamos si el id es function entrando en la TS correspondiente
                 boolean isFunction = false;
@@ -570,7 +569,12 @@ public class AnSm
                     isFunction = tablaGlobal.get(id.getNameId()).isFunction();
 
                 if (!isFunction) //if BuscaTipoTS(id.pos) != funcion
-                    GCI.emite(":=", tablaGlobal.buscaLugarTS(id.getNameId()), "null", V.getLugar(), fichGCI); //then emite(NULL, buscaLugarTS(id.pos), NULL, V.lugar)
+                {
+                    if(tablaLocal == null)
+                        V.setLugar(tablaGlobal.buscaLugarTS(id.getNameId())); //then V.lugar := buscaLugarTS(id.pos)
+                    else
+                        V.setLugar(tablaLocal.buscaLugarTS(id.getNameId())); //then V.lugar := buscaLugarTS(id.pos)
+                }
                 else
                 {
                     //extraemos el id.pos para buscar la etiqueta en la TS correspondiente
@@ -580,6 +584,7 @@ public class AnSm
                         s1.setEtiq(tablaGlobal.get(id.getNameId()).getEtiqueta()); //VV.etiq := BuscaEtiqTS(id.pos)
                     V.setLugar(s1.getLugar()); //V.lugar := VV.lugar;
                 }
+                pilaAux.push(V);
                 break;
             case cuarentaiNueve:
                 pilaAux.pop();       // )

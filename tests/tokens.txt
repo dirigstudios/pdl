@@ -1,8 +1,0 @@
-<palabraReservada, let>
-<id, 1>
-<palabraReservada, string>
-<puntoComa, >
-<id, 1>
-<igual, >
-<cadena, "hola">
-<puntoComa, >

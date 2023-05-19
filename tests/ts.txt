@@ -1,9 +1,0 @@
-#0:
-* LEXEMA : 'cad'
-	ATRIBUTOS :
-		+tipo : 'cadena'
-		+despl : 0
-* LEXEMA : 'temp11'
-	ATRIBUTOS :
-		+tipo : 'cadena'
-		+despl : 64
