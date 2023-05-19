@@ -143,12 +143,14 @@ public class AnSm
                 s1 = pilaAux.pop(); // E
                 pilaAux.pop(); // (
                 pilaAux.pop(); // if
+                a1 = pilaAux.pop(); // B
                 if (s1.getEstadoActual() == estados.booleanR && s2.getEstadoActual() != estados.vacio)
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
                     pilaAux.peek().setEstadoActual(estados.error);
                 //GCI
-                GCI.emite(":", simbolo_cima.getSiguiente(), null, null, fichGCI);
+                GCI.emite(":", a1.getSiguiente(), null, null, fichGCI);
+                pilaAux.push(a1);
                 break;
             case catorceUno:
                 s2 = pilaAux.pop(); // )
@@ -598,7 +600,7 @@ public class AnSm
                 s1 = pilaAux.pop(); // cadena
                 pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.cadena));
                 //GCI
-                GCI.emite(":=", Integer.toString(s1.getNameId()), null, pilaAux.peek().getLugar(), fichGCI);
+                GCI.emite(":=", s1.getEtiq(), null, pilaAux.peek().getLugar(), fichGCI);
                 pilaAux.peek().setEstadoActual(estados.cadena);
                 break;
             case cincuentaiDos:
@@ -610,10 +612,14 @@ public class AnSm
                 else
                     pilaAux.peek().setEstadoActual(estados.error);
                 //GCI
+                s2 = pilaAux.pop(); // VV
+                aux = pilaAux.peek();
                 List<String> params = s1.getParams();
+                s2.setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, tablaGlobal.get(aux.getNameId()).getTipo()));
                 for (int i = 0; i < params.size(); i++)
-                    GCI.emite("param", params.get(i), "", "", fichGCI);
-                GCI.emite("call", pilaAux.peek().getEtiq(), "", "", fichGCI);
+                    GCI.emite("param", params.get(i), null, null, fichGCI);
+                GCI.emite("call", tablaGlobal.get(aux.getNameId()).getEtiqueta(), null, null, fichGCI);
+                pilaAux.push(s2);
                 break;
             default:
                 break;

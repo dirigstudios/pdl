@@ -1,58 +1,9 @@
-#1:
-* LEXEMA : 'num1'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 0
-* LEXEMA : 'res'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 1
-* LEXEMA : 'temp21'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 2
-* LEXEMA : 'temp31'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 3
-* LEXEMA : 'temp41'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 4
 #0:
-* LEXEMA : 'operacion'
+* LEXEMA : 'cad'
 	ATRIBUTOS :
-		+tipo : 'funcion'
-		 +numParam : 1
-		  +TipoParam1 : 'constEnt'
-		   +ModoParam1 : 1
-		+TipoRetorno : 'constEnt'
-		+EtiqFuncion : 'Etoperacion01'
-* LEXEMA : 'num2'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
+		+tipo : 'cadena'
 		+despl : 0
-* LEXEMA : 'a'
+* LEXEMA : 'temp11'
 	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 1
-* LEXEMA : 'temp31'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 2
-* LEXEMA : 'temp41'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 3
-* LEXEMA : 'temp51'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 4
-* LEXEMA : 'temp61'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 5
-* LEXEMA : 'temp71'
-	ATRIBUTOS :
-		+tipo : 'constEnt'
-		+despl : 6
+		+tipo : 'cadena'
+		+despl : 64

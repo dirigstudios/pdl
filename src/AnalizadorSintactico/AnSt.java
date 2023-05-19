@@ -112,6 +112,8 @@ public class AnSt {
                     }
                     else if (aComparar.equals("constEnt"))
                         simbolo_aux.setNameId(Integer.parseInt(sigTok.getAtributo()));
+                    else if (aComparar.equals("cadena"))
+                        simbolo_aux.setEtiq(sigTok.getAtributo());
                     aux.anadirAtributos(simbolo_aux, pilaAux);
                     sigTok = AnLex.getNextToken(fuente, salidaTokens, salidaTS, tsG, tsL, lines, zona_decl);
                 }
