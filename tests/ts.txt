@@ -1,26 +1,58 @@
 #1:
-* LEXEMA : 'ss'
+* LEXEMA : 'num1'
 	ATRIBUTOS :
-		+tipo : 'booleanR'
+		+tipo : 'constEnt'
 		+despl : 0
-* LEXEMA : 'temp11'
+* LEXEMA : 'res'
 	ATRIBUTOS :
 		+tipo : 'constEnt'
 		+despl : 1
-#0:
-* LEXEMA : 'among'
+* LEXEMA : 'temp21'
 	ATRIBUTOS :
-		+tipo : 'booleanR'
-		+despl : 0
-* LEXEMA : 'ff'
+		+tipo : 'constEnt'
+		+despl : 2
+* LEXEMA : 'temp31'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 3
+* LEXEMA : 'temp41'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 4
+#0:
+* LEXEMA : 'operacion'
 	ATRIBUTOS :
 		+tipo : 'funcion'
 		 +numParam : 1
-		  +TipoParam1 : 'booleanR'
+		  +TipoParam1 : 'constEnt'
 		   +ModoParam1 : 1
-		+TipoRetorno : 'booleanR'
-		+EtiqFuncion : 'Etff01'
-* LEXEMA : 'varglobal'
+		+TipoRetorno : 'constEnt'
+		+EtiqFuncion : 'Etoperacion01'
+* LEXEMA : 'num2'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 0
+* LEXEMA : 'a'
 	ATRIBUTOS :
 		+tipo : 'constEnt'
 		+despl : 1
+* LEXEMA : 'temp31'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 2
+* LEXEMA : 'temp41'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 3
+* LEXEMA : 'temp51'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 4
+* LEXEMA : 'temp61'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 5
+* LEXEMA : 'temp71'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 6

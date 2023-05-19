@@ -3,6 +3,7 @@ package AnalizadorSintactico;
 import AnalizadorLexico.Token;
 import AnalizadorLexico.TablaSimbolos;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class TablaM {
         String siguiente;
         String etiq;
 
-        List<String> params;
+        List<String> params = new ArrayList<>();
 
         public String getEtiq() { return etiq; }
 

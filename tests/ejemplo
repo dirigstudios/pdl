@@ -1,5 +1,8 @@
-let among boolean;
-function ff boolean(boolean ss)
+function operacion int(int num1)
 {
-	varglobal = 3333;
+	let  res int;
+	res = num1;
+	res = num2;
+	return (res);
 }
+a = operacion(2+2);

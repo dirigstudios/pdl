@@ -151,13 +151,13 @@ public class AnSm
                 GCI.emite(":", simbolo_cima.getSiguiente(), null, null, fichGCI);
                 break;
             case catorceUno:
-                s2 = pilaAux.pop(); // S
-                a3 = pilaAux.pop(); // )
-                s1 = pilaAux.pop(); // E
-                a2 = pilaAux.pop(); // (
-                a1 = pilaAux.pop(); // if
-                simbolo_cima.setSiguiente(GCI.nuevaEt());
-                GCI.emite("if", s1.getLugar(), "", simbolo_cima.getEtiq(), fichGCI);
+                s2 = pilaAux.pop(); // )
+                a3 = pilaAux.pop(); // E
+                s1 = pilaAux.pop(); // (
+                a2 = pilaAux.pop(); // if
+                a1 = pilaAux.pop(); // B
+                a1.setSiguiente(GCI.nuevaEt());
+                GCI.emite("if", a3.getLugar(), null, a1.getSiguiente(), fichGCI);
                 pilaAux.push(a1);
                 pilaAux.push(a2);
                 pilaAux.push(s1);
@@ -461,9 +461,9 @@ public class AnSm
                 if (s1.getEstadoActual() != estados.vacio) {
                     pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.booleanR));
                     GCI.emite("goto==", s2.getLugar(), s1.getLugar(), "sig_instr + 2", fichGCI);
-                    GCI.emite(":=", "0", null, s1.getLugar(), fichGCI);
-                    GCI.emite("goto", null, null, "sig_instr + 2", fichGCI);
-                    GCI.emite(":=", "1", null, s1.getLugar(), fichGCI);
+                    GCI.emite(":=", "0", null, pilaAux.peek().getLugar(), fichGCI);
+                    GCI.emite("goto", null, null, "sig_instr + 1", fichGCI);
+                    GCI.emite(":=", "1", null, pilaAux.peek().getLugar(), fichGCI);
                 }
                 else
                     pilaAux.peek().setLugar(s2.getLugar());

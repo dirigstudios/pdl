@@ -155,6 +155,6 @@ public class AnSt {
         if (!(sigTok.getTipo().equals("$") && pilaAux.peek().getValor() == simbolos.PP))
             System.out.println("Error Sintáctico: El texto no finaliza con \"$\", sino con <" + sigTok.getTipo() + ", " + sigTok.getAtributo() + ">.");
         tsG.printTS(salidaTS);
-        System.out.println("P: " + pila.toString() + "\n" + "AUX: " + pilaAux.toString() + "\n");
+        //System.out.println("P: " + pila.toString() + "\n" + "AUX: " + pilaAux.toString() + "\n");
     }
 }
