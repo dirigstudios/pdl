@@ -1,7 +1,8 @@
+let res2 int;
 function operacion int(int num1)
 {
     let  res int;
-    res = num1;
+    res = res2;
     return (res);
 }
 a = operacion(2);
