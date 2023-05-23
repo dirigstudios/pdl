@@ -623,7 +623,7 @@ public class AnSm
                 s2.setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, tablaGlobal.get(aux.getNameId()).getTipo()));
                 for (int i = 0; i < params.size(); i++)
                     GCI.emite("param", params.get(i), null, null, fichGCI);
-                GCI.emite("call", tablaGlobal.get(aux.getNameId()).getEtiqueta(), null, null, fichGCI);
+                GCI.emite("call", tablaGlobal.get(aux.getNameId()).getEtiqueta(), null, s2.getLugar(), fichGCI);
                 pilaAux.push(s2);
                 break;
             default:
