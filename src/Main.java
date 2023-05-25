@@ -1,10 +1,12 @@
 import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import AnalizadorLexico.*;
 import AnalizadorSintactico.*;
+import GCO.GCO;
 
 public class Main
 {
@@ -26,6 +28,7 @@ public class Main
         else
             fdFuente = new File("./tests/ejemplo");
         System.out.println("Attempting to read from file in: " + fdFuente.getCanonicalPath());
+
         FileReader fuente = new FileReader(fdFuente);
         PrintWriter fichToken = new PrintWriter("./tests/tokens.txt");
         PrintWriter fichTS = new PrintWriter("./tests/ts.txt");
@@ -46,5 +49,15 @@ public class Main
         fichToken.close();
         fichParser.close();
         fichGCI.close();
+
+        BufferedReader fDE = new BufferedReader(new FileReader("./tests/de.txt"));
+        BufferedReader fCO = new BufferedReader(new FileReader("./tests/co.txt"));
+        BufferedReader fPila = new BufferedReader(new FileReader("./tests/pila.txt"));
+        PrintWriter fObjeto = new PrintWriter("./tests/objeto.ens");
+        GCO.fichAppender(fDE, fCO, fPila, fObjeto);
+        fDE.close();
+        fCO.close();
+        fPila.close();
+        fObjeto.close();
     }
 }

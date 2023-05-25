@@ -1,5 +1,6 @@
 package GCO;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
@@ -22,6 +23,7 @@ public class GCO
     {
         Entrada e;
         int desp;
+        int id;
 
         StringTokenizer tokenizer;
         String op;
@@ -38,26 +40,86 @@ public class GCO
 
             if (!local)
             {
-                //TODO: hacer direccionamiento relativo a pila IY
+                if (!esEntera(op1)) //el operador puede ser una constEnt
+                {
+                    id = getIdFromLugarInTS(op1);
+                    e = tsL.get(id);
+                    desp = e.getDesplazamiento();
+                    op1 = "#" + (desp + id - 1) + "[.IX]";
+                }
+                else
+                    op1 = "#" + op1;
+
+                //obtengo la direccion de res
+                id = getIdFromLugarInTS(res);
+                e = tsL.get(id);
+                desp = e.getDesplazamiento();
+                res = "#" + (desp + id - 1) + "[.IX]"; //TODO: revisar si el desplazamiento es correcto -> lo cambia andrés
             }
             else
             {
-                if (!esEntera(op1))
+                if (!esEntera(op1)) //el operador puede ser una constEnt
                 {
-                    e = tsG.get(getIdFromLugarInTS(op1));
+                    id = getIdFromLugarInTS(op1);
+                    e = tsG.get(id);
                     desp = e.getDesplazamiento();
-                    op1 = "#" + desp + "[.IX]";
+                    op1 = "#" + (desp + id - 1) + "[.IY]";
                 }
+                else
+                    op1 = "#" + op1;
 
-                if (!esEntera(res))
-                {
-                    e = tsG.get(getIdFromLugarInTS(res)); //TODO: VER PORQUE NO DEVUELVE LA ENTRADA DESEADA
-                    desp = e.getDesplazamiento();
-                    res = "#" + desp + "[.IX]";
-                }
+                //obtengo la direccion de res
+                id = getIdFromLugarInTS(res);
+                e = tsG.get(id);
+                desp = e.getDesplazamiento();
+                res = "#" + (desp + id - 1) + "[.IY]"; //TODO: revisar si el desplazamiento es correcto -> lo cambia andrés
             }
 
             fichCO.println("MOVE " + op1 + ", " + res);
+        }
+        else if (op.equals("+")) //(+, op1, op2, res)
+        {
+            String op1 = tokenizer.nextToken();
+            String op2 = tokenizer.nextToken();
+            String res = tokenizer.nextToken();
+
+            if (!local)
+            {
+                id = getIdFromLugarInTS(op1);
+                e = tsL.get(id);
+                desp = e.getDesplazamiento();
+                op1 = "#" + (desp + id - 1) + "[.IX]";
+
+                id = getIdFromLugarInTS(op2);
+                e = tsL.get(id);
+                desp = e.getDesplazamiento();
+                op2 = "#" + (desp + id - 1) + "[.IX]";
+
+                id = getIdFromLugarInTS(res);
+                e = tsL.get(id);
+                desp = e.getDesplazamiento();
+                res = "#" + (desp + id - 1) + "[.IX]";
+            }
+            else
+            {
+                id = getIdFromLugarInTS(op1);
+                e = tsG.get(id);
+                desp = e.getDesplazamiento();
+                op1 = "#" + (desp + id - 1) + "[.IY]";
+
+                id = getIdFromLugarInTS(op2);
+                e = tsG.get(id);
+                desp = e.getDesplazamiento();
+                op2 = "#" + (desp + id - 1) + "[.IY]";
+
+                id = getIdFromLugarInTS(res);
+                e = tsG.get(id);
+                desp = e.getDesplazamiento();
+                res = "#" + (desp + id - 1) + "[.IY]";
+            }
+
+            fichCO.println("ADD " + op1 + ", " + op2);
+            fichCO.println("MOVE .A, " + res);
         }
     }
 
@@ -101,9 +163,31 @@ public class GCO
      * @param fichDE
      * @param fichCO
      * @param fichPila
+     * @throws IOException
      */
-    public static void fichAppender(PrintWriter fichDE, PrintWriter fichCO, PrintWriter fichPila)
+    public static void fichAppender(BufferedReader fichDE, BufferedReader fichCO, BufferedReader fichPila, PrintWriter fichObjeto) throws IOException
     {
-        //TODO: ver como juntar 3 ficheros en uno solo
+        String linea;
+
+        fichObjeto.println("MOVE #inicio_estaticas, .IY"); //
+        fichObjeto.println("MOVE #inicio_pila, .IX"); //determino al inicio donde comienza la pila
+        while ( (linea = fichDE.readLine()) != null)
+            fichObjeto.println(linea);
+
+        fichObjeto.println("");
+
+        while ( (linea = fichCO.readLine()) != null)
+            fichObjeto.println(linea);
+        
+        fichObjeto.println("");
+
+
+        fichObjeto.println("inicio_estaticas: RES 200");
+
+        fichObjeto.println("");
+
+        fichObjeto.println("inicio_pila: NOP");
+        while ( (linea = fichPila.readLine()) != null)
+            fichObjeto.println(linea);
     }
 }

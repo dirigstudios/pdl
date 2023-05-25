@@ -1,0 +1,13 @@
+MOVE #inicio_estaticas, .IY
+MOVE #inicio_pila, .IX
+
+MOVE #2, #3[.IY]
+MOVE #1, #4[.IY]
+MOVE #4[.IY], #5[.IY]
+ADD #3[.IY], #5[.IY]
+MOVE .A, #6[.IY]
+MOVE #6[.IY], #2[.IY]
+
+inicio_estaticas: RES 200
+
+inicio_pila: NOP

@@ -346,8 +346,10 @@ public class AnSm
                     idLugar = tablaLocal.buscaLugarTS(pilaAux.peek().getNameId());  // Revisar que hacer si es la local la que hay que ver
                 else
                     idLugar = tablaGlobal.buscaLugarTS(pilaAux.peek().getNameId());
-                GCI.emite(":=", s1.getLugar(), "null", idLugar, fichGCI);
+                instruccion = GCI.emite(":=", s1.getLugar(), "null", idLugar, fichGCI);
                 pilaAux.push(s2); // devuelvo SS a donde debe estar, habiendo accedido a id
+                //GCO
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 break;
             case treinta:
                 pilaAux.pop(); // ;
@@ -504,7 +506,9 @@ public class AnSm
                 else
                 {
                     pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, s2.getEstadoActual()));
-                    GCI.emite("+", s2.getLugar(), s1.getLugar(), pilaAux.peek().getLugar(), fichGCI);
+                    instruccion = GCI.emite("+", s2.getLugar(), s1.getLugar(), pilaAux.peek().getLugar(), fichGCI);
+                    //GCO
+                    GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 }
                 break;
             case cuarentaiCuatro:
@@ -521,9 +525,10 @@ public class AnSm
                 //GCI
                 pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, s2.getEstadoActual()));
                 if (s1.getEstadoActual() == estados.vacio)
-                    GCI.emite(":=", s2.getLugar(), null, pilaAux.peek().getLugar(), fichGCI);
+                    instruccion = GCI.emite(":=", s2.getLugar(), null, pilaAux.peek().getLugar(), fichGCI);
                 else
-                    GCI.emite("+", s2.getLugar(), s1.getLugar(), pilaAux.peek().getLugar(), fichGCI);
+                    instruccion = GCI.emite("+", s2.getLugar(), s1.getLugar(), pilaAux.peek().getLugar(), fichGCI);
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 break;
             case cuarentaiSeis:
                 s1 = pilaAux.pop(); // V
