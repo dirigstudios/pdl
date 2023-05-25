@@ -1,7 +1,6 @@
 package AnalizadorSintactico;
 
 import AnalizadorLexico.Token;
-import AnalizadorLexico.TablaSimbolos;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

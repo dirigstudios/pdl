@@ -4,8 +4,11 @@ out
 *.iml
 *.cpp
 out/production/pdl/pdl.class
-.gitignore
 tests/ejemplo
 tests/parser.txt
 tests/tokens.txt
 tests/ts.txt
+tests/objeto.txt
+tests/co.txt
+tests/de.txt
+tests/pila.txt

@@ -1,24 +1,24 @@
 package GCI;
 
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.io.IOException;
 import AnalizadorLexico.TablaSimbolos;
 import AnalizadorSintactico.TablaM.estados;
 
 public class GCI
 {
-    private int nTemps = 0;
+    //private int nTemps = 0;
     private static int nEts = 0;
     public enum operador{suma, igual, negacion, asignacion, goTo, If, asigancionResto}
 
     /***
      * la funcion @emite envia tanto a un fichero como al generador de codigo objeto un cuarteto
      */
-    public static void emite(String operador, String var1, String var2, String dest, PrintWriter ficheroCuartetos)
+    public static String emite(String operador, String var1, String var2, String dest, PrintWriter ficheroCuartetos)
     {
-        ficheroCuartetos.println(operador.toString()+ " " + var1 + " " + var2 + " " + dest);
+        String op = operador.toString()+ " " + var1 + " " + var2 + " " + dest;
+        ficheroCuartetos.println(op);
         //GCI.send(operador.toString() + var1 + var2 + dest)
+        return op;
     }
 
     /***

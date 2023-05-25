@@ -57,7 +57,7 @@ public class AnSt {
     }
 
     //TODO: implementar que escriba el Código Intermedio en el fichero salidaGCI
-    public static void algorithmAnSt(FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS, PrintWriter salidaParser, PrintWriter salidaGCI) throws IOException {
+    public static void algorithmAnSt(FileReader fuente, PrintWriter salidaTokens, PrintWriter salidaTS, PrintWriter salidaParser, PrintWriter salidaGCI, PrintWriter fichDE, PrintWriter fichCO, PrintWriter fichPila) throws IOException {
         initializeStack();
         Lines lines = new Lines(1);
         TablaM tablaM = new TablaM();
@@ -126,7 +126,7 @@ public class AnSt {
             }
             else if (cima.isSem())
             {
-                aux.ejecutarRegla(tsG, tsL, pila.peek(), pilaAux, salidaTS, lines, zona_decl, salidaGCI);
+                aux.ejecutarRegla(tsG, tsL, pila.peek(), pilaAux, salidaTS, lines, zona_decl, salidaGCI, fichDE, fichCO, fichPila);
                 pila.pop();
             }
             else

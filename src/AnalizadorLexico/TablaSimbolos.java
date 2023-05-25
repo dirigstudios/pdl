@@ -151,7 +151,7 @@ public class TablaSimbolos
                 aux.setDesplazamiento(1);
                 break;
             case cadena:
-                aux.setDesplazamiento(64);
+                aux.setDesplazamiento(64); //TODO: esto no es cierto
                 break;
             default:
                 break;

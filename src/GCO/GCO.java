@@ -1,71 +1,109 @@
 package GCO;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
 import AnalizadorLexico.TablaSimbolos;
+import AnalizadorLexico.TablaSimbolos.Entrada;
 
 public class GCO 
 {
     /**
      * famoso "switch" que imprime para cada cuarteto su correspondiente instruccion objeto
-     * @param fichGCI
-     * @param fichObjeto
+     * @param instruccion
+     * @param fichDE
+     * @param fichCO
+     * @param fichPila
      * @throws IOException
      */
-    //asumo archivo gci bien formado: cada linea contiene exactamente 4 palabras
-    public static void switchGCO(BufferedReader fichTS, BufferedReader fichGCI, PrintWriter fichObjeto) throws IOException
+    //asumo que cada instrucción de ci está bien formado: contiene exactamente 4 palabras
+    public static void switchGCO(String instruccion, PrintWriter fichDE, PrintWriter fichCO, PrintWriter fichPila, TablaSimbolos tsG, TablaSimbolos tsL)
     {
-        String instruction;
+        Entrada e;
+        int desp;
+
         StringTokenizer tokenizer;
         String op;
-        boolean local = false;
+        boolean local = (tsL == null); //para saber de donde extraer el lexema
+            
+        tokenizer = new StringTokenizer(instruccion, " ");
 
-        initializeGCO(fichTS, fichGCI, fichObjeto);
-
-        while ( (instruction = fichGCI.readLine() ) != null)
+        op = tokenizer.nextToken();
+        if (op.equals(":=")) //(:=, op1, NULL, res)
         {
-            tokenizer = new StringTokenizer(instruction, " ");
+            String op1 = tokenizer.nextToken();
+            tokenizer.nextToken(); //me deshago del null
+            String res = tokenizer.nextToken();
 
-            op = tokenizer.nextToken();
-            if (op.equals(":=")) //(:=, op1, NULL, res)
+            if (!local)
             {
-                //TODO: transformar referencias intermedias a zonas de memoria en el código objeto
-                String op1 = tokenizer.nextToken();
-                tokenizer.nextToken(); //me deshago del null
-                String res = tokenizer.nextToken();
-
-                //if (local)
-                    //hacer direccionamiento relativo a IX
-                //else
-                    //hacer direccionamiento relativo a datos estaticos IY
-
-                fichObjeto.println("MOVE " + op1 + ", " + res);
+                //TODO: hacer direccionamiento relativo a pila IY
             }
+            else
+            {
+                if (!esEntera(op1))
+                {
+                    e = tsG.get(getIdFromLugarInTS(op1));
+                    desp = e.getDesplazamiento();
+                    op1 = "#" + desp + "[.IX]";
+                }
+
+                if (!esEntera(res))
+                {
+                    e = tsG.get(getIdFromLugarInTS(res)); //TODO: VER PORQUE NO DEVUELVE LA ENTRADA DESEADA
+                    desp = e.getDesplazamiento();
+                    res = "#" + desp + "[.IX]";
+                }
+            }
+
+            fichCO.println("MOVE " + op1 + ", " + res);
         }
     }
 
     /**
-     * inicializa la zona de datos estáticos del código objeto
-     * @param fichGCI
-     * @param fichObjeto
+     * devuelve si el string que me han pasado es una constante entera
+     * @param op
+     * @return
      */
-    public static void initializeGCO(BufferedReader fichTS, BufferedReader fichGCI, PrintWriter fichObjeto)
+    private static boolean esEntera(String op)
     {
-        //TODO: ver como cargar la tsG a la zona de Datos Estáticos
+        try
+        {
+            Integer.parseInt(op);
+            return true;
+        }
+        catch (NumberFormatException e)
+        {
+            return false;
+        }
     }
 
-    public static void main(String[] args) throws IOException 
+    /**
+     * @param lugar HA DE SER LO QUE DEVUELVE TS.GETLUGAR()
+     * @return devuelve el "int id" de un id de la ts dado su getLugar
+     * i.e. ts.getLugar("a") = 1.3 => int id = 3 (el id de la variable "a" en la ts 1)
+     */
+    private static int getIdFromLugarInTS(String lugar)
     {
-        BufferedReader fichGCI = new BufferedReader(new FileReader("./tests/gci.txt"));
-        PrintWriter fichObjeto = new PrintWriter("./tests/objeto.txt");
-        BufferedReader fichTS = new BufferedReader(new FileReader("./tests/ts.txt")); //TODO: leer de este fichero infumable?
-        switchGCO(fichTS, fichGCI, fichObjeto);
-        fichTS.close();
-        fichGCI.close();
-        fichObjeto.close();
+        float tsDotId = Float.parseFloat(lugar);
+        StringTokenizer tokenizer = new StringTokenizer(lugar, ".");
+        int parteDecimal = Integer.parseInt(tokenizer.nextToken());
+        boolean local = (parteDecimal != 0); //será local si el id de la ts no es 0 (0 == tsG)
+
+        if (local)
+            return (int)(tsDotId * 10) - (10 * parteDecimal); 
+        return (int)(tsDotId * 10);
+    }
+
+    /**
+     * junta los 3 ficheros generados por el GCO para obtener un fichero objeto único
+     * @param fichDE
+     * @param fichCO
+     * @param fichPila
+     */
+    public static void fichAppender(PrintWriter fichDE, PrintWriter fichCO, PrintWriter fichPila)
+    {
+        //TODO: ver como juntar 3 ficheros en uno solo
     }
 }

@@ -2,11 +2,9 @@ import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Scanner;
 
 import AnalizadorLexico.*;
 import AnalizadorSintactico.*;
-import AnalizadorSemantico.*;
 
 public class Main
 {
@@ -33,10 +31,16 @@ public class Main
         PrintWriter fichTS = new PrintWriter("./tests/ts.txt");
         PrintWriter fichParser = new PrintWriter("./tests/parser.txt");
         PrintWriter fichGCI = new PrintWriter("./tests/gci.txt");
+        PrintWriter fichDE = new PrintWriter("./tests/de.txt");
+        PrintWriter fichCO = new PrintWriter("./tests/co.txt");
+        PrintWriter fichPila = new PrintWriter("./tests/pila.txt");
         Token.initializeTPR();
         // while (!tk.getTipo().equals("$"))
         //    tk = AnLex.getNextToken(fuente, fichToken, fichTS);
-        AnSt.algorithmAnSt(fuente, fichToken, fichTS, fichParser, fichGCI);
+        AnSt.algorithmAnSt(fuente, fichToken, fichTS, fichParser, fichGCI, fichDE, fichCO, fichPila);
+        fichDE.close();
+        fichCO.close();
+        fichPila.close();
         fichTS.close();
         fuente.close();
         fichToken.close();

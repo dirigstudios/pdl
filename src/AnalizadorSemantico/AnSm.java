@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Stack;
 import AnalizadorSintactico.TablaM.Simbolo;
 import AnalizadorSintactico.TablaM.estados;
-import AnalizadorSintactico.TablaM.simbolos;
 import GCI.GCI;
+import GCO.GCO;
 
 public class AnSm
 {
@@ -25,8 +25,9 @@ public class AnSm
     public void anadirAtributos(Simbolo simb, Stack<Simbolo> pilaAux) { pilaAux.push(simb); }
 
     public void ejecutarRegla(TablaSimbolos tablaGlobal, TablaSimbolos tablaLocal, Simbolo simbolo_cima, Stack<Simbolo> pilaAux,
-                              PrintWriter ts, Lines lines, Zona_decl zona_decl, PrintWriter fichGCI)
+                              PrintWriter ts, Lines lines, Zona_decl zona_decl, PrintWriter fichGCI, PrintWriter fichDE, PrintWriter fichCO, PrintWriter fichPila)
     {
+        String instruccion;
         Simbolo id;
         Simbolo aux;
         Simbolo aux2;
@@ -598,8 +599,10 @@ public class AnSm
                 s1 = pilaAux.pop(); // consEnt
                 //GCI
                 pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.constEnt));
-                GCI.emite(":=", Integer.toString(s1.getNameId()), null, pilaAux.peek().getLugar(), fichGCI);
+                instruccion = GCI.emite(":=", Integer.toString(s1.getNameId()), null, pilaAux.peek().getLugar(), fichGCI);
                 pilaAux.peek().setEstadoActual(estados.constEnt);
+                //GCO
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 break;
             case cincuentaiUno:
                 s1 = pilaAux.pop(); // cadena
