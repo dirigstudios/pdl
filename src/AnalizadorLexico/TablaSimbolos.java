@@ -168,6 +168,23 @@ public class TablaSimbolos
         return tablaSimbolos.size();
     }
 
+    /**
+     * Esta funcion devuelve el desplazamiento total dentro de la tabla de simbolos de un id
+     * @param pos la posicion del elemento de la tabla del que se quiere sacar el desplazamiento
+     * @return el desplazamiento total
+     */
+    public int getDesplazamiento(int pos) {
+        int total_despl = 0;
+        int count = 0;
+        //va iterando sobre la tabla hasta que llega al id
+        while(count <= pos)
+        {
+            total_despl = total_despl + get(count).getDesplazamiento();
+            count++;
+        }
+        return total_despl;
+    }
+
     public void printTS(PrintWriter ts) {
         ts.println("#" + idTabla + ":");
         int desplAC = 0;

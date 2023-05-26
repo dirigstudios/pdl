@@ -11,7 +11,8 @@ public class AFD
     public static Estados estadoactual = Estados.Inicial;
     public static String lex;
     public static int counter;
-    public static int[] numberId = new int[100];
+    private static final int MAX_NUMBER_OF_TS = 100;
+    public static int[] numberId = new int[MAX_NUMBER_OF_TS];
     public static boolean isComment = false;
 
 
