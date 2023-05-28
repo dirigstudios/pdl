@@ -1,2 +1,10 @@
-let res2 int;
-res2 = 2;
+switch(2+2)
+{
+case 2:
+print(2);
+break;
+case 3:
+print(3);
+break;
+}
+a = 2;

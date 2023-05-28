@@ -1,5 +1,5 @@
 #0:
-* LEXEMA : 'res2'
+* LEXEMA : 'temp01'
 	ATRIBUTOS :
 		+tipo : 'constEnt'
 		+despl : 0
@@ -7,3 +7,31 @@
 	ATRIBUTOS :
 		+tipo : 'constEnt'
 		+despl : 1
+* LEXEMA : 'temp21'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 2
+* LEXEMA : 'temp31'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 3
+* LEXEMA : 'temp41'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 4
+* LEXEMA : 'temp51'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 5
+* LEXEMA : 'temp61'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 6
+* LEXEMA : 'a'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 7
+* LEXEMA : 'temp81'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 8

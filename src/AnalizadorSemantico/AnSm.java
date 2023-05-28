@@ -171,9 +171,11 @@ public class AnSm
                 caseEnt.add(new ArrayList<>());
                 casActual++;
                 //GCI
-                pilaAux.peek().setEtbreak(GCI.nuevaEt()); //B.break := nuevaEt() //TODO implementar esta etiqueta
-                //pilaAux.peek().setEvaluado(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.booleanR)); //B.evaluado := nuevaTemp() // se hace solo
-                GCI.emite(":=", String.valueOf(pilaAux.peek().isEvaluado()), null, "0", fichGCI);
+                a1 = pilaAux.pop(); // switch
+                pilaAux.peek().setEtbreak(GCI.nuevaEt()); //B.break := nuevaEt()
+                pilaAux.peek().setEvaluado(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.constEnt)); //B.evaluado := nuevaTemp(ent);
+                GCI.emite(":=", pilaAux.peek().getEvaluado(), null, "0", fichGCI); // emite(‘:=’, B.evaluado, NULL, 0)
+                pilaAux.push(a1);
                 break;
             case quinceDos:
                 a4 = pilaAux.pop(); // )
@@ -192,6 +194,8 @@ public class AnSm
                 pilaAux.push(a6);
                 pilaAux.push(a5);
                 pilaAux.push(a4);
+                //GCI
+
                 break;
             case quinceTres:
                 pilaAux.pop(); // }
@@ -205,23 +209,40 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
                     pilaAux.peek().setEstadoActual(estados.error);
-                GCI.emite(":", simbolo_cima.getEtbreak(), null, null, fichGCI);
+                //GCI
+                GCI.emite(":",pilaAux.peek().getEtbreak(), null, null, fichGCI);
                 break;
             case dieciseisUno:
                 s1 = pilaAux.pop();    // ConstEnt
                 s2 = pilaAux.pop();    // case
+                aux = pilaAux.pop();   // O
+                a1  = pilaAux.pop();    // abreLlave
+                a2  = pilaAux.pop();    // cierraPar
+                a3  = pilaAux.pop();    // E
+                a4  = pilaAux.pop();    // abrePar
+                a5  = pilaAux.pop();    // switch
+                a6  = pilaAux.pop();    // B!!!
                 int ent = s1.getNameId();   //constEnt
-                //TODO implementar D.break := O.break, como sacar D de la pila?¿?¿?
                 if(caseEnt.get(casActual).contains(ent))
                     System.out.println("Error en linea: " + lines.toString() + " -> " + "Error semantico: existen uno o multiples cases con la misma constante entera\n");
                 else
                     caseEnt.get(casActual).add(ent);
-                simbolo_cima.setEtbreak(GCI.nuevaEt());
-                GCI.emite("if==", simbolo_cima.isEvaluado()?"1":"0", "1", "2", fichGCI);
-                GCI.emite("if!=", simbolo_cima.getEtcase(), String.valueOf(ent), simbolo_cima.getSiguiente(), fichGCI);
+                //GCI
+                aux.setEtbreak(a6.getEtbreak());    //O.break = B.break
+                aux.setSiguiente(GCI.nuevaEt());    //O.siguiente = nuevaEtiq
+                aux.setEvaluado(a6.getEvaluado());  //O.evaluado = B.evaluado
+                //GCI.emite("if==", a6.getEvaluado(), "1", "2", fichGCI);
+                GCI.emite("if!=", a3.getLugar(), String.valueOf(ent), aux.getSiguiente(), fichGCI);
 
-                pilaAux.push(s2);
+                pilaAux.push(a6);
+                pilaAux.push(a5);
+                pilaAux.push(a4);
+                pilaAux.push(a3);
+                pilaAux.push(a2);
+                pilaAux.push(a1);
+                pilaAux.push(aux);
                 pilaAux.push(s1);
+                pilaAux.push(s2);
                 break;
             case dieciseisDos:
                 s1 = pilaAux.pop(); // O
@@ -236,10 +257,24 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.error);
                 break;
             case dieciseisTres:
-                GCI.emite(":", simbolo_cima.getSiguiente(), null, null, fichGCI);
+                a1 = pilaAux.pop(); // D
+                a2 = pilaAux.pop(); // C
+                a3 = pilaAux.pop(); // :
+                a4 = pilaAux.pop(); // constEnt
+                a5 = pilaAux.pop(); // case
+                GCI.emite(":", pilaAux.peek().getSiguiente(), null, null, fichGCI);
+                pilaAux.push(a5);
+                pilaAux.push(a4);
+                pilaAux.push(a3);
+                pilaAux.push(a2);
+                pilaAux.push(a1);
                 break;
             case dieciSieteUno:
-                GCI.emite("if==", simbolo_cima.isEvaluado() ? "true" : "false", "1", simbolo_cima.getEtbreak(), fichGCI);
+                a1 = pilaAux.pop(); // :
+                a2 = pilaAux.pop(); // default
+                GCI.emite("if==", pilaAux.peek().getEvaluado(), "1", simbolo_cima.getEtbreak(), fichGCI);
+                pilaAux.push(a2);
+                pilaAux.push(a1);
                 break;
             case dieciSiete:
                 s1 = pilaAux.pop(); // O
@@ -256,8 +291,18 @@ public class AnSm
                 pilaAux.pop(); // ;
                 pilaAux.pop(); // break
                 pilaAux.peek().setEstadoActual(estados.ok);
+                a1 = pilaAux.pop(); // D
+                a2 = pilaAux.pop(); // C
+                a3 = pilaAux.pop(); // :
+                a4 = pilaAux.pop(); // constEnt
+                a5 = pilaAux.pop(); // case
                 //GCI
                 GCI.emite("goto", pilaAux.peek().getEtbreak(), null, null, fichGCI); //goto D.break //TODO implementar esta etiqueta
+                pilaAux.push(a5);
+                pilaAux.push(a4);
+                pilaAux.push(a3);
+                pilaAux.push(a2);
+                pilaAux.push(a1);
                 break;
             case veintiUnoTres:
                 pilaAux.pop();

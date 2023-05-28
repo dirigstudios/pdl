@@ -37,7 +37,7 @@ public class TablaM {
         int nameId; //id.pos -> desplazamiento en contexto de la tabla símbolos
         String lugar;
         String etbreak;
-        boolean evaluado;
+        String evaluado;
         String etcase;
         String siguiente;
         String etiq;
@@ -55,9 +55,9 @@ public class TablaM {
 
         public void setSiguiente(String siguiente) { this.siguiente = siguiente; }
 
-        public boolean isEvaluado() { return evaluado; }
+        public String getEvaluado() { return evaluado; }
 
-        public void setEvaluado(boolean evaluado) { this.evaluado = evaluado; }
+        public void setEvaluado(String evaluado) { this.evaluado = evaluado; }
 
         public String getEtbreak() { return etbreak; }
 
