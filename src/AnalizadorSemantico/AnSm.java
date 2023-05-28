@@ -387,7 +387,7 @@ public class AnSm
                 //GCI
                 //diferenciar entre logico y entero VS cadena (asiganr una cadena conlleva mas instruccion objeto que asignar un logico u entero)
                 s2 = pilaAux.pop(); // SS, por lo que en la cima de la pila esta id!!
-                if(tablaLocal != null)
+                if(pilaAux.peek().getTableId() != 0)
                     idLugar = tablaLocal.buscaLugarTS(pilaAux.peek().getNameId());  // Revisar que hacer si es la local la que hay que ver
                 else
                     idLugar = tablaGlobal.buscaLugarTS(pilaAux.peek().getNameId());
@@ -600,7 +600,7 @@ public class AnSm
             case cuarentaiOcho:
                 s1 = pilaAux.pop(); // VV
                 id = pilaAux.pop(); // id
-                if (tablaLocal != null && (tablaLocal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error)) // TODO añadir comprobacion de lexemas
+                if (id.getTableId() != 0 && s1.getEstadoActual() != estados.error) // TODO añadir comprobacion de lexemas
                     pilaAux.peek().setEstadoActual(tablaLocal.get(id.getNameId()).getTipo());
                 else if (tablaGlobal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error)
                     pilaAux.peek().setEstadoActual(tablaGlobal.get(id.getNameId()).getTipo());
@@ -614,14 +614,14 @@ public class AnSm
 
                 //comprobamos si el id es function entrando en la TS correspondiente
                 boolean isFunction = false;
-                if (tablaLocal != null && (tablaLocal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error))
+                if (id.getTableId() != 0 && (tablaLocal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error))
                     isFunction = tablaLocal.get(id.getNameId()).isFunction();
                 else if (tablaGlobal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error)
                     isFunction = tablaGlobal.get(id.getNameId()).isFunction();
 
                 if (!isFunction) //if BuscaTipoTS(id.pos) != funcion
                 {
-                    if(tablaLocal == null)
+                    if(id.getTableId() == 0)
                         V.setLugar(tablaGlobal.buscaLugarTS(id.getNameId())); //then V.lugar := buscaLugarTS(id.pos)
                     else
                         V.setLugar(tablaLocal.buscaLugarTS(id.getNameId())); //then V.lugar := buscaLugarTS(id.pos)
@@ -629,7 +629,7 @@ public class AnSm
                 else
                 {
                     //extraemos el id.pos para buscar la etiqueta en la TS correspondiente
-                    if (tablaLocal != null && (tablaLocal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error))
+                    if (id.getTableId() != 0 && (tablaLocal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error))
                         s1.setEtiq(tablaLocal.get(id.getNameId()).getEtiqueta()); //VV.etiq := BuscaEtiqTS(id.pos)
                     else if (tablaGlobal.get(id.getNameId()) != null && s1.getEstadoActual() != estados.error)
                         s1.setEtiq(tablaGlobal.get(id.getNameId()).getEtiqueta()); //VV.etiq := BuscaEtiqTS(id.pos)

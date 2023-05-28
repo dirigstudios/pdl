@@ -160,7 +160,10 @@ public class TablaSimbolos
     }
 
     public String buscaLugarTS(int idpos) {
-        return this.getIdTabla() + "." + idpos;
+        return this.getIdTabla() + "." + this.get(idpos).getId();
+    }
+    public String buscaLugarTS(String lex){
+        return this.getIdTabla() + "." + this.get(lex).getId();
     }
 
     public int size()

@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.Stack;
+import java.util.StringTokenizer;
 
 public class AnSt {
     public static TablaSimbolos tsG = new TablaSimbolos(0);
@@ -108,7 +109,9 @@ public class AnSt {
                     simbolo_aux = pila.pop();
                     if (aComparar.equals("id"))
                     {
-                        simbolo_aux.setNameId(Integer.parseInt(sigTok.getAtributo()));
+                        StringTokenizer tokenizer = new StringTokenizer(sigTok.getAtributo(), ".");
+                        simbolo_aux.setTableId(Integer.parseInt(tokenizer.nextToken()));
+                        simbolo_aux.setNameId(Integer.parseInt(tokenizer.nextToken()));
                     }
                     else if (aComparar.equals("constEnt"))
                         simbolo_aux.setNameId(Integer.parseInt(sigTok.getAtributo()));

@@ -94,8 +94,8 @@ public class AFD
                         if (!tsLocal.containsKey(lex) && zona_decl.zona_decl)
                         {
                             tsLocal.put(lex, ++numberId[tsLocal.idTabla]);
-                            Token.genToken("id", String.valueOf(numberId[tsLocal.idTabla]), fd);
-                            tk = new Token("id", String.valueOf(numberId[tsLocal.idTabla]));
+                            Token.genToken("id", tsLocal.idTabla + "." + numberId[tsLocal.idTabla], fd);
+                            tk = new Token("id", tsLocal.idTabla + "." + numberId[tsLocal.idTabla]);
                             estadoactual = Estados.Inicial;
                             return tk;
                         }
@@ -104,13 +104,13 @@ public class AFD
                         {
                             if (tsLocal.containsKey(lex))
                             {
-                                Token.genToken("id", String.valueOf(tsLocal.get(lex).getId()), fd);
-                                tk = new Token("id", String.valueOf(tsLocal.get(lex).getId()));
+                                Token.genToken("id", tsLocal.buscaLugarTS(lex), fd);
+                                tk = new Token("id", tsLocal.buscaLugarTS(lex));
                             }
                             else
                             {
-                                Token.genToken("id", String.valueOf(tablaSimbolos.get(lex).getId()), fd);
-                                tk = new Token("id", String.valueOf(tablaSimbolos.get(lex).getId()));
+                                Token.genToken("id", tablaSimbolos.buscaLugarTS(lex), fd);
+                                tk = new Token("id", tablaSimbolos.buscaLugarTS(lex));
                             }
                             System.out.println("Error en linea: " + lines.toString() + " -> " + "Error léxico: Variable: "+ lex +" ya declarada\n");
                             estadoactual = Estados.Inicial;
@@ -121,19 +121,19 @@ public class AFD
                         {
                             if (tsLocal.containsKey(lex))
                             {
-                                Token.genToken("id", String.valueOf(tsLocal.get(lex).getId()), fd);
-                                tk = new Token("id", String.valueOf(tsLocal.get(lex).getId()));
+                                Token.genToken("id", tsLocal.buscaLugarTS(lex), fd);
+                                tk = new Token("id", tsLocal.buscaLugarTS(lex));
                             }
                             else if (tablaSimbolos.containsKey(lex))
                             {
-                                Token.genToken("id", String.valueOf(tablaSimbolos.get(lex).getId()), fd);
-                                tk = new Token("id", String.valueOf(tablaSimbolos.get(lex).getId()));
+                                Token.genToken("id", tablaSimbolos.buscaLugarTS(lex), fd);
+                                tk = new Token("id", tablaSimbolos.buscaLugarTS(lex));
                             }
                             else
                             {
-                                tablaSimbolos.put(lex, ++numberId[tsLocal.idTabla]);
-                                Token.genToken("id", String.valueOf(numberId[tsLocal.idTabla]), fd);
-                                tk = new Token("id", String.valueOf(numberId[tsLocal.idTabla]));
+                                tablaSimbolos.put(lex, ++numberId[tablaSimbolos.idTabla]);
+                                Token.genToken("id", tablaSimbolos.idTabla + "." + numberId[tablaSimbolos.idTabla], fd);
+                                tk = new Token("id", tablaSimbolos.idTabla + "." + numberId[tablaSimbolos.idTabla]);
                             }
                             estadoactual = Estados.Inicial;
                             return tk;
@@ -145,16 +145,16 @@ public class AFD
                         if (!tablaSimbolos.containsKey(lex) && zona_decl.zona_decl)
                         {
                             tablaSimbolos.put(lex, ++numberId[tablaSimbolos.idLocal]);
-                            Token.genToken("id", String.valueOf(numberId[tablaSimbolos.idLocal]), fd);
-                            tk = new Token("id", String.valueOf(numberId[tablaSimbolos.idLocal]));
+                            Token.genToken("id", "0." + numberId[tablaSimbolos.idLocal], fd);
+                            tk = new Token("id", "0." + numberId[tablaSimbolos.idLocal]);
                             estadoactual = Estados.Inicial;
                             return tk;
                         }
                         // id ya declarado, y zona_decl == true, error de variable ya declarada
                         else if (tablaSimbolos.containsKey(lex) && zona_decl.zona_decl)
                         {
-                            Token.genToken("id", String.valueOf(tablaSimbolos.get(lex).getId()), fd);
-                            tk = new Token("id", String.valueOf(tablaSimbolos.get(lex).getId()));
+                            Token.genToken("id", tablaSimbolos.buscaLugarTS(lex), fd);
+                            tk = new Token("id", tablaSimbolos.buscaLugarTS(lex));
                             System.out.println("Error en linea: " + lines.toString() + " -> " + "Error léxico: Variable: "+ lex +" ya declarada\n");
                             estadoactual = Estados.Inicial;
                             return tk;
@@ -163,16 +163,16 @@ public class AFD
                         else if (!tablaSimbolos.containsKey(lex) && !zona_decl.zona_decl)
                         {
                             tablaSimbolos.put(lex, ++numberId[tablaSimbolos.idLocal]);
-                            Token.genToken("id", String.valueOf(numberId[tablaSimbolos.idLocal]), fd);
-                            tk = new Token("id", String.valueOf(numberId[tablaSimbolos.idLocal]));
+                            Token.genToken("id", "0." + numberId[tablaSimbolos.idLocal], fd);
+                            tk = new Token("id", "0." + numberId[tablaSimbolos.idLocal]);
                             estadoactual = Estados.Inicial;
                             return tk;
                         }
                         // variable ya declarada y zona_decl == false, generamos token id
                         else
                         {
-                            Token.genToken("id", String.valueOf(tablaSimbolos.get(lex).getId()), fd);
-                            tk = new Token("id", String.valueOf(tablaSimbolos.get(lex).getId()));
+                            Token.genToken("id", tablaSimbolos.buscaLugarTS(lex), fd);
+                            tk = new Token("id", tablaSimbolos.buscaLugarTS(lex));
                             estadoactual = Estados.Inicial;
                             return tk;
                         }

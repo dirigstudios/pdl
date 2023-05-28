@@ -42,13 +42,23 @@ public class TablaM {
         String siguiente;
         String etiq;
 
-        List<String> params = new ArrayList<>();
+        int tableId; // id de la tabla a la que pertenece
 
+        List<String> params = new ArrayList<>();
         public String getEtiq() { return etiq; }
+
+        public int getTableId() {
+            return tableId;
+        }
+
+        public void setTableId(int tableId) {
+            this.tableId = tableId;
+        }
 
         public List<String> getParams() {return params;}
 
         public void setParams(List<String> params) {this.params = params;}
+
         public void setEtiq(String etiq) { this.etiq = etiq; }
 
         public String getSiguiente() { return siguiente; }
