@@ -173,8 +173,8 @@ public class AnSm
                 //GCI
                 a1 = pilaAux.pop(); // switch
                 pilaAux.peek().setEtbreak(GCI.nuevaEt()); //B.break := nuevaEt()
-                pilaAux.peek().setEvaluado(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.constEnt)); //B.evaluado := nuevaTemp(ent);
-                GCI.emite(":=", pilaAux.peek().getEvaluado(), null, "0", fichGCI); // emite(‘:=’, B.evaluado, NULL, 0)
+                //pilaAux.peek().setEvaluado(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.constEnt)); //B.evaluado := nuevaTemp(ent);
+                //GCI.emite(":=", pilaAux.peek().getEvaluado(), null, "0", fichGCI); // emite(‘:=’, B.evaluado, NULL, 0)
                 pilaAux.push(a1);
                 break;
             case quinceDos:
@@ -275,7 +275,7 @@ public class AnSm
             case dieciSieteUno:
                 a1 = pilaAux.pop(); // :
                 a2 = pilaAux.pop(); // default
-                GCI.emite("if==", pilaAux.peek().getEvaluado(), "1", simbolo_cima.getEtbreak(), fichGCI);
+                //GCI.emite("if==", pilaAux.peek().getEvaluado(), "1", simbolo_cima.getEtbreak(), fichGCI);
                 pilaAux.push(a2);
                 pilaAux.push(a1);
                 break;

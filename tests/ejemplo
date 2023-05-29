@@ -1,32 +1,16 @@
-/* Ejemplo de Prueba */
-
-let int1 int;
-let cadena string;input cadena;
-let logico1 boolean;let logico2 boolean;
-
-int1 = 873;
-
-int2 = 378;
-if (! logico2) cadena = " hello";
-
-function ff string(string sss)
+let a    int   ;
+let b     int  ;
+let number int ;
+print  "Introduce el primer operando" ;
+input a;
+print "Introduce el segundo operando";input
+	b;
+function operacion
+ int (int num1_, int num2_)
 {
-	global = 33;
-	logico1 = ! logico2;
-	return sss;
-	if ( logico1) sss = ff (cadena);
+	let number int ;
+	number = 88 + num1_+num2_;
+	return number;
 }
-		
-function funcion string (string logico2)
-{	let var int;
-
-  switch (int1){
-	case 0:	logico1 = int1 == int2;break;
-	case 8888: print(0);
-	case 3333: logico2="";
-  }
-  
-  return logico2;
-}
-print(((ff((funcion(cadena))))));
-
+number = 0;
+print operacion(b,a);
