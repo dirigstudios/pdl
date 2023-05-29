@@ -209,12 +209,7 @@ public class GCO
     {
         String linea;
 
-        fichObjeto.println("ORG"); //indicamos donde empieza el código ensamblador
-
         fichObjeto.println("MOVE #inicio_estaticas, .IY");
-        fichObjeto.println("MOVE #inicio_pila, .IX"); //determino al inicio donde comienza la pila
-        fichObjeto.println("MOVE .IX, .SP"); //pongo el registro de la pila al inicio de la .IX
-        //TODO: solo modificar la posicion de SP cuando se cree o destruya un RA
         fichObjeto.println("BR /main");
 
         fichObjeto.println("");
@@ -227,14 +222,15 @@ public class GCO
 
         while ( (linea = fichCO.readLine()) != null)
             fichObjeto.println(linea);
-        
+        fichObjeto.println("HALT");
+
         fichObjeto.println("");
 
         fichObjeto.println("inicio_estaticas: RES 200");
 
         fichObjeto.println("");
 
-        fichObjeto.println("inicio_pila: NOP");
+        //TODO: solo modificar la posicion de SP cuando se cree o destruya un RA
         while ( (linea = fichPila.readLine()) != null)
             fichObjeto.println(linea);
 

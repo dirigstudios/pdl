@@ -426,8 +426,9 @@ public class AnSm
                 else
                     pilaAux.peek().setEstadoActual(estados.ok);
                 //GCI
-                GCI.emite("param", s1.getLugar(), null, null, fichGCI);
-                GCI.emite("call", "print", null, null, fichGCI);
+                //GCI.emite("param", s1.getLugar(), null, null, fichGCI);
+                //GCI.emite("call", "print", null, null, fichGCI);
+                GCI.emite("print", s1.getLugar(), null, null, fichGCI);
                 break;
             case treintaiDos:
                 pilaAux.pop(); // ;
@@ -444,8 +445,9 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
                 //GCI
-                GCI.emite("param", tablaGlobal.buscaLugarTS(s1.getNameId()), null, null, fichGCI);
-                GCI.emite("call", "input", null, null, fichGCI);
+                //GCI.emite("param", tablaGlobal.buscaLugarTS(s1.getNameId()), null, null, fichGCI);
+                //GCI.emite("call", "input", null, null, fichGCI);
+                GCI.emite("input", s1.getLugar(), null, null, fichGCI);
                 break;
             case treintaiTres:
                 pilaAux.pop(); // ;
