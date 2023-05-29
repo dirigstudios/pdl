@@ -230,9 +230,12 @@ public class AnSm
                 //GCI
                 aux.setEtbreak(a6.getEtbreak());    //O.break = B.break
                 aux.setSiguiente(GCI.nuevaEt());    //O.siguiente = nuevaEtiq
-                aux.setEvaluado(a6.getEvaluado());  //O.evaluado = B.evaluado
+                if(a3.getLugar()!=null)
+                    aux.setLugar(a3.getLugar());    //O.lugar := E.lugar PRIMER CASE
+                else
+                    aux.setLugar(a6.getLugar());
                 //GCI.emite("if==", a6.getEvaluado(), "1", "2", fichGCI);
-                GCI.emite("if!=", a3.getLugar(), String.valueOf(ent), aux.getSiguiente(), fichGCI);
+                GCI.emite("if!=", aux.getLugar(), String.valueOf(ent), aux.getSiguiente(), fichGCI);
 
                 pilaAux.push(a6);
                 pilaAux.push(a5);
@@ -345,7 +348,7 @@ public class AnSm
             case veintiSiete:
                 s1 = pilaAux.pop(); // SS
                 s2 = pilaAux.pop(); // id
-                if (s1.getEstadoActual() == estados.ok || (tablaLocal != null && tablaLocal.get(s2.getNameId()) != null &&
+                if (s1.getEstadoActual() == estados.ok || (s2.getTableId() != 0 && tablaLocal.get(s2.getNameId()) != null &&
                         tablaLocal.get(s2.getNameId()).getTipo() == s1.getEstadoActual()))
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else if (s1.getEstadoActual() == estados.ok || (tablaGlobal.get(s2.getNameId()) != null &&
