@@ -178,7 +178,7 @@ public class TablaSimbolos
      */
     public int getDesplazamiento(int pos) {
         int total_despl = 0;
-        int count = 0;
+        int count = 1;
         //va iterando sobre la tabla hasta que llega al id
         while(count <= pos)
         {

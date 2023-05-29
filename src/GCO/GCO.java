@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
 import AnalizadorLexico.TablaSimbolos;
-import AnalizadorLexico.TablaSimbolos.Entrada;
 
 public class GCO 
 {
@@ -21,13 +20,13 @@ public class GCO
     //asumo que cada instrucción de ci está bien formado: contiene exactamente 4 palabras
     public static void switchGCO(String instruccion, PrintWriter fichDE, PrintWriter fichCO, PrintWriter fichPila, TablaSimbolos tsG, TablaSimbolos tsL)
     {
-        Entrada e;
         int desp;
         int id;
 
         StringTokenizer tokenizer;
         String op;
-        boolean local = (tsL == null); //para saber de donde extraer el lexema
+        boolean hayLocal = (tsL != null); //para saber de donde extraer el lexema
+        TablaSimbolos ts;
             
         tokenizer = new StringTokenizer(instruccion, " ");
 
@@ -38,88 +37,121 @@ public class GCO
             tokenizer.nextToken(); //me deshago del null
             String res = tokenizer.nextToken();
 
-            if (!local)
+            if (hayLocal)
             {
                 if (!esEntera(op1)) //el operador puede ser una constEnt
                 {
                     id = getIdFromLugarInTS(op1);
-                    e = tsL.get(id);
-                    desp = e.getDesplazamiento();
-                    op1 = "#" + (desp + id - 1) + "[.IX]";
+
+                    if (esLocal(op1))
+                    {
+                        desp = tsL.getDesplazamiento(id) + 1; //sumo el espacio del E.M. //TODO: sumar el nº de parámetros de la func
+                        op1 = "#" + desp + "[.IX]"; //IX = RA
+                    }
+                    else
+                    {
+                        desp = tsG.getDesplazamiento(id);
+                        op1 = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+                    }
                 }
                 else
                     op1 = "#" + op1;
 
                 //obtengo la direccion de res
+                if (esLocal(res))
+                    ts = tsL;
+                else
+                    ts = tsG;
                 id = getIdFromLugarInTS(res);
-                e = tsL.get(id);
-                desp = e.getDesplazamiento();
-                res = "#" + (desp + id - 1) + "[.IX]"; //TODO: revisar si el desplazamiento es correcto -> lo cambia andrés
+                desp = ts.getDesplazamiento(id);
+                res = "#" + desp + "[.IX]";
             }
             else
             {
                 if (!esEntera(op1)) //el operador puede ser una constEnt
                 {
                     id = getIdFromLugarInTS(op1);
-                    e = tsG.get(id);
-                    desp = e.getDesplazamiento();
-                    op1 = "#" + (desp + id - 1) + "[.IY]";
+                    desp = tsG.getDesplazamiento(id);
+                    op1 = "#" + desp + "[.IY]";
                 }
                 else
                     op1 = "#" + op1;
 
                 //obtengo la direccion de res
+                if (esLocal(res))
+                    ts = tsL;
+                else
+                    ts = tsG;
                 id = getIdFromLugarInTS(res);
-                e = tsG.get(id);
-                desp = e.getDesplazamiento();
-                res = "#" + (desp + id - 1) + "[.IY]"; //TODO: revisar si el desplazamiento es correcto -> lo cambia andrés
+                desp = ts.getDesplazamiento(id);
+                res = "#" + desp + "[.IY]";
             }
 
-            fichCO.println("MOVE " + op1 + ", " + res);
+            fichCO.println("\t\tMOVE " + op1 + ", " + res);
         }
-        else if (op.equals("+")) //(+, op1, op2, res)
+        else if (op.equals("+")) //(+, op1, op2, res) -> todos los ops son direcciones (no hay constEnt)
         {
             String op1 = tokenizer.nextToken();
             String op2 = tokenizer.nextToken();
             String res = tokenizer.nextToken();
 
-            if (!local)
+            if (hayLocal)
             {
                 id = getIdFromLugarInTS(op1);
-                e = tsL.get(id);
-                desp = e.getDesplazamiento();
-                op1 = "#" + (desp + id - 1) + "[.IX]";
+                if (esLocal(op1))
+                {
+                    desp = tsL.getDesplazamiento(id) + 1; //sumo el espacio del E.M. //TODO: sumar el nº de parámetros de la func
+                    op1 = "#" + desp + "[.IX]"; //IX = RA
+                }
+                else
+                {
+                    desp = tsG.getDesplazamiento(id);
+                    op1 = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+                }
+
 
                 id = getIdFromLugarInTS(op2);
-                e = tsL.get(id);
-                desp = e.getDesplazamiento();
-                op2 = "#" + (desp + id - 1) + "[.IX]";
+                if (esLocal(op2))
+                {
+                    desp = tsL.getDesplazamiento(id) + 1; //sumo el espacio del E.M. //TODO: sumar el nº de parámetros de la func
+                    op2 = "#" + desp + "[.IX]"; //IX = RA
+                }
+                else
+                {
+                    desp = tsG.getDesplazamiento(id);
+                    op2 = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+                }
+
 
                 id = getIdFromLugarInTS(res);
-                e = tsL.get(id);
-                desp = e.getDesplazamiento();
-                res = "#" + (desp + id - 1) + "[.IX]";
+                if (esLocal(res))
+                {
+                    desp = tsL.getDesplazamiento(id) + 1; //sumo el espacio del E.M. //TODO: sumar el nº de parámetros de la func
+                    res = "#" + desp + "[.IX]"; //IX = RA
+                }
+                else
+                {
+                    desp = tsG.getDesplazamiento(id);
+                    res = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+                }
             }
             else
             {
                 id = getIdFromLugarInTS(op1);
-                e = tsG.get(id);
-                desp = e.getDesplazamiento();
-                op1 = "#" + (desp + id - 1) + "[.IY]";
+                desp = tsG.getDesplazamiento(id);
+                op1 = "#" + desp + "[.IY]";
 
                 id = getIdFromLugarInTS(op2);
-                e = tsG.get(id);
-                desp = e.getDesplazamiento();
-                op2 = "#" + (desp + id - 1) + "[.IY]";
+                desp = tsG.getDesplazamiento(id);
+                op2 = "#" + desp + "[.IY]";
 
                 id = getIdFromLugarInTS(res);
-                e = tsG.get(id);
-                desp = e.getDesplazamiento();
-                res = "#" + (desp + id - 1) + "[.IY]";
+                desp = tsG.getDesplazamiento(id);
+                res = "#" + desp + "[.IY]";
             }
 
-            fichCO.println("ADD " + op1 + ", " + op2);
-            fichCO.println("MOVE .A, " + res);
+            fichCO.println("\t\tADD " + op1 + ", " + op2);
+            fichCO.println("\t\tMOVE .A, " + res);
         }
     }
 
@@ -150,12 +182,19 @@ public class GCO
     {
         float tsDotId = Float.parseFloat(lugar);
         StringTokenizer tokenizer = new StringTokenizer(lugar, ".");
-        int parteDecimal = Integer.parseInt(tokenizer.nextToken());
-        boolean local = (parteDecimal != 0); //será local si el id de la ts no es 0 (0 == tsG)
+        int parteEntera = Integer.parseInt(tokenizer.nextToken());
+        boolean local = (parteEntera != 0); //será local si el id de la ts no es 0 (0 == tsG)
 
         if (local)
-            return (int)(tsDotId * 10) - (10 * parteDecimal); 
+            return (int)(tsDotId * 10) - (10 * parteEntera); 
         return (int)(tsDotId * 10);
+    }
+
+    private static boolean esLocal(String lugar)
+    {
+        StringTokenizer tokenizer = new StringTokenizer(lugar, ".");
+        int parteEntera = Integer.parseInt(tokenizer.nextToken());
+        return (parteEntera != 0); //será local si el id de la ts no es 0 (0 == tsG)
     }
 
     /**
@@ -163,14 +202,24 @@ public class GCO
      * @param fichDE
      * @param fichCO
      * @param fichPila
+     * @param fichObjeto
      * @throws IOException
      */
     public static void fichAppender(BufferedReader fichDE, BufferedReader fichCO, BufferedReader fichPila, PrintWriter fichObjeto) throws IOException
     {
         String linea;
 
-        fichObjeto.println("MOVE #inicio_estaticas, .IY"); //
+        fichObjeto.println("ORG"); //indicamos donde empieza el código ensamblador
+
+        fichObjeto.println("MOVE #inicio_estaticas, .IY");
         fichObjeto.println("MOVE #inicio_pila, .IX"); //determino al inicio donde comienza la pila
+        fichObjeto.println("MOVE .IX, .SP"); //pongo el registro de la pila al inicio de la .IX
+        //TODO: solo modificar la posicion de SP cuando se cree o destruya un RA
+        fichObjeto.println("BR /main");
+
+        fichObjeto.println("");
+        
+        fichObjeto.print("main:");
         while ( (linea = fichDE.readLine()) != null)
             fichObjeto.println(linea);
 
@@ -181,7 +230,6 @@ public class GCO
         
         fichObjeto.println("");
 
-
         fichObjeto.println("inicio_estaticas: RES 200");
 
         fichObjeto.println("");
@@ -189,5 +237,9 @@ public class GCO
         fichObjeto.println("inicio_pila: NOP");
         while ( (linea = fichPila.readLine()) != null)
             fichObjeto.println(linea);
+
+        fichObjeto.println("");
+
+        fichObjeto.println("END");
     }
 }
