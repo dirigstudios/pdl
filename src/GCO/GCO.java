@@ -343,9 +343,9 @@ public class GCO
                 {
                     String nameFunc = tsG.get(tsL.getIdTabla()).getLexema();
                     if (tsG.get(tsL.getIdTabla()).getTipo() == TablaM.estados.constEnt || tsG.get(tsL.getIdTabla()).getTipo() == TablaM.estados.booleanR)
-                        fichCO.println("\t\tSUB" + "#Tam_RA_" + nameFunc + ", #1");
+                        fichCO.println("\t\tSUB " + "#Tam_RA_" + nameFunc + ", #1");
                     else
-                        fichCO.println("\t\tSUB" + "#Tam_RA_" + nameFunc + ", #64");
+                        fichCO.println("\t\tSUB " + "#Tam_RA_" + nameFunc + ", #64");
                     fichCO.println("\t\tADD .A, .IX;");
                     id = getIdFromLugarInTS(res);
                     if (esLocal(res))
@@ -416,16 +416,64 @@ public class GCO
         {
             String et1 = tokenizer.nextToken();
             tokenizer.nextToken(); // op2 Siempre será null
-            String valor = tokenizer.nextToken(); // valor será un numero entero N que representa sig_inst + N
-            String nameFunc = tsG.get(et1).getLexema();
-            if(valor.equals("null"))
-                fichCO.println("BR $2"); // sig_inst + 1
+            String valor = tokenizer.nextToken(); // valor será un numero entero N que representa sig_inst + N (res)
+
+            if(!valor.equals("null"))
+                fichCO.println("\t\tBR $2"); // sig_inst + 1
             else
-                fichCO.println("BR \\" + nameFunc);
+                fichCO.println("\t\tBR /" + et1);
+        }
+        else if(op.equals("if")) // (if, op1, null, et01)
+        {
+            String op1 = tokenizer.nextToken();
+            tokenizer.nextToken(); // op2 Siempre será null
+            String et01 = tokenizer.nextToken();
+            fichCO.println("\t\tCMP " + getVarDesp(op1, tsL, tsG) + ", #1");
+            fichCO.println("\t\tBNZ /" + et01);
+        }
+        else if(op.equals("if==")) //(if==, op1, op2, 2)
+        {
+            String op1 = tokenizer.nextToken();
+            String op2 = tokenizer.nextToken(); // op2 Siempre será null
+            tokenizer.nextToken();          // Se que siempre va a ser 2
+            fichCO.println("\t\tCMP " + getVarDesp(op1, tsL, tsG) + "," + getVarDesp(op2, tsL, tsG));
+            fichCO.println("\t\tBZ $3");
+        }
+        else if(op.equals("if!=")) //(if!=, op1, constEnt, et01)
+        {
+            String op1 = tokenizer.nextToken();
+            String entero = tokenizer.nextToken(); // Es una constante Entera
+            String et01 = tokenizer.nextToken();
+            fichCO.println("\t\tCMP " + getVarDesp(op1, tsL, tsG) + ", #" + entero);
+            fichCO.println("\t\tBNZ /" + et01);
         }
         fichCO = oldPrint;
     }
 
+    public static String getVarDesp(String var, TablaSimbolos tsL, TablaSimbolos tsG)
+    {
+        String resultado;
+        int id;
+        int desp;
+        if (tsL != null)
+        {
+            id = getIdFromLugarInTS(var);
+            if (esLocal(var)) {
+                desp = tsL.getDesplazamiento(id) + 1; //sumo el espacio del E.M. //TODO: sumar el nº de parámetros de la func
+                resultado = "#" + desp + "[.IX]"; //IX = RA
+            } else {
+                desp = tsG.getDesplazamiento(id);
+                resultado = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+            }
+        }
+        else
+        {
+            id = getIdFromLugarInTS(var);
+            desp = tsG.getDesplazamiento(id);
+            resultado = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+        }
+        return resultado;
+    }
     /**
      * devuelve si el string que me han pasado es una constante entera
      * @param op

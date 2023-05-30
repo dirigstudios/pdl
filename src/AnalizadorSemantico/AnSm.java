@@ -164,7 +164,8 @@ public class AnSm
                 a2 = pilaAux.pop(); // if
                 a1 = pilaAux.pop(); // B
                 a1.setSiguiente(GCI.nuevaEt());
-                GCI.emite("if", a3.getLugar(), null, a1.getSiguiente(), fichGCI);
+                instruccion = GCI.emite("if", a3.getLugar(), null, a1.getSiguiente(), fichGCI);
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 pilaAux.push(a1);
                 pilaAux.push(a2);
                 pilaAux.push(s1);
@@ -240,8 +241,8 @@ public class AnSm
                 else
                     aux.setLugar(a6.getLugar());
                 //GCI.emite("if==", a6.getEvaluado(), "1", "2", fichGCI);
-                GCI.emite("if!=", aux.getLugar(), String.valueOf(ent), aux.getSiguiente(), fichGCI);
-
+                instruccion = GCI.emite("if!=", aux.getLugar(), String.valueOf(ent), aux.getSiguiente(), fichGCI);
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 pilaAux.push(a6);
                 pilaAux.push(a5);
                 pilaAux.push(a4);
