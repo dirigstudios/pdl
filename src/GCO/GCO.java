@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
 import AnalizadorLexico.TablaSimbolos;
+import AnalizadorSintactico.TablaM;
 
 public class GCO 
 {
@@ -152,6 +153,170 @@ public class GCO
 
             fichCO.println("\t\tADD " + op1 + ", " + op2);
             fichCO.println("\t\tMOVE .A, " + res);
+        }
+        else if (op.equals(":"))
+        {
+            fichCO.println(tokenizer.nextToken() + ":");
+        }
+        else if (op.equals("%")) //(+, op1, op2, res) -> todos los ops son direcciones (no hay constEnt)
+        {
+            String op1 = tokenizer.nextToken();
+            String op2 = tokenizer.nextToken();
+            String res = tokenizer.nextToken();
+
+            if (hayLocal) {
+                id = getIdFromLugarInTS(op1);
+                if (esLocal(op1)) {
+                    desp = tsL.getDesplazamiento(id) + 1; //sumo el espacio del E.M. //TODO: sumar el nº de parámetros de la func
+                    op1 = "#" + desp + "[.IX]"; //IX = RA
+                } else {
+                    desp = tsG.getDesplazamiento(id);
+                    op1 = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+                }
+
+
+                id = getIdFromLugarInTS(op2);
+                if (esLocal(op2)) {
+                    desp = tsL.getDesplazamiento(id) + 1; //sumo el espacio del E.M. //TODO: sumar el nº de parámetros de la func
+                    op2 = "#" + desp + "[.IX]"; //IX = RA
+                } else {
+                    desp = tsG.getDesplazamiento(id);
+                    op2 = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+                }
+
+
+                id = getIdFromLugarInTS(res);
+                if (esLocal(res)) {
+                    desp = tsL.getDesplazamiento(id) + 1; //sumo el espacio del E.M. //TODO: sumar el nº de parámetros de la func
+                    res = "#" + desp + "[.IX]"; //IX = RA
+                } else {
+                    desp = tsG.getDesplazamiento(id);
+                    res = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+                }
+            } else {
+                id = getIdFromLugarInTS(op1);
+                desp = tsG.getDesplazamiento(id);
+                op1 = "#" + desp + "[.IY]";
+
+                id = getIdFromLugarInTS(op2);
+                desp = tsG.getDesplazamiento(id);
+                op2 = "#" + desp + "[.IY]";
+
+                id = getIdFromLugarInTS(res);
+                desp = tsG.getDesplazamiento(id);
+                res = "#" + desp + "[.IY]";
+            }
+
+            fichCO.println("\t\tMOD " + op1 + ", " + op2);
+            fichCO.println("\t\tMOVE .A, " + res);
+        }
+        else if (op.equals("==")) //(+, op1, op2, res) -> todos los ops son direcciones (no hay constEnt)
+        {
+            String op1 = tokenizer.nextToken();
+            String op2 = tokenizer.nextToken();
+            String res = tokenizer.nextToken();
+
+            if (hayLocal) {
+                id = getIdFromLugarInTS(op1);
+                if (esLocal(op1)) {
+                    desp = tsL.getDesplazamiento(id) + 1; //sumo el espacio del E.M. //TODO: sumar el nº de parámetros de la func
+                    op1 = "#" + desp + "[.IX]"; //IX = RA
+                } else {
+                    desp = tsG.getDesplazamiento(id);
+                    op1 = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+                }
+
+
+                id = getIdFromLugarInTS(op2);
+                if (esLocal(op2)) {
+                    desp = tsL.getDesplazamiento(id) + 1; //sumo el espacio del E.M. //TODO: sumar el nº de parámetros de la func
+                    op2 = "#" + desp + "[.IX]"; //IX = RA
+                } else {
+                    desp = tsG.getDesplazamiento(id);
+                    op2 = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+                }
+
+
+                id = getIdFromLugarInTS(res);
+                if (esLocal(res)) {
+                    desp = tsL.getDesplazamiento(id) + 1; //sumo el espacio del E.M. //TODO: sumar el nº de parámetros de la func
+                    res = "#" + desp + "[.IX]"; //IX = RA
+                } else {
+                    desp = tsG.getDesplazamiento(id);
+                    res = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+                }
+            } else {
+                id = getIdFromLugarInTS(op1);
+                desp = tsG.getDesplazamiento(id);
+                op1 = "#" + desp + "[.IY]";
+
+                id = getIdFromLugarInTS(op2);
+                desp = tsG.getDesplazamiento(id);
+                op2 = "#" + desp + "[.IY]";
+
+                id = getIdFromLugarInTS(res);
+                desp = tsG.getDesplazamiento(id);
+                res = "#" + desp + "[.IY]";
+            }
+            fichCO.println("\t\tCMP " + op1 + ", " + op2);
+            fichCO.println("\t\tBNZ $3");
+            fichCO.println("\t\tMOVE #1, " + res);
+            fichCO.println("\t\tBR $2");
+            fichCO.println("\t\tMOVE #0, " + res);
+        }
+        else if (op.equals("input"))
+        {
+            String op1 = tokenizer.nextToken();
+            TablaM.estados estadosop1;
+
+            if (hayLocal) {
+                id = getIdFromLugarInTS(op1);
+                if (esLocal(op1)) {
+                    desp = tsL.getDesplazamiento(id) + 1; //sumo el espacio del E.M. //TODO: sumar el nº de parámetros de la func
+                    op1 = "#" + desp + "[.IX]"; //IX = RA
+                    estadosop1 = tsL.get(id).getTipo();
+                } else {
+                    desp = tsG.getDesplazamiento(id);
+                    op1 = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+                    estadosop1 = tsG.get(id).getTipo();
+                }
+            } else {
+                id = getIdFromLugarInTS(op1);
+                desp = tsG.getDesplazamiento(id);
+                op1 = "#" + desp + "[.IY]";
+                estadosop1 = tsG.get(id).getTipo();
+            }
+            if (estadosop1 == TablaM.estados.cadena)
+                fichCO.println("INSTR " + op1);
+            else if (estadosop1 == TablaM.estados.constEnt)
+                fichCO.println("ININT " + op1);
+        }
+        else if (op.equals("print"))
+        {
+            String op1 = tokenizer.nextToken();
+            TablaM.estados estadosop1;
+
+            if (hayLocal) {
+                id = getIdFromLugarInTS(op1);
+                if (esLocal(op1)) {
+                    desp = tsL.getDesplazamiento(id) + 1; //sumo el espacio del E.M. //TODO: sumar el nº de parámetros de la func
+                    op1 = "#" + desp + "[.IX]"; //IX = RA
+                    estadosop1 = tsL.get(id).getTipo();
+                } else {
+                    desp = tsG.getDesplazamiento(id);
+                    op1 = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+                    estadosop1 = tsG.get(id).getTipo();
+                }
+            } else {
+                id = getIdFromLugarInTS(op1);
+                desp = tsG.getDesplazamiento(id);
+                op1 = "#" + desp + "[.IY]";
+                estadosop1 = tsG.get(id).getTipo();
+            }
+            if (estadosop1 == TablaM.estados.cadena)
+                fichCO.println("WRSTR " + op1);
+            else if (estadosop1 == TablaM.estados.constEnt)
+                fichCO.println("WRINT " + op1);
         }
     }
 
