@@ -46,21 +46,21 @@ public class AnSm
                 tablaGlobal = null;
                 break;
             case dos: case tresDos:
-                s1 = pilaAux.pop(); // P2
-                s2 = pilaAux.pop(); // B/F
-                if (s1.getEstadoActual() == estados.vacio && s2.getEstadoActual() == estados.ok)
-                    pilaAux.peek().setEstadoActual(estados.ok);
-                else if (s1.getEstadoActual() == estados.ok && s2.getEstadoActual() == estados.ok)
-                    pilaAux.peek().setEstadoActual(estados.ok);
-                else
-                    pilaAux.peek().setEstadoActual(estados.error);
-                break;
+            s1 = pilaAux.pop(); // P2
+            s2 = pilaAux.pop(); // B/F
+            if (s1.getEstadoActual() == estados.vacio && s2.getEstadoActual() == estados.ok)
+                pilaAux.peek().setEstadoActual(estados.ok);
+            else if (s1.getEstadoActual() == estados.ok && s2.getEstadoActual() == estados.ok)
+                pilaAux.peek().setEstadoActual(estados.ok);
+            else
+                pilaAux.peek().setEstadoActual(estados.error);
+            break;
             case tresUno:
                 zona_decl.zona_decl = true;
                 break;
             case cuatro: case siete: case nueve: case once: case trece: case veinte: case treintaiCinco: case treintaiSiete: case treintaiNueve: case cuarentaiDos: case cuarentaiCinco: case cincuentaiTres:
-                pilaAux.peek().setEstadoActual(estados.vacio);
-                break;
+            pilaAux.peek().setEstadoActual(estados.vacio);
+            break;
             case dieciOcho:
                 caseEnt.remove(casActual);
                 casActual--;
@@ -107,7 +107,9 @@ public class AnSm
                 }
                 else
                     pilaAux.peek().setEstadoActual(estados.ok);
-                GCI.emite("return", null, null, null, fichGCI);
+                instruccion = GCI.emite("return", null, null, null, fichGCI);
+                //GCO
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 break;
             case seis:
                 aux = pilaAux.pop();
@@ -300,7 +302,8 @@ public class AnSm
                 a4 = pilaAux.pop(); // constEnt
                 a5 = pilaAux.pop(); // case
                 //GCI
-                GCI.emite("goto", pilaAux.peek().getEtbreak(), null, null, fichGCI); //goto D.break //TODO implementar esta etiqueta
+                instruccion = GCI.emite("goto", pilaAux.peek().getEtbreak(), null, null, fichGCI);
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 pilaAux.push(a5);
                 pilaAux.push(a4);
                 pilaAux.push(a3);
@@ -463,7 +466,9 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
                 //GCI
-                GCI.emite("return", s1.getLugar(), null, null, fichGCI);
+                instruccion = GCI.emite("return", null, null, s1.getLugar(), fichGCI);
+                //GCO
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 break;
             case treintaiCuatro:
                 s1 = pilaAux.pop(); // Q
@@ -518,10 +523,14 @@ public class AnSm
                 //GCI
                 if (s1.getEstadoActual() != estados.vacio) {
                     pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.booleanR));
-                    GCI.emite("goto==", s2.getLugar(), s1.getLugar(), "sig_instr + 2", fichGCI);
-                    GCI.emite(":=", "0", null, pilaAux.peek().getLugar(), fichGCI);
-                    GCI.emite("goto", null, null, "sig_instr + 1", fichGCI);
-                    GCI.emite(":=", "1", null, pilaAux.peek().getLugar(), fichGCI);
+                    instruccion = GCI.emite("if==", s2.getLugar(), s1.getLugar(), "goto 2", fichGCI);
+                    GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
+                    instruccion = GCI.emite(":=", "0", null, pilaAux.peek().getLugar(), fichGCI);
+                    GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
+                    instruccion = GCI.emite("goto", null, null, "1", fichGCI);
+                    GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
+                    instruccion = GCI.emite(":=", "1", null, pilaAux.peek().getLugar(), fichGCI);
+                    GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 }
                 else
                     pilaAux.peek().setLugar(s2.getLugar());
@@ -592,7 +601,9 @@ public class AnSm
                 }
                 //GCI
                 pilaAux.peek().setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.booleanR));
-                GCI.emite("not", s1.getLugar(), null, pilaAux.peek().getLugar(), fichGCI);
+                instruccion = GCI.emite("not", s1.getLugar(), null, pilaAux.peek().getLugar(), fichGCI);
+                //GCO
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 break;
             case cuarentaiSiete:
                 aux = pilaAux.pop(); // V
