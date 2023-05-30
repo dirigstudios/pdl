@@ -1,0 +1,10 @@
+
+		MOVE #2[.IX], #4[.IX]
+		ADD #3[.IX], #5[.IX]
+		MOVE .A, #6[.IX]
+		MOVE #6[.IX], #3[.IX]
+		SUB#Tam_RA_operacion, #1
+		ADD .A, .IX;
+		MOVE #4[.IX], [.A]
+		BR [.IX]
+
