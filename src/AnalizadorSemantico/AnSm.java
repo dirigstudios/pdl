@@ -84,7 +84,8 @@ public class AnSm
                 pilaAux.push(a2);
                 pilaAux.push(a1);
                 zona_decl.zona_decl = false;
-                GCI.emite(":", "Et" + tablaGlobal.get(a5.getNameId()).getLexema() + "01", null, null, fichGCI);
+                instruccion = GCI.emite(":", "Et" + tablaGlobal.get(a5.getNameId()).getLexema() + "01", null, null, fichGCI);
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 break;
             case cincoTres:
                 tablaLocal.printTS(ts);
@@ -152,7 +153,8 @@ public class AnSm
                 else
                     pilaAux.peek().setEstadoActual(estados.error);
                 //GCI
-                GCI.emite(":", a1.getSiguiente(), null, null, fichGCI);
+                instruccion = GCI.emite(":", a1.getSiguiente(), null, null, fichGCI);
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 pilaAux.push(a1);
                 break;
             case catorceUno:
@@ -212,7 +214,8 @@ public class AnSm
                 else
                     pilaAux.peek().setEstadoActual(estados.error);
                 //GCI
-                GCI.emite(":",pilaAux.peek().getEtbreak(), null, null, fichGCI);
+                instruccion = GCI.emite(":",pilaAux.peek().getEtbreak(), null, null, fichGCI);
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 break;
             case dieciseisUno:
                 s1 = pilaAux.pop();    // ConstEnt
@@ -267,7 +270,8 @@ public class AnSm
                 a3 = pilaAux.pop(); // :
                 a4 = pilaAux.pop(); // constEnt
                 a5 = pilaAux.pop(); // case
-                GCI.emite(":", pilaAux.peek().getSiguiente(), null, null, fichGCI);
+                instruccion = GCI.emite(":", pilaAux.peek().getSiguiente(), null, null, fichGCI);
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 pilaAux.push(a5);
                 pilaAux.push(a4);
                 pilaAux.push(a3);
@@ -379,7 +383,8 @@ public class AnSm
                 //GCI
                 s2 = pilaAux.pop(); // SS, por lo que en la cima de la pila esta id!!
                 idLugar = tablaGlobal.buscaLugarTS(pilaAux.peek().getNameId());  // Revisar que hacer si es la local la que hay que ver
-                GCI.emite("%", s1.getLugar(), idLugar, idLugar, fichGCI);
+                instruccion = GCI.emite("%", s1.getLugar(), idLugar, idLugar, fichGCI);
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 pilaAux.push(s2); // devuelvo SS a donde debe estar, habiendo accedido a id
                 break;
             case veintiNueve:
@@ -431,7 +436,8 @@ public class AnSm
                 //GCI
                 //GCI.emite("param", s1.getLugar(), null, null, fichGCI);
                 //GCI.emite("call", "print", null, null, fichGCI);
-                GCI.emite("print", s1.getLugar(), null, null, fichGCI);
+                instruccion = GCI.emite("print", s1.getLugar(), null, null, fichGCI);
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 break;
             case treintaiDos:
                 pilaAux.pop(); // ;
@@ -450,7 +456,8 @@ public class AnSm
                 //GCI
                 //GCI.emite("param", tablaGlobal.buscaLugarTS(s1.getNameId()), null, null, fichGCI);
                 //GCI.emite("call", "input", null, null, fichGCI);
-                GCI.emite("input", s1.getLugar(), null, null, fichGCI);
+                instruccion = GCI.emite("input", s1.getLugar(), null, null, fichGCI);
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 break;
             case treintaiTres:
                 pilaAux.pop(); // ;

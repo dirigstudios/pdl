@@ -1,16 +1,6 @@
-let a    int   ;
-let b     int  ;
-let number int ;
-print  "Introduce el primer operando" ;
-input a;
-print "Introduce el segundo operando";input
-	b;
-function operacion
- int (int num1_, int num2_)
+function operacion int(int num2,int num1)
 {
-	let number int ;
-	number = 88 + num1_+num2_;
-	return number;
+	let  res int;
+	res=num1+num2;
+	return ((res));
 }
-number = 0;
-print operacion(b,a);
