@@ -417,11 +417,17 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else
                     pilaAux.peek().setEstadoActual(estados.error);
+                s2 = pilaAux.pop(); // SS, ahora id esta en la cima de la pila      CUIDADO CON LOS CAMBIOS EN ESTA REGLA
                 //GCI
                 List<String> paramss = s1.getParams();
                 for (int i = 0; i < paramss.size(); i++)
-                    GCI.emite("param", paramss.get(i), "", "", fichGCI);
-                GCI.emite("call", pilaAux.peek().getEtiq(), "", "", fichGCI);
+                {
+                    instruccion = GCI.emite("param", paramss.get(i), null, null, fichGCI);
+                    GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
+                }
+                instruccion = GCI.emite("call", tablaGlobal.get(pilaAux.peek().getNameId()).getEtiqueta(), null, null, fichGCI);
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
+                pilaAux.push(s2);
                 break;
             case treintaiUno:
                 pilaAux.pop(); // ;
@@ -435,8 +441,6 @@ public class AnSm
                 else
                     pilaAux.peek().setEstadoActual(estados.ok);
                 //GCI
-                //GCI.emite("param", s1.getLugar(), null, null, fichGCI);
-                //GCI.emite("call", "print", null, null, fichGCI);
                 instruccion = GCI.emite("print", s1.getLugar(), null, null, fichGCI);
                 GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 break;
@@ -455,8 +459,6 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
                 //GCI
-                //GCI.emite("param", tablaGlobal.buscaLugarTS(s1.getNameId()), null, null, fichGCI);
-                //GCI.emite("call", "input", null, null, fichGCI);
                 instruccion = GCI.emite("input", s1.getLugar(), null, null, fichGCI);
                 GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 break;
@@ -699,8 +701,12 @@ public class AnSm
                 List<String> params = s1.getParams();
                 s2.setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, tablaGlobal.get(aux.getNameId()).getTipo()));
                 for (int i = 0; i < params.size(); i++)
-                    GCI.emite("param", params.get(i), null, null, fichGCI);
-                GCI.emite("call", tablaGlobal.get(aux.getNameId()).getEtiqueta(), null, s2.getLugar(), fichGCI);
+                {
+                    instruccion = GCI.emite("param", params.get(i), null, null, fichGCI);
+                    GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
+                }
+                instruccion = GCI.emite("call", tablaGlobal.get(aux.getNameId()).getEtiqueta(), null, s2.getLugar(), fichGCI);
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichPila, tablaGlobal, tablaLocal);
                 pilaAux.push(s2);
                 break;
             default:

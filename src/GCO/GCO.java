@@ -11,6 +11,8 @@ import AnalizadorSintactico.TablaM;
 public class GCO 
 {
     private static HashMap<String, PrintWriter> functionFiles = new HashMap<>();
+    private static int paramDespl = 1;  //para saber siempre cuantos desplazamientos he hecho a la hora de realizar "param", se reestablece a 1 cuando se hace call
+    private static int numRet = 1;      //me permite generar etiquetas de retorno diferentes para cada llamada a funcion
 
     /**
      * famoso "switch" que imprime para cada cuarteto su correspondiente instruccion objeto
@@ -446,6 +448,72 @@ public class GCO
             String et01 = tokenizer.nextToken();
             fichCO.println("\t\tCMP " + getVarDesp(op1, tsL, tsG) + ", #" + entero);
             fichCO.println("\t\tBNZ /" + et01);
+        }
+        else if(op.equals("param") || op.equals("param&")) //(param, op1, null, null)
+        {
+            String op1 = tokenizer.nextToken();
+            tokenizer.nextToken(); //  Siempre es null
+            tokenizer.nextToken(); // Siempre es null
+
+            if (tsL != null)
+            {
+                id = getIdFromLugarInTS(op1);
+                if (esLocal(op1)) {
+                    desp = tsL.getDesplazamiento(id) + 1; //sumo el espacio del E.M. //TODO: sumar el nº de parámetros de la func
+                    op1 = "#" + desp + "[.IX]"; //IX = RA
+                } else {
+                    desp = tsG.getDesplazamiento(id);
+                    op1 = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+                }
+            }
+            else
+            {
+                id = getIdFromLugarInTS(op1);
+                desp = tsG.getDesplazamiento(id);
+                op1 = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
+            }
+            if (hayLocal)
+                fichCO.println("\t\tADD #Tam_RA_" + tsG.get(tsL.getIdTabla()).getLexema() + ", .IX");
+            else
+                fichCO.println("\t\tADD #Tam_RA_main, .IX");
+            fichCO.println("\t\tADD #" + paramDespl + ", .A");
+            if (op.equals("param"))
+                fichCO.println("\t\tMOVE " + op1 + ", [.A]");  // param
+            else
+                fichCO.println("\t\tMOVE /" + op1 + ", [.A]"); // param&
+            paramDespl += 1; //TODO: TENER EN CUENTA QUE HACER CON LAS CADENAS
+        }
+        else if(op.equals("call")) //(call, et1, null, null) ,(call, et1, null, res) -> implica return en res
+        {
+            paramDespl = 1;
+            String et1 = tokenizer.nextToken();
+            tokenizer.nextToken(); //  Siempre es null
+            String res = tokenizer.nextToken();
+            String sub;
+            if (hayLocal)
+            {
+                fichCO.println("\t\tMOVE #dir_ret_" + numRet + ", #Tam_RA_" + tsG.get(tsL.getIdTabla()).getLexema() + "[.IX]");
+                fichCO.println("\t\tADD #Tam_RA_" + tsG.get(tsL.getIdTabla()).getLexema() + ", .IX");
+                sub = "\t\tSUB .IX, #Tam_RA_" + tsG.get(tsL.getIdTabla()).getLexema();
+            }
+            else
+            {
+                fichCO.println("\t\tMOVE #dir_ret_" + numRet + ", #Tam_RA_main[.IX]");
+                fichCO.println("\t\tADD #Tam_RA_main, .IX");
+                sub = "\t\tSUB .IX, #Tam_RA_main";
+            }
+            fichCO.println("\t\tMOVE .A, .IX");
+            fichCO.println("\t\tBR /" + et1);
+            fichCO.println("#dir_ret_" + numRet + ":");
+            if (!res.equals("null"))
+            {
+                fichCO.println("\t\tSUB #Tam_RA_" + et1 + ", #1");  //TODO: SI RES ES UNA CADENA, EN VEZ DE #1 SERA #TAMÑAO_CADENA
+                fichCO.println("\t\tADD .A, .IX");
+                fichCO.println("\t\tMOVE [.A], " + getVarDesp(res, tsL, tsG));
+            }
+            fichCO.println(sub); //SUB .IX, #Tam_RA_llamador , calculo sub arriba para no repetir el if else
+            fichCO.println("\t\tMOVE .A, .IX");
+            numRet++;
         }
         fichCO = oldPrint;
     }
