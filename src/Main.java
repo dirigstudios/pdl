@@ -36,14 +36,14 @@ public class Main
         PrintWriter fichGCI = new PrintWriter("./tests/gci.txt");
         PrintWriter fichDE = new PrintWriter("./tests/de.txt");
         PrintWriter fichCO = new PrintWriter("./tests/co.txt");
-        PrintWriter fichPila = new PrintWriter("./tests/pila.txt");
+        PrintWriter fichStrings = new PrintWriter("./tests/strings.txt");
         Token.initializeTPR();
         // while (!tk.getTipo().equals("$"))
         //    tk = AnLex.getNextToken(fuente, fichToken, fichTS);
-        AnSt.algorithmAnSt(fuente, fichToken, fichTS, fichParser, fichGCI, fichDE, fichCO, fichPila);
+        AnSt.algorithmAnSt(fuente, fichToken, fichTS, fichParser, fichGCI, fichDE, fichCO, fichStrings);
         fichDE.close();
         fichCO.close();
-        fichPila.close();
+        fichStrings.close();
         fichTS.close();
         fuente.close();
         fichToken.close();
@@ -52,12 +52,12 @@ public class Main
 
         BufferedReader fDE = new BufferedReader(new FileReader("./tests/de.txt"));
         BufferedReader fCO = new BufferedReader(new FileReader("./tests/co.txt"));
-        BufferedReader fPila = new BufferedReader(new FileReader("./tests/pila.txt"));
+        BufferedReader fStrings = new BufferedReader(new FileReader("./tests/strings.txt"));
         PrintWriter fObjeto = new PrintWriter("./tests/objeto.ens");
-        GCO.fichAppender(fDE, fCO, fPila, fObjeto);
+        GCO.fichAppender(fDE, fCO, fStrings, fObjeto);
         fDE.close();
         fCO.close();
-        fPila.close();
+        fStrings.close();
         fObjeto.close();
     }
 }

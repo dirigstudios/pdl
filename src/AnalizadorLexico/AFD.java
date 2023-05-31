@@ -93,7 +93,8 @@ public class AFD
                         // id no declarado y zona_decl valida -> se genera el id en la ts local
                         if (!tsLocal.containsKey(lex) && zona_decl.zona_decl)
                         {
-                            tsLocal.put(lex, ++numberId[tsLocal.idTabla]);
+                            numberId[tsLocal.idTabla] = tsLocal.size() + 1;
+                            tsLocal.put(lex, numberId[tsLocal.idTabla]);
                             Token.genToken("id", tsLocal.idTabla + "." + numberId[tsLocal.idTabla], fd);
                             tk = new Token("id", tsLocal.idTabla + "." + numberId[tsLocal.idTabla]);
                             estadoactual = Estados.Inicial;
@@ -131,7 +132,8 @@ public class AFD
                             }
                             else
                             {
-                                tablaSimbolos.put(lex, ++numberId[tablaSimbolos.idTabla]);
+                                numberId[tablaSimbolos.idLocal] = tablaSimbolos.size() + 1;
+                                tablaSimbolos.put(lex, numberId[tablaSimbolos.idTabla]);
                                 Token.genToken("id", tablaSimbolos.idTabla + "." + numberId[tablaSimbolos.idTabla], fd);
                                 tk = new Token("id", tablaSimbolos.idTabla + "." + numberId[tablaSimbolos.idTabla]);
                             }
@@ -144,7 +146,8 @@ public class AFD
                         // no contenido en la tabla de simbolos global, y zona decl == true, generamos el simbolo
                         if (!tablaSimbolos.containsKey(lex) && zona_decl.zona_decl)
                         {
-                            tablaSimbolos.put(lex, ++numberId[tablaSimbolos.idLocal]);
+                            numberId[tablaSimbolos.idLocal] = tablaSimbolos.size() + 1;
+                            tablaSimbolos.put(lex, numberId[tablaSimbolos.idLocal]);
                             Token.genToken("id", "0." + numberId[tablaSimbolos.idLocal], fd);
                             tk = new Token("id", "0." + numberId[tablaSimbolos.idLocal]);
                             estadoactual = Estados.Inicial;
@@ -162,7 +165,8 @@ public class AFD
                         // variable no declarada, y zona_Decl == false, agregamos la variable a la tablaGlobal
                         else if (!tablaSimbolos.containsKey(lex) && !zona_decl.zona_decl)
                         {
-                            tablaSimbolos.put(lex, ++numberId[tablaSimbolos.idLocal]);
+                            numberId[tablaSimbolos.idLocal] = tablaSimbolos.size() + 1;
+                            tablaSimbolos.put(lex, numberId[tablaSimbolos.idLocal]);
                             Token.genToken("id", "0." + numberId[tablaSimbolos.idLocal], fd);
                             tk = new Token("id", "0." + numberId[tablaSimbolos.idLocal]);
                             estadoactual = Estados.Inicial;

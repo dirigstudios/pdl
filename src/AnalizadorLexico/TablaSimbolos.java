@@ -18,7 +18,7 @@ public class TablaSimbolos
         public String getEtiqueta()
         {
             if (function)
-                return "Et" + lexema + "01";
+                return "Et" + lexema;
             else
                 return null;
         }
@@ -66,6 +66,14 @@ public class TablaSimbolos
     public int idTabla;
     public List<Entrada> tablaSimbolos;
     public int idLocal;
+    public int parametros;
+    public int getParametros() {
+        return parametros;
+    }
+
+    public void setParametros(int parametros) {
+        this.parametros = parametros;
+    }
 
     public int getIdLocal() { return idLocal; }
 
@@ -151,7 +159,7 @@ public class TablaSimbolos
                 aux.setDesplazamiento(1);
                 break;
             case cadena:
-                aux.setDesplazamiento(64); //TODO: esto no es cierto
+                aux.setDesplazamiento(1); //TODO: esto no es cierto
                 break;
             default:
                 break;
