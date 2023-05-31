@@ -470,7 +470,7 @@ public class GCO
                 op1 = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
             }
             if (hayLocal)
-                fichCO.println("\t\tADD #Tam_RA_" + tsG.get(tsL.getIdTabla()).getLexema() + ", .IX");
+                fichCO.println("\t\tADD #Tam_RA_Et" + tsG.get(tsL.getIdTabla()).getLexema() + ", .IX");
             else
                 fichCO.println("\t\tADD #0, .IX");
             fichCO.println("\t\tADD #" + paramDespl + ", .A");
@@ -487,10 +487,10 @@ public class GCO
             String sub;
             if (hayLocal)
             {
-                fichCO.println("\t\tMOVE #dir_ret_" + numRet + ", #Tam_RA_" + tsG.get(tsL.getIdTabla()).getLexema() + "[.IX]");
-                fichCO.println("\t\tADD #Tam_RA_" + tsG.get(tsL.getIdTabla()).getLexema() + ", .IX");
+                fichCO.println("\t\tMOVE #dir_ret_" + numRet + ", #Tam_RA_Et" + tsG.get(tsL.getIdTabla()).getLexema() + "[.IX]");
+                fichCO.println("\t\tADD #Tam_RA_Et" + tsG.get(tsL.getIdTabla()).getLexema() + ", .IX");
                 fichCO.println("\t\tMOVE .A, .IX");
-                sub = "\t\tSUB .IX, #Tam_RA_" + tsG.get(tsL.getIdTabla()).getLexema();
+                sub = "\t\tSUB .IX, #Tam_RA_Et" + tsG.get(tsL.getIdTabla()).getLexema();
             }
             else
             {
