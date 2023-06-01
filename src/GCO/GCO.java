@@ -53,7 +53,7 @@ public class GCO
         if (op.equals(":=")) //(:=, op1, NULL, res)
         {
             String op1 = tokenizer.nextToken();
-            if (op1.charAt(0) == '\"' && !op1.endsWith("\""))
+            if (op1.charAt(0) == '"'  && op1.lastIndexOf('"') == 0)
                 op1 = getIncompleteString(tokenizer, op1);
             tokenizer.nextToken(); //me deshago del null
             String res = tokenizer.nextToken();
@@ -276,7 +276,7 @@ public class GCO
         else if (op.equals("print")) //(print, op1, null, null)
         {
             String op1 = tokenizer.nextToken();
-            if (op1.charAt(0) == '\"' && !op1.endsWith("\""))
+            if (op1.charAt(0) == '\"' && op1.lastIndexOf('"') == 0)
                 op1 = getIncompleteString(tokenizer, op1);
             TablaM.estados estadosop1;
             if (hayLocal) {
@@ -318,7 +318,10 @@ public class GCO
                     fichCO.println("\t\tSUB " + "#Tam_RA_Et" + nameFunc + ", #1");
                     fichCO.println("\t\tADD .A, .IX;");
                     id = getIdFromLugarInTS(op1);
-                    despl = tsL.getDesplazamiento(id); //sumo el espacio del E.M. + nº de parámetros de la func
+                    if (esLocal(op1))
+                        despl = tsL.getDesplazamiento(id); //sumo el espacio del E.M. + nº de parámetros de la func
+                    else
+                        despl = tsG.getDesplazamiento(id);
                     fichCO.println("\t\tMOVE #" + despl + "[.IX], [.A]");
                 }
                 fichCO.println("\t\tBR [.IX]"); //(return, null, null, null)
@@ -498,7 +501,7 @@ public class GCO
      */
     public static String getIncompleteString(StringTokenizer operacion, String op1)
     {
-        while (!op1.endsWith("\""))
+        while (op1.lastIndexOf('"') == 0)
             op1 = op1 + " " + operacion.nextToken();
         return op1;
     }

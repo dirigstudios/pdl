@@ -10,9 +10,9 @@ import GCO.GCO;
 
 public class Main
 {
-    final static boolean DEBUG = true;
+    final static boolean DEBUG = false;
 
-    public static void main(String[] args) throws IOException 
+    public static void main(String[] args) throws IOException
     {
         // Token tk = new Token("","");
         File fdFuente;
