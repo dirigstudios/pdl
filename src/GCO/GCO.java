@@ -53,21 +53,31 @@ public class GCO
         if (op.equals(":=")) //(:=, op1, NULL, res)
         {
             String op1 = tokenizer.nextToken();
+            if (op1.charAt(0) == '\"' && !op1.endsWith("\""))
+                op1 = getIncompleteString(tokenizer, op1);
             tokenizer.nextToken(); //me deshago del null
             String res = tokenizer.nextToken();
-            if (op1.endsWith("\"")) {
+            if (op1.endsWith("\"") ) {
                 if (esLocal(res))
+                {
                     ts = tsL;
+                    id = getIdFromLugarInTS(res);
+                    desp = ts.getDesplazamiento(id);
+                    res = "#" + desp + "[.IX]";
+                }
                 else
+                {
                     ts = tsG;
-                id = getIdFromLugarInTS(res);
-                desp = ts.getDesplazamiento(id);
-                res = "#" + desp + "[.IY]";
+                    id = getIdFromLugarInTS(res);
+                    desp = ts.getDesplazamiento(id);
+                    res = "#" + desp + "[.IY]";
+                }
                 int index = op1.length() - 1;
                 op1 = op1.substring(0, index) + "\0" + op1.substring(index);
                 fichStrings.println("data0" + string_number + ": DATA " + op1);
                 fichCO.println("\t\tMOVE #data0" + string_number++ + ", " + res);
-            } else {
+            }
+            else {
                 if (hayLocal) {
                     if (!esEntera(op1)) //el operador puede ser una constEnt
                     {
@@ -307,15 +317,21 @@ public class GCO
                 estadosop1 = tsG.get(id).getTipo();
             }
             if (estadosop1 == TablaM.estados.cadena)
-                fichCO.println("\t\tINSTR " + op1);
+            {
+                fichStrings.println("data0" + string_number + ": RES 64");
+                fichCO.println("\t\tINSTR /data0" + string_number);
+                fichCO.println("\t\tMOVE #data0" + string_number++ + ", " + op1);
+            }
             else if (estadosop1 == TablaM.estados.constEnt)
                 fichCO.println("\t\tININT " + op1);
         }
         else if (op.equals("print")) //(print, op1, null, null)
         {
+            String operacion = "#";
             String op1 = tokenizer.nextToken();
+            if (op1.charAt(0) == '\"' && !op1.endsWith("\""))
+                op1 = getIncompleteString(tokenizer, op1);
             TablaM.estados estadosop1;
-
             if (hayLocal) {
                 id = getIdFromLugarInTS(op1);
                 if (esLocal(op1)) {
@@ -522,6 +538,19 @@ public class GCO
         fichCO = oldPrint; // me siento un poco #oldPrint
     }
 
+    /**
+     * returns the full string if there are whitespaces in it.
+     * @param operacion
+     * @param op1
+     * @return
+     */
+    public static String getIncompleteString(StringTokenizer operacion, String op1)
+    {
+        while (!op1.endsWith("\""))
+            op1 = op1 + " " + operacion.nextToken();
+        return op1;
+    }
+
     public static String getVarDesp(String var, TablaSimbolos tsL, TablaSimbolos tsG)
     {
         String resultado;
@@ -651,6 +680,7 @@ public class GCO
                     while ((linea = bufferedReader.readLine()) != null) {
                         fichObjeto.println(linea);
                     }
+                    fichObjeto.println("\t\tBR [.IX]");
                     bufferedReader.close();
                 }
             }

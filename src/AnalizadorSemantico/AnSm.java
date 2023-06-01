@@ -450,7 +450,7 @@ public class AnSm
                 pilaAux.pop(); // ;
                 s1 = pilaAux.pop(); // id
                 pilaAux.pop(); // input
-                if (tablaLocal!=null && tablaLocal.get(s1.getNameId()) != null &&
+                if (s1.getTableId() != 0 && tablaLocal.get(s1.getNameId()) != null &&
                         tablaLocal.get(s1.getNameId()).getTipo() != estados.booleanR)
                     pilaAux.peek().setEstadoActual(estados.ok);
                 else if (tablaGlobal.get(s1.getNameId()) != null && tablaGlobal.get(s1.getNameId()).getTipo() != estados.booleanR )
@@ -461,7 +461,10 @@ public class AnSm
                     pilaAux.peek().setEstadoActual(estados.error);
                 }
                 //GCI
-                instruccion = GCI.emite("input", s1.getLugar(), null, null, fichGCI);
+                if (s1.getTableId() == 0)
+                    instruccion = GCI.emite("input", "0." + s1.getNameId(), null, null, fichGCI);
+                else
+                    instruccion = GCI.emite("input", s1.getTableId() + "." + s1.getNameId(), null, null, fichGCI);
                 GCO.switchGCO(instruccion, fichDE, fichCO, fichStrings, tablaGlobal, tablaLocal);
                 break;
             case treintaiTres:
