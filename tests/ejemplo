@@ -1,6 +1,13 @@
-function operacion int(int num2,int num1)
-{
 	let  res int;
-	res=num1+num2;
-	return ((res));
-}
+	res=5;
+	switch(res)
+	{
+		case 5:
+			print("el resultado es 5\n");
+			break;
+		case 3:
+			print("hola\n");
+			break;
+	}
+
+print("hemos acabao\n");

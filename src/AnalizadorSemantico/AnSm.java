@@ -43,6 +43,7 @@ public class AnSm
                 break;
             case unoDos:
                 pilaAux.pop();
+                GCO.tamRA_calculator(tablaGlobal, tablaGlobal, fichDE);
                 tablaGlobal = null;
                 break;
             case dos: case tresDos:

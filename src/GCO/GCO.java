@@ -242,58 +242,6 @@ public class GCO
             fichCO.println("\t\tMOD " + op1 + ", " + op2);
             fichCO.println("\t\tMOVE .A, " + res);
         }
-        else if (op.equals("==")) //(==, op1, op2, res) -> todos los ops son direcciones (no hay constEnt)
-        {
-            String op1 = tokenizer.nextToken();
-            String op2 = tokenizer.nextToken();
-            String res = tokenizer.nextToken();
-
-            if (hayLocal) {
-                id = getIdFromLugarInTS(op1);
-                if (esLocal(op1)) {
-                    desp = tsL.getDesplazamiento(id); //sumo el espacio del E.M. + nº de parámetros de la func
-                    op1 = "#" + desp + "[.IX]"; //IX = RA
-                } else {
-                    desp = tsG.getDesplazamiento(id);
-                    op1 = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
-                }
-                id = getIdFromLugarInTS(op2);
-                if (esLocal(op2)) {
-                    desp = tsL.getDesplazamiento(id); //sumo el espacio del E.M. + nº de parámetros de la func
-                    op2 = "#" + desp + "[.IX]"; //IX = RA
-                } else {
-                    desp = tsG.getDesplazamiento(id);
-                    op2 = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
-                }
-
-
-                id = getIdFromLugarInTS(res);
-                if (esLocal(res)) {
-                    desp = tsL.getDesplazamiento(id); //sumo el espacio del E.M. + nº de parámetros de la func
-                    res = "#" + desp + "[.IX]"; //IX = RA
-                } else {
-                    desp = tsG.getDesplazamiento(id);
-                    res = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
-                }
-            } else {
-                id = getIdFromLugarInTS(op1);
-                desp = tsG.getDesplazamiento(id);
-                op1 = "#" + desp + "[.IY]";
-
-                id = getIdFromLugarInTS(op2);
-                desp = tsG.getDesplazamiento(id);
-                op2 = "#" + desp + "[.IY]";
-
-                id = getIdFromLugarInTS(res);
-                desp = tsG.getDesplazamiento(id);
-                res = "#" + desp + "[.IY]";
-            }
-            fichCO.println("\t\tCMP " + op1 + ", " + op2);
-            fichCO.println("\t\tBNZ $5");
-            fichCO.println("\t\tMOVE #1, " + res);
-            fichCO.println("\t\tBR $3");
-            fichCO.println("\t\tMOVE #0, " + res);
-        }
         else if (op.equals("input")) //(input, op1, null, null)
         {
             String op1 = tokenizer.nextToken();
@@ -444,7 +392,7 @@ public class GCO
             tokenizer.nextToken(); // op2 Siempre será null
             String et01 = tokenizer.nextToken();
             fichCO.println("\t\tCMP " + getVarDesp(op1, tsL, tsG) + ", #1");
-            fichCO.println("\t\tBNZ /" + et01);
+            fichCO.println("\t\tBZ /" + et01);
         }
         else if(op.equals("if==")) //(if==, op1, op2, 2)
         {
@@ -490,8 +438,7 @@ public class GCO
             else
                 fichCO.println("\t\tADD #0, .IX");
             fichCO.println("\t\tADD #" + paramDespl + ", .A");
-            if (op.equals("param"))
-                fichCO.println("\t\tMOVE " + op1 + ", [.A]");
+            fichCO.println("\t\tMOVE " + op1 + ", [.A]");
             paramDespl += 1;
         }
         else if(op.equals("call")) //(call, et1, null, null) ,(call, et1, null, res) -> implica return en res
@@ -503,8 +450,8 @@ public class GCO
             String sub;
             if (hayLocal)
             {
-                fichCO.println("\t\tMOVE #dir_ret_" + numRet + ", #Tam_RA_Et" + tsG.get(tsL.getIdTabla()).getLexema() + "[.IX]");
-                fichCO.println("\t\tADD #Tam_RA_Et" + tsG.get(tsL.getIdTabla()).getLexema() + ", .IX");
+                fichCO.println("\t\tADD #Tam_RA_Et" + tsG.get(tsL.getIdTabla()).getLexema() + ", .IX"); //para desplazar el .IX con una etiqueta con el TamRA
+                fichCO.println("\t\tMOVE #dir_ret_" + numRet + ", [.A]");
                 fichCO.println("\t\tMOVE .A, .IX");
                 sub = "\t\tSUB .IX, #Tam_RA_Et" + tsG.get(tsL.getIdTabla()).getLexema();
             }
@@ -520,12 +467,14 @@ public class GCO
             {
                 fichCO.println("\t\tSUB #Tam_RA_" + et1 + ", #1");
                 fichCO.println("\t\tADD .A, .IX");
-                fichCO.println("\t\tMOVE [.A], " + getVarDesp(res, tsL, tsG));
+                fichCO.println("\t\tMOVE [.A], .R9"); //movemos el VD a un registro random
             }
             if (hayLocal)
             {
-                fichCO.println(sub); //SUB .IX, #Tam_RA_llamador , calculo sub arriba para no repetir el if else
+                fichCO.println(sub); //SUB .IX, #Tam_RA_llamador -> actualizar el IX para que apunte al RA de la funcion 
                 fichCO.println("\t\tMOVE .A, .IX");
+                if (!res.equals("null"))
+                    fichCO.println("\t\tMOVE .R9, " + getVarDesp(res, tsL, tsG));
             }
             else
             {
@@ -637,7 +586,7 @@ public class GCO
 
         fichObjeto.println("MOVE #inicio_estaticas, .IY");
         fichObjeto.println("MOVE #inicio_pila, .IX");
-        //fichObjeto.println("MOVE .SP, .IX");
+        //fichObjeto.println("MOVE .IX, .SP");
         fichObjeto.println("BR /main");
         fichObjeto.println("");
         fichObjeto.print("main:");
@@ -646,8 +595,8 @@ public class GCO
             fichObjeto.println(linea);
         fichObjeto.println("\t\tHALT");
         functionAppend(fichObjeto);
+        fichObjeto.println("");
         //zona de etiquetas con constantes y strings
-        fichObjeto.println("inicio_estaticas: RES 200");
         while ( (linea = fichDE.readLine()) != null)
             fichObjeto.println(linea);
         fichObjeto.println("");
@@ -657,7 +606,6 @@ public class GCO
         //TODO: solo modificar la posicion de SP cuando se cree o destruya un RA
         // while ( (linea = fichPila.readLine()) != null)
         //     fichObjeto.println(linea);
-        fichObjeto.println("");
         fichObjeto.println("inicio_pila: NOP");
         fichObjeto.println("");
         fichObjeto.println("END");
@@ -694,10 +642,18 @@ public class GCO
      */
     public static void tamRA_calculator(TablaSimbolos tsG, TablaSimbolos tsL, PrintWriter fichDE)
     {
-        int tamRA = tsL.size();
-        String lexema = tsG.get(tsL.getIdTabla()).getLexema();
-        tamRA += 2; //sumo el EM (Dir Retorno) y VD
+        if (tsG == tsL) //calcular tamaño del supuesto RA main
+        {
+            int tamRA = tsG.size();
+            fichDE.println("inicio_estaticas: RES " + tamRA);
+        }
+        else
+        {
+            int tamRA = tsL.size();
+            String lexema = tsG.get(tsL.getIdTabla()).getLexema();
+            tamRA += 2; //sumo el EM (Dir Retorno) y VD
 
-        fichDE.println("Tam_RA_Et" + lexema + ": EQU " + tamRA);
+            fichDE.println("Tam_RA_Et" + lexema + ": EQU " + tamRA);
+        }
     }
 }
