@@ -1,0 +1,53 @@
+MOVE #inicio_estaticas, .IY
+MOVE #inicio_pila, .IX
+BR /main
+
+main:
+		MOVE #data01, #1[.IY]
+		MOVE #dir_ret_1, [.IX]
+		BR /EtpideTexto
+dir_ret_1:	NOP
+		MOVE #inicio_pila, .IX
+		MOVE #data05, #4[.IY]
+		MOVE #1[.IY], #4[.IY]
+		ADD #0, .IX
+		ADD #1, .A
+		MOVE #4[.IY], [.A]
+		MOVE #dir_ret_2, [.IX]
+		BR /Etalert
+dir_ret_2:	NOP
+		MOVE #inicio_pila, .IX
+		HALT
+
+Etalert:	NOP
+		MOVE #data02, #2[.IX]
+		ADD #0, #2[.IX]
+		WRSTR [.A]
+		ADD #0, #1[.IX]
+		WRSTR [.A]
+
+		BR [.IX]
+
+EtpideTexto:	NOP
+		MOVE #data03, #1[.IX]
+		ADD #0, #1[.IX]
+		WRSTR [.A]
+		INSTR /data04
+		MOVE #data04, #1[.IY]
+
+		BR [.IX]
+
+Tam_RA_Etalert: EQU 4
+Tam_RA_EtpideTexto: EQU 3
+inicio_estaticas: RES 4
+
+data01: DATA " "
+data02: DATA "Mensaje introducido: "
+data03: DATA "Introduce un texto corto "
+data04: RES 64
+data05: DATA " "
+
+inicio_pila: NOP
+
+END
+; una obra de diriG studios(c) 2023.

@@ -1,0 +1,87 @@
+MOVE #inicio_estaticas, .IY
+MOVE #inicio_pila, .IX
+BR /main
+
+main:
+		MOVE #14, #3[.IY]
+		MOVE #3[.IY], #2[.IY]
+		MOVE #1, #4[.IY]
+		ADD #0, .IX
+		ADD #1, .A
+		MOVE #4[.IY], [.A]
+		MOVE #dir_ret_2, [.IX]
+		BR /Etrecursiva
+dir_ret_2:	NOP
+		MOVE [.A], #5[.IY]
+		MOVE #inicio_pila, .IX
+		CMP #5[.IY],#2[.IY]
+		BZ $\dollar$5
+		MOVE #0, #6[.IY]
+		BR $\dollar$3
+		MOVE #1, #6[.IY]
+		CMP #6[.IY], #1
+		BNZ /et05
+		WRINT #2[.IY]
+et05:	NOP
+		HALT
+
+Etrecursiva:	NOP
+		CMP #2[.IX],#1
+		BZ $\dollar$5
+		CMP #1[.IX], #1
+		BNZ /et02
+		MOVE #1, #3[.IX]
+		MOVE #3[.IX], #4[.IX]
+		ADD #1[.IX], #4[.IX]
+		MOVE .A, #5[.IX]
+		ADD #Tam_RA_Etrecursiva, .IX
+		ADD #1, .A
+		MOVE #5[.IX], [.A]
+		ADD #Tam_RA_Etrecursiva, .IX
+		MOVE #dir_ret_1, [.A]
+		MOVE .A, .IX
+		BR /Etrecursiva
+dir_ret_1:	NOP
+		SUB .IX, #Tam_RA_Etrecursiva
+		MOVE .A, .IX
+		BR /et01
+		MOVE #1, #2[.IX]
+et02:	NOP
+		CMP #2[.IX],#1
+		BZ $\dollar$5
+		CMP #1[.IX], #2
+		BNZ /et03
+		MOVE #data01, #6[.IX]
+		ADD #0, #6[.IX]
+		WRSTR [.A]
+		MOVE #1, #2[.IX]
+et03:	NOP
+		CMP #2[.IX],#1
+		BZ $\dollar$5
+		CMP #1[.IX], #3
+		BNZ /et04
+		MOVE #data02, #7[.IX]
+		ADD #0, #7[.IX]
+		WRSTR [.A]
+		BR /et01
+		MOVE #1, #2[.IX]
+et04:	NOP
+et01:	NOP
+		MOVE #14, #8[.IX]
+		SUB #Tam_RA_Etrecursiva, #1
+		ADD .A, .IX;
+		MOVE #8[.IX], [.A]
+		BR [.IX]
+
+		BR [.IX]
+
+Tam_RA_Etrecursiva: EQU 10
+inicio_estaticas: RES 6
+
+data01: DATA "segundo case "
+data02: DATA "tercer case "
+
+inicio_pila: NOP
+
+END
+; una obra de diriG studios(c) 2023.

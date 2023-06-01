@@ -1,0 +1,231 @@
+MOVE #inicio_estaticas, .IY
+MOVE #inicio_pila, .IX
+BR /main
+
+main:
+		MOVE #dir_ret_4, [.IX]
+		BR /Etdemo
+dir_ret_4:	NOP
+		MOVE #inicio_pila, .IX
+		HALT
+
+Etbisiesto:	NOP
+		MOVE #data01, #2[.IX]
+		MOVE #data02, #3[.IX]
+		ADD #0, #3[.IX]
+		WRSTR [.A]
+		INSTR /data03
+		MOVE #data03, #2[.IX]
+		MOVE #4, #4[.IX]
+		MOVE #4[.IX], #5[.IX]
+		ADD #1[.IX], #5[.IX]
+		MOVE .A, #6[.IX]
+		MOVE #0, #7[.IX]
+		CMP #6[.IX],#7[.IX]
+		BZ $\dollar$5
+		MOVE #0, #8[.IX]
+		BR $\dollar$3
+		MOVE #1, #8[.IX]
+		SUB #Tam_RA_Etbisiesto, #1
+		ADD .A, .IX;
+		MOVE #8[.IX], [.A]
+		BR [.IX]
+
+		BR [.IX]
+
+EtesFechaCorrecta:	NOP
+		ADD #Tam_RA_EtesFechaCorrecta, .IX
+		ADD #1, .A
+		MOVE #2[.IX], [.A]
+		ADD #Tam_RA_EtesFechaCorrecta, .IX
+		ADD #2, .A
+		MOVE #3[.IX], [.A]
+		ADD #Tam_RA_EtesFechaCorrecta, .IX
+		MOVE #dir_ret_2, [.A]
+		MOVE .A, .IX
+		BR /Etdias
+dir_ret_2:	NOP
+		SUB #Tam_RA_Etdias, #1
+		ADD .A, .IX
+		MOVE [.A], .R9
+		SUB .IX, #Tam_RA_EtesFechaCorrecta
+		MOVE .A, .IX
+		MOVE .R9, #4[.IX]
+		CMP #1[.IX],#4[.IX]
+		BZ $\dollar$5
+		MOVE #0, #5[.IX]
+		BR $\dollar$3
+		MOVE #1, #5[.IX]
+		SUB #Tam_RA_EtesFechaCorrecta, #1
+		ADD .A, .IX;
+		MOVE #5[.IX], [.A]
+		BR [.IX]
+
+		BR [.IX]
+
+Etdias:	NOP
+		CMP #3[.IX],#1
+		BZ $\dollar$5
+		CMP #1[.IX], #1
+		BNZ /et02
+		MOVE #1, #3[.IX]
+et02:	NOP
+		CMP #3[.IX],#1
+		BZ $\dollar$5
+		CMP #1[.IX], #3
+		BNZ /et03
+		MOVE #1, #3[.IX]
+et03:	NOP
+		CMP #3[.IX],#1
+		BZ $\dollar$5
+		CMP #1[.IX], #5
+		BNZ /et04
+		MOVE #1, #3[.IX]
+et04:	NOP
+		CMP #3[.IX],#1
+		BZ $\dollar$5
+		CMP #1[.IX], #7
+		BNZ /et05
+		MOVE #1, #3[.IX]
+et05:	NOP
+		CMP #3[.IX],#1
+		BZ $\dollar$5
+		CMP #1[.IX], #8
+		BNZ /et06
+		MOVE #1, #3[.IX]
+et06:	NOP
+		CMP #3[.IX],#1
+		BZ $\dollar$5
+		CMP #1[.IX], #10
+		BNZ /et07
+		MOVE #1, #3[.IX]
+et07:	NOP
+		CMP #3[.IX],#1
+		BZ $\dollar$5
+		CMP #1[.IX], #12
+		BNZ /et08
+		MOVE #31, #4[.IX]
+		SUB #Tam_RA_Etdias, #1
+		ADD .A, .IX;
+		MOVE #4[.IX], [.A]
+		BR [.IX]
+		BR /et01
+		MOVE #1, #3[.IX]
+et08:	NOP
+		CMP #3[.IX],#1
+		BZ $\dollar$5
+		CMP #1[.IX], #4
+		BNZ /et09
+		MOVE #1, #3[.IX]
+et09:	NOP
+		CMP #3[.IX],#1
+		BZ $\dollar$5
+		CMP #1[.IX], #6
+		BNZ /et010
+		MOVE #1, #3[.IX]
+et010:	NOP
+		CMP #3[.IX],#1
+		BZ $\dollar$5
+		CMP #1[.IX], #9
+		BNZ /et011
+		MOVE #1, #3[.IX]
+et011:	NOP
+		CMP #3[.IX],#1
+		BZ $\dollar$5
+		CMP #1[.IX], #11
+		BNZ /et012
+		MOVE #30, #5[.IX]
+		SUB #Tam_RA_Etdias, #1
+		ADD .A, .IX;
+		MOVE #5[.IX], [.A]
+		BR [.IX]
+		MOVE #1, #3[.IX]
+et012:	NOP
+		CMP #3[.IX],#1
+		BZ $\dollar$5
+		CMP #1[.IX], #2
+		BNZ /et013
+		ADD #Tam_RA_Etdias, .IX
+		ADD #1, .A
+		MOVE #2[.IX], [.A]
+		ADD #Tam_RA_Etdias, .IX
+		MOVE #dir_ret_1, [.A]
+		MOVE .A, .IX
+		BR /Etbisiesto
+dir_ret_1:	NOP
+		SUB #Tam_RA_Etbisiesto, #1
+		ADD .A, .IX
+		MOVE [.A], .R9
+		SUB .IX, #Tam_RA_Etdias
+		MOVE .A, .IX
+		MOVE .R9, #6[.IX]
+		CMP #6[.IX], #1
+		BNZ /et014
+		MOVE #29, #7[.IX]
+		SUB #Tam_RA_Etdias, #1
+		ADD .A, .IX;
+		MOVE #7[.IX], [.A]
+		BR [.IX]
+et014:	NOP
+		MOVE #28, #8[.IX]
+		SUB #Tam_RA_Etdias, #1
+		ADD .A, .IX;
+		MOVE #8[.IX], [.A]
+		BR [.IX]
+		MOVE #1, #3[.IX]
+et013:	NOP
+et01:	NOP
+
+		BR [.IX]
+
+Etdemo:	NOP
+		MOVE #31, #1[.IX]
+		MOVE #8, #2[.IX]
+		MOVE #2022, #3[.IX]
+		ADD #Tam_RA_Etdemo, .IX
+		ADD #1, .A
+		MOVE #1[.IX], [.A]
+		ADD #Tam_RA_Etdemo, .IX
+		ADD #2, .A
+		MOVE #2[.IX], [.A]
+		ADD #Tam_RA_Etdemo, .IX
+		ADD #3, .A
+		MOVE #3[.IX], [.A]
+		ADD #Tam_RA_Etdemo, .IX
+		MOVE #dir_ret_3, [.A]
+		MOVE .A, .IX
+		BR /EtesFechaCorrecta
+dir_ret_3:	NOP
+		SUB #Tam_RA_EtesFechaCorrecta, #1
+		ADD .A, .IX
+		MOVE [.A], .R9
+		SUB .IX, #Tam_RA_Etdemo
+		MOVE .A, .IX
+		MOVE .R9, #4[.IX]
+		CMP #4[.IX], #1
+		BNZ /et015
+		MOVE #9999, #5[.IX]
+		WRINT #5[.IX]
+et015:	NOP
+		MOVE #data04, #6[.IX]
+		ADD #0, #6[.IX]
+		WRSTR [.A]
+		BR [.IX]
+
+		BR [.IX]
+
+Tam_RA_Etbisiesto: EQU 10
+Tam_RA_Etdias: EQU 10
+Tam_RA_EtesFechaCorrecta: EQU 7
+Tam_RA_Etdemo: EQU 8
+inicio_estaticas: RES 6
+
+data01: DATA " "
+data02: DATA "Es bisiesto? "
+data03: RES 64
+data04: DATA " se ha comprobado la fecha "
+
+inicio_pila: NOP
+
+END
+; una obra de diriG studios(c) 2023.

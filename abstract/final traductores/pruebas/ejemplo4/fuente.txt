@@ -1,0 +1,20 @@
+function recursiva int (int a)
+{
+    switch (a)
+    {
+        case 1: 
+            recursiva(a + 1);
+            break;
+        case 2:
+            print("segundo case");
+        case 3:
+            print("tercer case");
+        break;
+    }
+    return 14;
+}
+
+let entero int;
+entero = 14;
+if (recursiva(1) == entero)
+    print(entero);

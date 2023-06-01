@@ -1,0 +1,157 @@
+#1:
+* LEXEMA : 'a'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 0
+* LEXEMA : 'bis'
+	ATRIBUTOS :
+		+tipo : 'cadena'
+		+despl : 1
+* LEXEMA : 'temp21'
+	ATRIBUTOS :
+		+tipo : 'cadena'
+		+despl : 2
+* LEXEMA : 'temp31'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 3
+* LEXEMA : 'temp41'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 4
+* LEXEMA : 'temp51'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 5
+* LEXEMA : 'temp61'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 6
+* LEXEMA : 'temp71'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 7
+#2:
+* LEXEMA : 'm'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 0
+* LEXEMA : 'a'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1
+* LEXEMA : 'temp21'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 2
+* LEXEMA : 'temp31'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 3
+* LEXEMA : 'temp41'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 4
+* LEXEMA : 'temp51'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 5
+* LEXEMA : 'temp61'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 6
+* LEXEMA : 'temp71'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 7
+#3:
+* LEXEMA : 'd'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 0
+* LEXEMA : 'm'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1
+* LEXEMA : 'a'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 2
+* LEXEMA : 'temp31'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 3
+* LEXEMA : 'temp41'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 4
+#4:
+* LEXEMA : 'temp01'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 0
+* LEXEMA : 'temp11'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1
+* LEXEMA : 'temp21'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 2
+* LEXEMA : 'temp31'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 3
+* LEXEMA : 'temp41'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 4
+* LEXEMA : 'temp51'
+	ATRIBUTOS :
+		+tipo : 'cadena'
+		+despl : 5
+#0:
+* LEXEMA : 'booleano'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 0
+* LEXEMA : 'bisiesto'
+	ATRIBUTOS :
+		+tipo : 'funcion'
+		 +numParam : 1
+		  +TipoParam1 : 'constEnt'
+		   +ModoParam1 : 1
+		+TipoRetorno : 'booleanR'
+		+EtiqFuncion : 'Etbisiesto01'
+* LEXEMA : 'dias'
+	ATRIBUTOS :
+		+tipo : 'funcion'
+		 +numParam : 2
+		  +TipoParam1 : 'constEnt'
+		   +ModoParam1 : 1
+		  +TipoParam2 : 'constEnt'
+		   +ModoParam2 : 1
+		+TipoRetorno : 'constEnt'
+		+EtiqFuncion : 'Etdias01'
+* LEXEMA : 'esFechaCorrecta'
+	ATRIBUTOS :
+		+tipo : 'funcion'
+		 +numParam : 3
+		  +TipoParam1 : 'constEnt'
+		   +ModoParam1 : 1
+		  +TipoParam2 : 'constEnt'
+		   +ModoParam2 : 1
+		  +TipoParam3 : 'constEnt'
+		   +ModoParam3 : 1
+		+TipoRetorno : 'booleanR'
+		+EtiqFuncion : 'EtesFechaCorrecta01'
+* LEXEMA : 'demo'
+	ATRIBUTOS :
+		+tipo : 'funcion'
+		 +numParam : 0
+		+TipoRetorno : 'vacio'
+		+EtiqFuncion : 'Etdemo01'
+* LEXEMA : 'abc'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1

@@ -1,0 +1,45 @@
+#0:
+* LEXEMA : 'a'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 0
+* LEXEMA : 'b'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1
+* LEXEMA : 'bbb'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 2
+* LEXEMA : 'temp31'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 3
+* LEXEMA : 'c'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 4
+* LEXEMA : 'temp51'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 5
+* LEXEMA : 'temp61'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 6
+* LEXEMA : 'temp71'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 7
+* LEXEMA : 'temp81'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 8
+* LEXEMA : 'temp91'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 9
+* LEXEMA : 'temp101'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 10

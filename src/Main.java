@@ -10,7 +10,7 @@ import GCO.GCO;
 
 public class Main
 {
-    final static boolean DEBUG = false;
+    final static boolean DEBUG = true;
 
     public static void main(String[] args) throws IOException
     {
@@ -59,5 +59,9 @@ public class Main
         fCO.close();
         fStrings.close();
         fObjeto.close();
+
+        System.err.println("");
+        System.out.println("file " + fdFuente.getCanonicalPath() + " succesfully compiled!");
+        System.out.println("diriG studios(c) 2023.");
     }
 }

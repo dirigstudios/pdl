@@ -1,0 +1,51 @@
+MOVE #inicio_estaticas, .IY
+MOVE #inicio_pila, .IX
+BR /main
+
+main:
+		MOVE #data01, #4[.IY]
+		ADD #0, #4[.IY]
+		WRSTR [.A]
+		ININT #1[.IY]
+		MOVE #data02, #5[.IY]
+		ADD #0, #5[.IY]
+		WRSTR [.A]
+		ININT #2[.IY]
+		MOVE #0, #7[.IY]
+		MOVE #7[.IY], #3[.IY]
+		ADD #0, .IX
+		ADD #1, .A
+		MOVE #2[.IY], [.A]
+		ADD #0, .IX
+		ADD #2, .A
+		MOVE #1[.IY], [.A]
+		MOVE #dir_ret_1, [.IX]
+		BR /Etoperacion
+dir_ret_1:	NOP
+		MOVE [.A], #8[.IY]
+		MOVE #inicio_pila, .IX
+		WRINT #8[.IY]
+		HALT
+
+Etoperacion:	NOP
+		MOVE #1[.IX], #4[.IX]
+		ADD #2[.IX], #4[.IX]
+		MOVE .A, #5[.IX]
+		MOVE #5[.IX], #3[.IX]
+		SUB #Tam_RA_Etoperacion, #1
+		ADD .A, .IX;
+		MOVE #3[.IX], [.A]
+		BR [.IX]
+
+		BR [.IX]
+
+Tam_RA_Etoperacion: EQU 7
+inicio_estaticas: RES 8
+
+data01: DATA "Introduce el primer operando "
+data02: DATA "Introduce el segundo operando "
+
+inicio_pila: NOP
+
+END
+; una obra de diriG studios(c) 2023.

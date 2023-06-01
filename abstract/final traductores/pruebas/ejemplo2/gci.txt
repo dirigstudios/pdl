@@ -1,0 +1,25 @@
+:= 3 null 0.4
+:= 0.4 null 0.1
+:= 0.1 null 0.2
+if== 0.1 0.2 goto 2
+:= 0 null 0.6
+goto null null 1
+:= 1 null 0.6
+:= 0.6 null 0.5
+if 0.5 null et01
+:= 1 null 0.7
+% 0.7 0.2 0.2
+: et01 null null
+if== 0.2 0.1 goto 2
+:= 0 null 0.8
+goto null null 1
+:= 1 null 0.8
+if 0.8 null et02
+:= 44 null 0.9
+:= 0.9 null 0.2
+: et02 null null
+:= 0.2 null 0.10
++ 0.1 0.10 0.11
+:= 0.11 null 0.1
+print 0.1 null null
+print 0.2 null null

@@ -1,0 +1,45 @@
+MOVE #inicio_estaticas, .IY
+MOVE #inicio_pila, .IX
+BR /main
+
+main:
+		MOVE #3, #4[.IY]
+		MOVE #4[.IY], #1[.IY]
+		MOVE #1[.IY], #2[.IY]
+		CMP #1[.IY],#2[.IY]
+		BZ $5
+		MOVE #0, #6[.IY]
+		BR $3
+		MOVE #1, #6[.IY]
+		MOVE #6[.IY], #5[.IY]
+		CMP #5[.IY], #1
+		BNZ /et01
+		MOVE #1, #7[.IY]
+		MOD #2[.IY], #7[.IY]
+		MOVE .A, #2[.IY]
+et01:	NOP
+		CMP #2[.IY],#1[.IY]
+		BZ $5
+		MOVE #0, #8[.IY]
+		BR $3
+		MOVE #1, #8[.IY]
+		CMP #8[.IY], #1
+		BNZ /et02
+		MOVE #44, #9[.IY]
+		MOVE #9[.IY], #2[.IY]
+et02:	NOP
+		MOVE #2[.IY], #10[.IY]
+		ADD #1[.IY], #10[.IY]
+		MOVE .A, #11[.IY]
+		MOVE #11[.IY], #1[.IY]
+		WRINT #1[.IY]
+		WRINT #2[.IY]
+		HALT
+
+inicio_estaticas: RES 11
+
+
+inicio_pila: NOP
+
+END
+; una obra de diriG studios(c) 2023.

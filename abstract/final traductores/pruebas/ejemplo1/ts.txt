@@ -1,0 +1,60 @@
+#1:
+* LEXEMA : 'num2'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 0
+* LEXEMA : 'num1'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1
+* LEXEMA : 'res'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 2
+* LEXEMA : 'temp31'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 3
+* LEXEMA : 'temp41'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 4
+#0:
+* LEXEMA : 'a'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 0
+* LEXEMA : 'b'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1
+* LEXEMA : 'number'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 2
+* LEXEMA : 'temp31'
+	ATRIBUTOS :
+		+tipo : 'cadena'
+		+despl : 3
+* LEXEMA : 'temp41'
+	ATRIBUTOS :
+		+tipo : 'cadena'
+		+despl : 4
+* LEXEMA : 'operacion'
+	ATRIBUTOS :
+		+tipo : 'funcion'
+		 +numParam : 2
+		  +TipoParam1 : 'constEnt'
+		   +ModoParam1 : 1
+		  +TipoParam2 : 'constEnt'
+		   +ModoParam2 : 1
+		+TipoRetorno : 'constEnt'
+		+EtiqFuncion : 'Etoperacion01'
+* LEXEMA : 'temp61'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 5
+* LEXEMA : 'temp71'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 6

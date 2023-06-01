@@ -1,0 +1,62 @@
+#1:
+* LEXEMA : 'a'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 0
+* LEXEMA : 'temp11'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1
+* LEXEMA : 'temp21'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 2
+* LEXEMA : 'temp31'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 3
+* LEXEMA : 'temp41'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 4
+* LEXEMA : 'temp51'
+	ATRIBUTOS :
+		+tipo : 'cadena'
+		+despl : 5
+* LEXEMA : 'temp61'
+	ATRIBUTOS :
+		+tipo : 'cadena'
+		+despl : 6
+* LEXEMA : 'temp71'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 7
+#0:
+* LEXEMA : 'recursiva'
+	ATRIBUTOS :
+		+tipo : 'funcion'
+		 +numParam : 1
+		  +TipoParam1 : 'constEnt'
+		   +ModoParam1 : 1
+		+TipoRetorno : 'constEnt'
+		+EtiqFuncion : 'Etrecursiva01'
+* LEXEMA : 'entero'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 0
+* LEXEMA : 'temp21'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 1
+* LEXEMA : 'temp31'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 2
+* LEXEMA : 'temp41'
+	ATRIBUTOS :
+		+tipo : 'constEnt'
+		+despl : 3
+* LEXEMA : 'temp51'
+	ATRIBUTOS :
+		+tipo : 'booleanR'
+		+despl : 4

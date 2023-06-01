@@ -1,0 +1,33 @@
+let  booleano boolean;
+function bisiesto boolean (int a)	
+{	let bis string;
+	print "Es bisiesto?";
+	input bis;
+	return ((a + 4 == 0));	
+}
+function dias int (int m, int a)
+{
+	switch (m)
+	{
+		case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+			return 31; break;
+		case 4: case 6: case 9: case 11:
+			return 30;
+		case 2: if (bisiesto (a)) return 29; 
+			return(28);
+		
+	}
+}
+function esFechaCorrecta boolean (int d, int m, int a)	
+{
+	return (d == dias (m, a));
+}
+function demo ()	
+{
+
+	if (esFechaCorrecta(31, 08, 2022)) print 9999;
+	print("   se ha comprobado      la fecha");
+	return;
+}
+let abc int;
+demo();

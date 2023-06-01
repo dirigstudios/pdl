@@ -1,0 +1,37 @@
+#1:
+* LEXEMA : 'm_s_g'
+	ATRIBUTOS :
+		+tipo : 'cadena'
+		+despl : 0
+* LEXEMA : 'temp11'
+	ATRIBUTOS :
+		+tipo : 'cadena'
+		+despl : 1
+#2:
+* LEXEMA : 'temp01'
+	ATRIBUTOS :
+		+tipo : 'cadena'
+		+despl : 0
+#0:
+* LEXEMA : 'texto'
+	ATRIBUTOS :
+		+tipo : 'cadena'
+		+despl : 0
+* LEXEMA : 'alert'
+	ATRIBUTOS :
+		+tipo : 'funcion'
+		 +numParam : 1
+		  +TipoParam1 : 'cadena'
+		   +ModoParam1 : 1
+		+TipoRetorno : 'vacio'
+		+EtiqFuncion : 'Etalert01'
+* LEXEMA : 'pideTexto'
+	ATRIBUTOS :
+		+tipo : 'funcion'
+		 +numParam : 0
+		+TipoRetorno : 'vacio'
+		+EtiqFuncion : 'EtpideTexto01'
+* LEXEMA : 'textoAux'
+	ATRIBUTOS :
+		+tipo : 'cadena'
+		+despl : 1
