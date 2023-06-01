@@ -386,7 +386,10 @@ public class AnSm
                 }
                 //GCI
                 s2 = pilaAux.pop(); // SS, por lo que en la cima de la pila esta id!!
-                idLugar = tablaGlobal.buscaLugarTS(pilaAux.peek().getNameId());  // Revisar que hacer si es la local la que hay que ver
+                if (pilaAux.peek().getTableId() != 0)
+                    idLugar = tablaLocal.buscaLugarTS(pilaAux.peek().getNameId()); 
+                else
+                    idLugar = tablaGlobal.buscaLugarTS(pilaAux.peek().getNameId());
                 instruccion = GCI.emite("%", s1.getLugar(), idLugar, idLugar, fichGCI);
                 GCO.switchGCO(instruccion, fichDE, fichCO, fichStrings, tablaGlobal, tablaLocal);
                 pilaAux.push(s2); // devuelvo SS a donde debe estar, habiendo accedido a id

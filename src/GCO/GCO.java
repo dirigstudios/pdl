@@ -239,7 +239,7 @@ public class GCO
                 res = "#" + desp + "[.IY]";
             }
 
-            fichCO.println("\t\tMOD " + op1 + ", " + op2);
+            fichCO.println("\t\tMOD " + op2 + ", " + op1);
             fichCO.println("\t\tMOVE .A, " + res);
         }
         else if (op.equals("input")) //(input, op1, null, null)
@@ -275,7 +275,6 @@ public class GCO
         }
         else if (op.equals("print")) //(print, op1, null, null)
         {
-            String operacion = "#";
             String op1 = tokenizer.nextToken();
             if (op1.charAt(0) == '\"' && !op1.endsWith("\""))
                 op1 = getIncompleteString(tokenizer, op1);
@@ -549,20 +548,10 @@ public class GCO
      */
     private static int getIdFromLugarInTS(String lugar)
     {
-        float tsDotId = Float.parseFloat(lugar);
         StringTokenizer tokenizer = new StringTokenizer(lugar, ".");
-        int parteEntera = Integer.parseInt(tokenizer.nextToken());
-        boolean local = (parteEntera != 0); //será local si el id de la ts no es 0 (0 == tsG)
-
-        int mult = 10;
-        int mult2 = 10;
-        if(parteEntera >= 10)
-            mult = 100;
-        if(tsDotId >= 10)
-            mult2 = 100;
-        if (local)
-            return (int)(tsDotId * mult2) - (mult * parteEntera);
-        return (int)(tsDotId * mult2);
+        Integer.parseInt(tokenizer.nextToken()); //me salto la parte entera
+        int parteDecimal = Integer.parseInt(tokenizer.nextToken());
+        return parteDecimal;
     }
 
     private static boolean esLocal(String lugar)
@@ -603,7 +592,7 @@ public class GCO
         while ( (linea = fichStrings.readLine()) != null)
             fichObjeto.println(linea);
         fichObjeto.println("");
-        //TODO: solo modificar la posicion de SP cuando se cree o destruya un RA
+        //solo modificar la posicion de SP cuando se cree o destruya un RA
         // while ( (linea = fichPila.readLine()) != null)
         //     fichObjeto.println(linea);
         fichObjeto.println("inicio_pila: NOP");
