@@ -35,11 +35,11 @@ public class GCO
         boolean hayLocal = (tsL != null); //para saber de donde extraer el lexema
         TablaSimbolos ts;
         if (hayLocal) {
-            fichCO = functionFiles.get(tsG.get(tsL.getIdTabla()).getLexema());
+            fichCO = functionFiles.get(tsG.get(tsL.getIdLocal()).getLexema());
             if (fichCO == null) {
                 try {
-                    PrintWriter newFile = new PrintWriter("./tests/functions/" + tsG.get(tsL.getIdTabla()).getLexema());
-                    functionFiles.put(tsG.get(tsL.getIdTabla()).getLexema(), newFile);
+                    PrintWriter newFile = new PrintWriter("./tests/functions/" + tsG.get(tsL.getIdLocal()).getLexema());
+                    functionFiles.put(tsG.get(tsL.getIdLocal()).getLexema(), newFile);
                     fichCO = newFile;
                     fichCO.println();
                 } catch (FileNotFoundException e) {
@@ -314,7 +314,7 @@ public class GCO
             {
                 if (!op1.equals("null"))
                 {
-                    String nameFunc = tsG.get(tsL.getIdTabla()).getLexema();
+                    String nameFunc = tsG.get(tsL.getIdLocal()).getLexema();
                     fichCO.println("\t\tSUB " + "#Tam_RA_Et" + nameFunc + ", #1");
                     fichCO.println("\t\tADD .A, .IX;");
                     id = getIdFromLugarInTS(op1);
@@ -372,7 +372,8 @@ public class GCO
                 desp = tsG.getDesplazamiento(id);
                 res = "#" + desp + "[.IY]";
             }
-            fichCO.println("\t\tNOT " + op1 + ", " + res);
+            fichCO.println("\t\tXOR " + op1 + ", #1");
+            fichCO.println("\t\tMOVE .A, " + res);
         }
         else if(op.equals("goto")) //(goto, null, null, sig_int + 1), (goto, et1, null, null)
         {
@@ -391,7 +392,7 @@ public class GCO
             tokenizer.nextToken(); // op2 Siempre será null
             String et01 = tokenizer.nextToken();
             fichCO.println("\t\tCMP " + getVarDesp(op1, tsL, tsG) + ", #1");
-            fichCO.println("\t\tBZ /" + et01);
+            fichCO.println("\t\tBNZ /" + et01);
         }
         else if(op.equals("if==")) //(if==, op1, op2, 2)
         {
@@ -433,7 +434,7 @@ public class GCO
                 op1 = "#" + desp + "[.IY]"; //IY = zona de Datos Estáticos
             }
             if (hayLocal)
-                fichCO.println("\t\tADD #Tam_RA_Et" + tsG.get(tsL.getIdTabla()).getLexema() + ", .IX");
+                fichCO.println("\t\tADD #Tam_RA_Et" + tsG.get(tsL.getIdLocal()).getLexema() + ", .IX");
             else
                 fichCO.println("\t\tADD #0, .IX");
             fichCO.println("\t\tADD #" + paramDespl + ", .A");
@@ -449,10 +450,10 @@ public class GCO
             String sub;
             if (hayLocal)
             {
-                fichCO.println("\t\tADD #Tam_RA_Et" + tsG.get(tsL.getIdTabla()).getLexema() + ", .IX"); //para desplazar el .IX con una etiqueta con el TamRA
+                fichCO.println("\t\tADD #Tam_RA_Et" + tsG.get(tsL.getIdLocal()).getLexema() + ", .IX"); //para desplazar el .IX con una etiqueta con el TamRA
                 fichCO.println("\t\tMOVE #dir_ret_" + numRet + ", [.A]");
                 fichCO.println("\t\tMOVE .A, .IX");
-                sub = "\t\tSUB .IX, #Tam_RA_Et" + tsG.get(tsL.getIdTabla()).getLexema();
+                sub = "\t\tSUB .IX, #Tam_RA_Et" + tsG.get(tsL.getIdLocal()).getLexema();
             }
             else
             {
@@ -639,7 +640,7 @@ public class GCO
         else
         {
             int tamRA = tsL.size();
-            String lexema = tsG.get(tsL.getIdTabla()).getLexema();
+            String lexema = tsG.get(tsL.getIdLocal()).getLexema();  //ANTES ERA tsL.getIdTabla()
             tamRA += 2; //sumo el EM (Dir Retorno) y VD
 
             fichDE.println("Tam_RA_Et" + lexema + ": EQU " + tamRA);

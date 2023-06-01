@@ -1,13 +1,23 @@
-	let  res int;
-	res=5;
-	switch(res)
-	{
-		case 5:
-			print("el resultado es 5\n");
-			break;
-		case 3:
-			print("hola\n");
-			break;
-	}
-
-print("hemos acabao\n");
+let n1 int;let n2 int;
+let l1 boolean;let l2 boolean;
+let cad
+	string			;
+input n1;
+l2 = 2 == 2;
+l1 = l2;
+if (!l2) cad = "hello";
+n2 = n1 + 378;
+print	33
+		+
+		n1
+		+
+		n2;
+function ff boolean(boolean ss)
+{
+	l2 =  l1;
+	if (l2) l1 = ff (ss);
+	varglobal = 8888;
+	return ss;
+}
+if (ff(l2))
+    print varglobal;
