@@ -1,11 +1,13 @@
 
 Etoperacion:	NOP
-		MOVE #1[.IX], #4[.IX]
+		MOVE #77, #3[.IX]
+		MOVE #3[.IX], #4[.IX]
 		ADD #2[.IX], #4[.IX]
 		MOVE .A, #5[.IX]
-		MOVE #5[.IX], #3[.IX]
+		ADD #1[.IX], #5[.IX]
+		MOVE .A, #6[.IX]
 		SUB #Tam_RA_Etoperacion, #1
 		ADD .A, .IX;
-		MOVE #3[.IX], [.A]
+		MOVE #6[.IX], [.A]
 		BR [.IX]
 

@@ -1,23 +1,32 @@
-let n1 int;let n2 int;
-let l1 boolean;let l2 boolean;
-let cad
-	string			;
-input n1;
-l2 = 2 == 2;
-l1 = l2;
-if (!l2) cad = "hello";
-n2 = n1 + 378;
-print	33
-		+
-		n1
-		+
-		n2;
-function ff boolean(boolean ss)
-{
-	l2 =  l1;
-	if (l2) l1 = ff (ss);
-	varglobal = 8888;
-	return ss;
+let  booleano boolean;
+function bisiesto boolean (int a)
+{    let bis string;
+    print "Es bisiesto?";
+    input bis;
+    return ((a + 4 == 0));
 }
-if (ff(l2))
-    print varglobal;
+function dias int (int m, int a)
+{
+    switch (m)
+    {
+        case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+            return 31; break;
+        case 4: case 6: case 9: case 11:
+            return 30;
+        case 2: if (bisiesto (a)) return 29;
+            return(28);
+
+    }
+}
+function esFechaCorrecta boolean (int d, int m, int a)
+{
+    return (d == dias (m, a));
+}
+function demo ()
+{
+
+    if (esFechaCorrecta(31, 8, 2002)) print 9999;
+    return;
+}
+let abc int;
+demo();

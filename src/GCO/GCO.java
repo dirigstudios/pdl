@@ -399,7 +399,10 @@ public class GCO
             String op1 = tokenizer.nextToken();
             String op2 = tokenizer.nextToken(); // op2 Siempre será null
             tokenizer.nextToken();          // Se que siempre va a ser 2
-            fichCO.println("\t\tCMP " + getVarDesp(op1, tsL, tsG) + "," + getVarDesp(op2, tsL, tsG));
+            if (!op2.equals("1"))
+                fichCO.println("\t\tCMP " + getVarDesp(op1, tsL, tsG) + "," + getVarDesp(op2, tsL, tsG));
+            else
+                fichCO.println("\t\tCMP " + getVarDesp(op1, tsL, tsG) + ",#1");
             fichCO.println("\t\tBZ $5");
         }
         else if(op.equals("if!=")) //(if!=, op1, constEnt, et01)
@@ -599,7 +602,7 @@ public class GCO
         fichObjeto.println("inicio_pila: NOP");
         fichObjeto.println("");
         fichObjeto.println("END");
-        fichObjeto.println("; una obra de diriG studios(c) 2023.\n");
+        fichObjeto.print("; una obra de diriG studios(c) 2023.");
     }
 
     public static void functionAppend(PrintWriter fichObjeto)

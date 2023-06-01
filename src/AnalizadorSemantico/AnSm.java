@@ -181,7 +181,7 @@ public class AnSm
                 //GCI
                 a1 = pilaAux.pop(); // switch
                 pilaAux.peek().setEtbreak(GCI.nuevaEt()); //B.break := nuevaEt()
-                //pilaAux.peek().setEvaluado(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.constEnt)); //B.evaluado := nuevaTemp(ent);
+                pilaAux.peek().setEvaluado(GCI.nuevaTemp(tablaGlobal, tablaLocal, estados.constEnt)); //B.evaluado := nuevaTemp(ent);
                 //GCI.emite(":=", pilaAux.peek().getEvaluado(), null, "0", fichGCI); // emite(‘:=’, B.evaluado, NULL, 0)
                 pilaAux.push(a1);
                 break;
@@ -238,12 +238,14 @@ public class AnSm
                     caseEnt.get(casActual).add(ent);
                 //GCI
                 aux.setEtbreak(a6.getEtbreak());    //O.break = B.break
+                aux.setEvaluado(a6.getEvaluado());  //O.evaluado = B.evaluado
                 aux.setSiguiente(GCI.nuevaEt());    //O.siguiente = nuevaEtiq
                 if(a3.getLugar()!=null)
                     aux.setLugar(a3.getLugar());    //O.lugar := E.lugar PRIMER CASE
                 else
                     aux.setLugar(a6.getLugar());
-                //GCI.emite("if==", a6.getEvaluado(), "1", "2", fichGCI);
+                instruccion = GCI.emite("if==", a6.getEvaluado(), "1", "2", fichGCI);
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichStrings, tablaGlobal, tablaLocal);
                 instruccion = GCI.emite("if!=", aux.getLugar(), String.valueOf(ent), aux.getSiguiente(), fichGCI);
                 GCO.switchGCO(instruccion, fichDE, fichCO, fichStrings, tablaGlobal, tablaLocal);
                 pilaAux.push(a6);
@@ -274,6 +276,8 @@ public class AnSm
                 a3 = pilaAux.pop(); // :
                 a4 = pilaAux.pop(); // constEnt
                 a5 = pilaAux.pop(); // case
+                instruccion = GCI.emite(":=", "1", null, pilaAux.peek().getEvaluado(), fichGCI);
+                GCO.switchGCO(instruccion, fichDE, fichCO, fichStrings, tablaGlobal, tablaLocal);
                 instruccion = GCI.emite(":", pilaAux.peek().getSiguiente(), null, null, fichGCI);
                 GCO.switchGCO(instruccion, fichDE, fichCO, fichStrings, tablaGlobal, tablaLocal);
                 pilaAux.push(a5);
@@ -326,6 +330,11 @@ public class AnSm
                     tablaGlobal.insertaTipoTS(id.getNameId(), T);
                 else
                     tablaLocal.insertaTipoTS(id.getNameId(), T);
+                if (T == estados.cadena)
+                {
+                    instruccion = GCI.emite(":=", "\"\"", null, id.getTableId() + "." + id.getNameId(), fichGCI);
+                    GCO.switchGCO(instruccion, fichDE, fichCO, fichStrings, tablaGlobal, tablaLocal);
+                }
                 pilaAux.pop();
                 pilaAux.peek().setEstadoActual(estados.ok);
                 break;
@@ -426,7 +435,7 @@ public class AnSm
                 s2 = pilaAux.pop(); // SS, ahora id esta en la cima de la pila      CUIDADO CON LOS CAMBIOS EN ESTA REGLA
                 //GCI
                 List<String> paramss = s1.getParams();
-                for (int i = 0; i < paramss.size(); i++)
+                for (int i = paramss.size() - 1; i >= 0; i--)
                 {
                     instruccion = GCI.emite("param", paramss.get(i), null, null, fichGCI);
                     GCO.switchGCO(instruccion, fichDE, fichCO, fichStrings, tablaGlobal, tablaLocal);
@@ -710,7 +719,7 @@ public class AnSm
                 aux = pilaAux.peek();
                 List<String> params = s1.getParams();
                 s2.setLugar(GCI.nuevaTemp(tablaGlobal, tablaLocal, tablaGlobal.get(aux.getNameId()).getTipo()));
-                for (int i = 0; i < params.size(); i++)
+                for (int i = params.size() - 1; i >= 0; i--)
                 {
                     instruccion = GCI.emite("param", params.get(i), null, null, fichGCI);
                     GCO.switchGCO(instruccion, fichDE, fichCO, fichStrings, tablaGlobal, tablaLocal);
